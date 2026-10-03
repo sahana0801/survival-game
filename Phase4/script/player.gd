@@ -1,7 +1,7 @@
 class_name Player extends CharacterBody2D
 
 # Constants
-const SPEED = 100
+const SPEED = 150
 
 # Signals
 signal healthChanged
@@ -49,9 +49,9 @@ var mouse_loc_from_player = null
 
 # Camera & Game Feel
 @onready var camera = $Camera2D
-var target_zoom: Vector2 = Vector2(3.5, 3.5)
-const MIN_ZOOM: float = 2.4
-const MAX_ZOOM: float = 4.8
+var target_zoom: Vector2 = Vector2(2.6, 2.6)
+const MIN_ZOOM: float = 1.6
+const MAX_ZOOM: float = 4.0
 const ZOOM_STEP: float = 0.25
 var shake_intensity: float = 0.0
 var shake_timer: float = 0.0
@@ -152,24 +152,39 @@ func equip_weapon(weapon_type: int):
 
 func toggle_skin():
 	current_skin = (current_skin + 1) % 2
-	var tex = skin_red if current_skin == 1 else skin_green
-	var skin_name = "Red Warrior" if current_skin == 1 else "Green Hunter"
-	
-	var sf: SpriteFrames = $AnimatedSprite2D.sprite_frames
-	if sf != null:
-		for anim in sf.get_animation_names():
-			var count = sf.get_frame_count(anim)
-			for i in range(count):
-				var frame_tex = sf.get_frame_texture(anim, i)
-				if frame_tex is AtlasTexture:
-					frame_tex.atlas = tex
-					
+	var skin_name = "Golden Hero" if current_skin == 1 else "Adventurer"
+	if current_skin == 1:
+		$AnimatedSprite2D.modulate = Color(1.15, 1.05, 0.85, 1.0)
+	else:
+		$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	Helpers.spawn_damage_number(global_position, skin_name, Color(0.3, 0.9, 1.0), true, "✦ ", " ✦")
 	skinChanged.emit(skin_name)
 
 
+func get_attack_anim() -> String:
+	var m = mouse_loc_from_player
+	if m.x >= -25 and m.x <= 25 and m.y < 0:
+		return "n-attack"
+	elif m.y >= -25 and m.y <= 25 and m.x > 0:
+		return "e-attack"
+	elif m.x >= -25 and m.x <= 25 and m.y > 0:
+		return "s-attack"
+	elif m.y >= -25 and m.y <= 25 and m.x < 0:
+		return "w-attack"
+	elif m.x >= 25 and m.y <= -25:
+		return "ne-attack"
+	elif m.x >= 0.5 and m.y >= 25:
+		return "se-attack"
+	elif m.x <= -0.5 and m.y >= 25:
+		return "sw-attack"
+	elif m.x <= -25 and m.y <= -25:
+		return "nw-attack"
+	return "s-attack"
+
+
 func play_anim(dir):
-	if !bow_equiped and !is_slashing:
+	var sword_pose = current_weapon == Weapon.SWORD or is_slashing
+	if !sword_pose:
 		if player_state == "idle":
 			$AnimatedSprite2D.play("idle")
 		if player_state == "walking":
@@ -190,24 +205,16 @@ func play_anim(dir):
 				$AnimatedSprite2D.play("sw-walk")
 			if dir.x < -0.5 and dir.y < -0.5:
 				$AnimatedSprite2D.play("nw-walk")
-	else:	# bow_equiped or is_slashing
-		if mouse_loc_from_player.x >= -25 and mouse_loc_from_player.x <= 25 and mouse_loc_from_player.y < 0:
-			$AnimatedSprite2D.play("n-attack")
-		elif mouse_loc_from_player.y >= -25 and mouse_loc_from_player.y <= 25 and mouse_loc_from_player.x > 0:
-			$AnimatedSprite2D.play("e-attack")
-		elif mouse_loc_from_player.x >= -25 and mouse_loc_from_player.x <= 25 and mouse_loc_from_player.y > 0:
-			$AnimatedSprite2D.play("s-attack")
-		elif mouse_loc_from_player.y >= -25 and mouse_loc_from_player.y <= 25 and mouse_loc_from_player.x < 0:
-			$AnimatedSprite2D.play("w-attack")
-		
-		elif mouse_loc_from_player.x >= 25 and mouse_loc_from_player.y <= -25:
-			$AnimatedSprite2D.play("ne-attack")
-		elif mouse_loc_from_player.x >= 0.5 and mouse_loc_from_player.y >= 25:
-			$AnimatedSprite2D.play("se-attack")
-		elif mouse_loc_from_player.x <= -0.5 and mouse_loc_from_player.y >= 25:
-			$AnimatedSprite2D.play("sw-attack")
-		elif mouse_loc_from_player.x <= -25 and mouse_loc_from_player.y <= -25:
-			$AnimatedSprite2D.play("nw-attack")
+	else:	# sword held or slashing
+		var spr: AnimatedSprite2D = $AnimatedSprite2D
+		var attack_anim = get_attack_anim()
+		if is_slashing:
+			spr.play(attack_anim)
+		elif spr.animation != attack_anim or spr.is_playing():
+			# Sword raised and ready: hold the first frame of the slash
+			spr.play(attack_anim)
+			spr.stop()
+			spr.frame = 0
 
 
 func handleInput():
@@ -260,14 +267,14 @@ func handleInput():
 		
 		var aim_dir = (mouse_pos - global_position).normalized()
 		var slash = sword_slash_scene.instantiate()
-		slash.global_position = global_position + aim_dir * 16.0
+		slash.global_position = global_position + aim_dir * 28.0
 		slash.rotation = aim_dir.angle()
 		get_parent().add_child(slash)
 		
-		await get_tree().create_timer(0.18).timeout
+		await get_tree().create_timer(0.25).timeout
 		arrow_audio.pitch_scale = 1.0
 		is_slashing = false
-		await get_tree().create_timer(0.14).timeout
+		await get_tree().create_timer(0.1).timeout
 		sword_cooldown = true
 	
 	if Input.is_action_just_pressed("inventory"):

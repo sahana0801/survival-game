@@ -36,6 +36,13 @@ func _ready():
 	# Connect to world 2d after tree initializes
 	await get_tree().process_frame
 	_setup_viewport_world()
+	
+	var portal = get_node_or_null("/root/World/BossPortal")
+	if portal != null:
+		objective_b["world_pos"] = portal.global_position
+	var water = get_node_or_null("/root/World/water_collect_area")
+	if water != null:
+		objective_a["world_pos"] = water.global_position
 
 
 func _setup_viewport_world():

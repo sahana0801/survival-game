@@ -4,6 +4,7 @@
 
 [node name="SwordSlash" type="Area2D"]
 z_index = 25
+scale = Vector2(1.8, 1.8)
 script = ExtResource("1_sword")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

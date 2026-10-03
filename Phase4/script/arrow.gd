@@ -22,5 +22,5 @@ func _on_body_entered(body):
 	if body.has_method("enemy"):
 		await get_tree().create_timer(0.01).timeout
 		queue_free()
-	elif body is TileMap or body is StaticBody2D:
+	elif body is TileMap or body is TileMapLayer or body is StaticBody2D:
 		queue_free()
