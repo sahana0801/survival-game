@@ -19,13 +19,13 @@ color = Color(0.141176, 0.192157, 0.603922, 1)
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1496.0
+offset_left = 1350.0
 offset_top = 957.0
 offset_right = 1893.0
 offset_bottom = 1048.0
 theme = ExtResource("1_5644l")
 theme_override_font_sizes/font_size = 40
-text = "Back to Main Menu"
+text = "Quay Lại Menu Chính"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ttelf")
@@ -61,11 +61,11 @@ Inventory: GLoot - https://github.com/peter-kish/gloot"
 layout_mode = 0
 offset_left = 28.0
 offset_top = 12.0
-offset_right = 241.0
+offset_right = 650.0
 offset_bottom = 73.0
 theme = ExtResource("1_5644l")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 70
-text = "Credits"
+text = "Thông Tin Đóng Góp"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

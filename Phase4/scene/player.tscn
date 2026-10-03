@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="9_v7y7g"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="10_1e16a"]
 [ext_resource type="Resource" uid="uid://c45uhadq0vieg" path="res://inventory/inventory_stacked.tres" id="11_4dxp5"]
+[ext_resource type="Texture2D" path="res://art/character/shadow.png" id="12_shadow"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6cy6m"]
 shader = ExtResource("3_1qjku")
@@ -627,6 +628,12 @@ radius = 10.0
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 script = ExtResource("1_nrwr5")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(0, 1)
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("12_shadow")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_6cy6m")

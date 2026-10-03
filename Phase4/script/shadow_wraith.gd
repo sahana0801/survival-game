@@ -102,8 +102,10 @@ func _physics_process(delta: float):
 		return
 		
 	if knockback.length() > 5.0:
-		position += knockback * delta
-		knockback = knockback.move_toward(Vector2.ZERO, delta * 450.0)
+		velocity = knockback
+		knockback = knockback.move_toward(Vector2.ZERO, delta * 520.0)
+		move_and_slide()
+		return
 		
 	# Ethereal floating hover bobbing
 	var float_offset = sin(Time.get_ticks_msec() * 0.004) * 0.35

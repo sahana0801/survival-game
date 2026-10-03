@@ -18,7 +18,7 @@ func _on_body_entered(body: Node2D) -> void:
 		player = body
 		set_process(true)
 		if !tutorial_message_3_shown:
-			PlayerStats.send_message("You can get some water with \"E\"")
+			PlayerStats.send_message("Nhấn \"E\" để múc nước uống")
 			tutorial_message_3_shown = true
 
 

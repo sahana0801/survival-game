@@ -15,31 +15,31 @@ script = ExtResource("2_kt8ck")
 layout_mode = 0
 offset_left = 446.0
 offset_top = 279.0
-offset_right = 709.0
+offset_right = 730.0
 offset_bottom = 335.0
 theme = ExtResource("3_8yfrg")
 theme_override_font_sizes/font_size = 55
-text = "New Game"
+text = "Trò Chơi Mới"
 
 [node name="LoadGameButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 446.0
 offset_top = 343.0
-offset_right = 644.0
+offset_right = 690.0
 offset_bottom = 386.0
 theme = ExtResource("3_8yfrg")
 theme_override_font_sizes/font_size = 55
-text = "Load Game"
+text = "Tải Bản Lưu"
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 445.0
 offset_top = 405.0
-offset_right = 639.0
+offset_right = 690.0
 offset_bottom = 448.0
 theme = ExtResource("3_8yfrg")
 theme_override_font_sizes/font_size = 55
-text = "Exit Game"
+text = "Thoát Game"
 
 [node name="MenuMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_f4oj2")
@@ -49,22 +49,21 @@ autoplay = true
 layout_mode = 0
 offset_left = 1228.0
 offset_top = 852.0
-offset_right = 1426.0
+offset_right = 1450.0
 offset_bottom = 895.0
 theme = ExtResource("3_8yfrg")
 theme_override_font_sizes/font_size = 55
-text = "Credits"
+text = "Thông Tin"
 
 [node name="SettingsButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 900.0
 offset_top = 609.0
-offset_right = 1098.0
+offset_right = 1120.0
 offset_bottom = 652.0
 theme = ExtResource("3_8yfrg")
 theme_override_font_sizes/font_size = 55
-text = "Settings
-"
+text = "Cài Đặt"
 
 [connection signal="pressed" from="NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

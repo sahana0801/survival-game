@@ -12,9 +12,9 @@ func _ready():
 	if prompt_label != null:
 		prompt_label.visible = false
 		if target_scene.contains("world"):
-			prompt_label.text = "[E] Return to Surface"
+			prompt_label.text = "[E] Trở về mặt đất"
 		else:
-			prompt_label.text = "[E] Enter Slime King's Lair"
+			prompt_label.text = "[E] Vào Hang Ổ Vua Slime"
 
 
 func _process(delta: float):

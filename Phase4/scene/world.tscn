@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://b1gfyt8sw64co" path="res://scene/boss_health_bar.tscn" id="35_bossbar"]
 [ext_resource type="PackedScene" uid="uid://dvjfuxgyumnva" path="res://scene/boss_portal.tscn" id="36_bportal"]
 [ext_resource type="PackedScene" uid="uid://cpe2xfwvayyc1" path="res://scene/minimap.tscn" id="37_mmap"]
+[ext_resource type="PackedScene" uid="uid://cm8qf3female1" path="res://scene/female_npc.tscn" id="38_female_npc"]
 
 [node name="World" type="Node2D" unique_id=1370820750]
 process_mode = 1
@@ -41,7 +42,7 @@ position = Vector2(-800, -200)
 position = Vector2(600, 1370)
 target_scene = "res://scene/route_1_world.tscn"
 target_spawn_pos = Vector2(600, -80)
-zone_name = "🌿 Route 1"
+zone_name = "🌿 Tuyến Đường 1"
 
 [node name="Player" parent="." unique_id=190135378 instance=ExtResource("1_cv17m")]
 position = Vector2(0, 340)
@@ -108,7 +109,7 @@ offset_right = 167.0
 offset_bottom = 118.0
 theme = ExtResource("13_ayrhu")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "Bow Level 1"
+text = "Cấp Cung: 1"
 script = ExtResource("14_jn25r")
 player = NodePath("../../Player")
 
@@ -119,7 +120,7 @@ offset_right = 167.0
 offset_bottom = 143.0
 theme = ExtResource("13_ayrhu")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "Day 1"
+text = "Ngày 1"
 script = ExtResource("19_csa84")
 player = NodePath("../../Player")
 
@@ -171,6 +172,9 @@ position = Vector2(-1000, -300)
 [node name="camp_fire" parent="." unique_id=935445075 instance=ExtResource("16_choyu")]
 position = Vector2(-120, 1035)
 scale = Vector2(2.5, 2.5)
+
+[node name="FemaleNPC" parent="." unique_id=20261012 instance=ExtResource("38_female_npc")]
+position = Vector2(-45, 1060)
 
 [node name="water_collect_area" type="Area2D" parent="." unique_id=1437338469]
 script = ExtResource("17_oqlrm")

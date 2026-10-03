@@ -22,7 +22,7 @@ func setup(value, color: Color = Color.WHITE, is_crit: bool = false, prefix: Str
 	
 	if is_crit:
 		scale = Vector2(1.35, 1.35)
-		label.text = "CRIT! " + text_str
+		label.text = "CHÍ MẠNG! " + text_str
 		label.modulate = Color(1.0, 0.35, 0.1) # Bright Fiery Orange-Red
 		velocity.y = -155.0
 	else:

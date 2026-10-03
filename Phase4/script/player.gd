@@ -316,25 +316,25 @@ func handleInput():
 		await get_tree().create_timer(0.35).timeout
 		bow_cooldown = true
 		
-	# Melee Sword Slash
+	# Melee Sword Slash (Chém kiếm cận chiến)
 	elif Input.is_action_just_pressed("left_mouse") and current_weapon == Weapon.SWORD and sword_cooldown:
 		sword_cooldown = false
 		is_slashing = true
 		
-		# Play sword swing whoosh sound
-		arrow_audio.pitch_scale = 0.6
+		# Âm thanh vung kiếm sắc bén (Crisp sword swing whoosh)
+		arrow_audio.pitch_scale = randf_range(1.12, 1.28)
 		arrow_audio.play()
 		
 		var aim_dir = (mouse_pos - global_position).normalized()
 		var slash = sword_slash_scene.instantiate()
-		slash.global_position = global_position + aim_dir * 28.0
+		slash.global_position = global_position + aim_dir * 14.0
 		slash.rotation = aim_dir.angle()
 		get_parent().add_child(slash)
 		
-		await get_tree().create_timer(0.25).timeout
+		await get_tree().create_timer(0.20).timeout
 		arrow_audio.pitch_scale = 1.0
 		is_slashing = false
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.06).timeout
 		sword_cooldown = true
 	
 	if Input.is_action_just_pressed("inventory"):

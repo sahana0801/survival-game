@@ -17,7 +17,7 @@ const VILLAGE_SAFE_CENTER: Vector2 = Vector2(-50.0, 450.0)
 const VILLAGE_SAFE_RADIUS: float = 680.0
 
 @export var max_slimes: int = 8
-@export var max_sticks: int = 35
+@export var max_sticks: int = 0
 @export var slime_spawn_interval: float = 5.0
 var slime_spawn_timer: float = 0.0
 
@@ -111,7 +111,7 @@ func get_active_stick_count() -> int:
 
 
 func add_stick_to_world() -> void:
-	if free_cells.is_empty() or world == null:
+	if max_sticks <= 0 or free_cells.is_empty() or world == null:
 		return
 	var rand_value: Vector2i = pick_free_cell()
 	var new_stick = StickSpawner.instantiate()
@@ -142,9 +142,6 @@ func add_slime_to_world() -> void:
 
 
 func _on_timer_timeout() -> void:
-	if get_active_stick_count() < max_sticks:
-		add_stick_to_world()
-		
 	slime_spawn_timer += $Timer.wait_time
 	if slime_spawn_timer >= slime_spawn_interval:
 		slime_spawn_timer = 0.0

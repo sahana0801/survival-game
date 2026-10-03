@@ -14,13 +14,13 @@ func _ready():
 		boss.boss_health_updated.connect(boss_bar.update_health)
 		boss.boss_defeated.connect(boss_bar.on_boss_defeated)
 		boss.boss_defeated.connect(_on_boss_defeated)
-		boss_bar.setup(boss.max_health, "ANCIENT SLIME MONARCH")
+		boss_bar.setup(boss.max_health, "VUA SLIME CỔ ĐẠI")
 	
-	PlayerStats.send_message("⚡ DANGER! You have entered the Ancient Slime Lair!")
+	PlayerStats.send_message("⚡ NGUY HIỂM! Bạn đã bước vào Hang Ổ Slime Cổ Đại!")
 
 
 func _on_boss_defeated():
-	PlayerStats.send_message("👑 VICTORY! The Slime Monarch is defeated! Use the portal to return!")
+	PlayerStats.send_message("👑 CHIẾN THẮNG! Vua Slime đã bị đánh bại! Hãy dùng cổng dịch chuyển để quay về!")
 	if return_portal != null:
 		return_portal.visible = true
 

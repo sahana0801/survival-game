@@ -53,7 +53,7 @@ func change_to_day():
 	PlayerStats.changeDay()
 	PlayerStats.is_night = false
 	PlayerStats.DayStarted.emit()
-	PlayerStats.send_message("The sun rises... The wraiths return to shadow.")
+	PlayerStats.send_message("Mặt trời mọc... Những bóng ma ẩn mình vào bóng tối.")
 
 
 func change_to_night():
@@ -63,4 +63,4 @@ func change_to_night():
 	night_sounds.play()
 	PlayerStats.is_night = true
 	PlayerStats.NightStarted.emit()
-	PlayerStats.send_message("Night has fallen! Shadow Wraiths awaken in the dark...")
+	PlayerStats.send_message("Màn đêm buông xuống! Oán hồn bóng tối thức giấc...")

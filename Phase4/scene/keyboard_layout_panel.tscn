@@ -11,13 +11,13 @@ script = ExtResource("1_qxyet")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 181.0
+offset_left = 130.0
 offset_top = 4.0
-offset_right = 431.0
+offset_right = 485.0
 offset_bottom = 44.0
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/normal_font_size = 36
-text = "Keyboard layout"
+text = "Bảng Phím Điều Khiển"
 tab_size = 1
 
 [node name="GridContainer" type="GridContainer" parent="."]
@@ -33,7 +33,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Right"
+text = "Sang Phải"
 
 [node name="Label2" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -47,7 +47,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Left"
+text = "Sang Trái"
 
 [node name="Label4" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -61,7 +61,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Up"
+text = "Đi Lên"
 
 [node name="Label6" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -75,7 +75,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Down"
+text = "Đi Xuống"
 
 [node name="Label8" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -89,7 +89,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Bow"
+text = "Cung Tên"
 
 [node name="Label10" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -103,7 +103,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Inventory"
+text = "Túi Đồ"
 
 [node name="Label12" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -117,7 +117,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Fire"
+text = "Lửa Trại"
 
 [node name="Label14" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -131,7 +131,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Harvest (pick up items)"
+text = "Nhặt Đồ / Tương Tác"
 
 [node name="Label16" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -145,7 +145,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Drink"
+text = "Uống Nước"
 
 [node name="Label18" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -159,7 +159,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Eat"
+text = "Ăn Táo"
 
 [node name="Label20" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -173,7 +173,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Switch Weapon"
+text = "Đổi Vũ Khí"
 
 [node name="Label22" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -187,7 +187,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Toggle Skin"
+text = "Đổi Ngoại Hình"
 
 [node name="Label24" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -201,28 +201,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Shoot arrow"
+text = "Bắn Tên"
 
 [node name="Label26" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Mouse left"
+text = "Chuột Trái"
 
 [node name="Label27" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Inventories (two need to be open)"
+text = "Mở Hai Túi Đồ"
 
 [node name="Label28" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Mouse left select item"
+text = "Chuột Trái: Chọn vật phẩm"
 
 [node name="Label29" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -235,14 +235,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Mouse right transfer item"
+text = "Chuột Phải: Chuyển vật phẩm"
 
 [node name="Label32" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Keyboard Layout (Help)"
+text = "Bảng Phím (Trợ giúp)"
 
 [node name="Label33" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -256,7 +256,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Frames per second"
+text = "Chỉ Số Khung Hình (FPS)"
 
 [node name="Label35" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -270,7 +270,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Exit Game"
+text = "Thoát Game"
 
 [node name="Label30" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -281,10 +281,10 @@ text = "ESC"
 
 [node name="closeButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 550.0
+offset_left = 535.0
 offset_top = 403.0
 offset_right = 605.0
 offset_bottom = 437.0
-text = "Close"
+text = "Đóng"
 
 [connection signal="pressed" from="closeButton" to="." method="_on_close_button_pressed"]

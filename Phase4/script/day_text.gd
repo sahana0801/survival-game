@@ -9,4 +9,4 @@ func _ready():
 
 
 func update():
-	text = "Day " + str(PlayerStats.day)
+	text = "Ngày " + str(PlayerStats.day)

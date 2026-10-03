@@ -152,7 +152,7 @@ func draw_overlay(target: Control):
 			target.draw_circle(boss_pos, 5.0, Color(1.0, 0.82, 0.2, 1.0))
 			target.draw_circle(boss_pos, 2.5, Color(0.9, 0.1, 0.1, 1.0))
 			if font != null:
-				target.draw_string(font, boss_pos + Vector2(-12, -8), "BOSS", HORIZONTAL_ALIGNMENT_CENTER, -1, 9, Color(1.0, 0.85, 0.2, 1.0))
+				target.draw_string(font, boss_pos + Vector2(-14, -8), "TRÙM", HORIZONTAL_ALIGNMENT_CENTER, -1, 9, Color(1.0, 0.85, 0.2, 1.0))
 
 	# 3. Draw Tactical Objectives [A] and [B] (only if in overworld, or if relevant)
 	var objectives = [objective_a, objective_b]

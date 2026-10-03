@@ -22,7 +22,7 @@ func _ready() -> void:
 
 func _show_initial_tutorial() -> void:
 	if not tutorial_message_1_shown:
-		PlayerStats.send_message("Equip Bow (1) or Sword (2)! Toggle Skin (T)! Explore the map & enter the Ancient Portal (B)!")
+		PlayerStats.send_message("Trang bị Cung (1) hoặc Kiếm (2)! Đổi Ngoại Hình (T)! Khám phá bản đồ & Cổng Cổ Đại!")
 		tutorial_message_1_shown = true
 
 

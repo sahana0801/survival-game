@@ -8,31 +8,31 @@ json_data = "[
     {
         \"id\": \"stick\",
         \"image\": \"res://art/environment/stick-icon.png\",
-        \"name\": \"Stick\",
+        \"name\": \"Cành cây\",
         \"stack_size\": \"5\"
     },
     {
         \"id\": \"water_potion\",
         \"image\": \"res://inventory/water_potion.png\",
-        \"name\": \"Water potion\",
+        \"name\": \"Bình nước\",
         \"stack_size\": \"1\"
     },
     {
         \"id\": \"slime\",
         \"image\": \"res://art/environment/SlimeIcon.png\",
-        \"name\": \"Slime\",
+        \"name\": \"Chất nhờn Slime\",
         \"stack_size\": \"1\"
     },
     {
         \"id\": \"health_potion\",
         \"image\": \"res://art/health_potion.png\",
-        \"name\": \"Health potion\",
+        \"name\": \"Bình máu\",
         \"stack_size\": \"1\"
     },
     {
         \"id\": \"apple\",
         \"image\": \"res://art/environment/apple-icon.png\",
-        \"name\": \"Apple\",
+        \"name\": \"Táo đỏ\",
         \"stack_size\": \"1\"
     }
 ]"

@@ -15,14 +15,14 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -166.5
-offset_right = 166.5
+offset_left = -220.0
+offset_right = 220.0
 offset_bottom = 68.0
 grow_horizontal = 2
 theme = ExtResource("2_4dxoa")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 70
-text = "Game over"
+text = "Trò Chơi Kết Thúc"
 
 [node name="StatisticsLabel" type="RichTextLabel" parent="."]
 top_level = true
@@ -41,24 +41,24 @@ grow_vertical = 2
 theme = ExtResource("2_4dxoa")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 30
-text = "You played for 4:45 min
-and died on day 5"
+text = "Thời gian sống sót: 4:45
+Vào ngày 5"
 
 [node name="RestartButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 98.0
+offset_left = 80.0
 offset_top = 230.0
-offset_right = 163.0
+offset_right = 185.0
 offset_bottom = 261.0
-text = "Restart"
+text = "Chơi Lại"
 
 [node name="MainMenuButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 382.0
+offset_left = 370.0
 offset_top = 230.0
-offset_right = 478.0
+offset_right = 490.0
 offset_bottom = 261.0
-text = "Main Menu"
+text = "Menu Chính"
 
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]

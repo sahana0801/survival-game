@@ -17,10 +17,10 @@ func _ready():
 		victory_panel.visible = false
 
 
-func setup(max_hp: int, boss_name: String = "ANCIENT SLIME KING"):
+func setup(max_hp: int, boss_name: String = "VUA SLIME CỔ ĐẠI"):
 	visible = true
 	title_label.text = "👑 " + boss_name + " 👑"
-	phase_label.text = "PHASE 1 / 3"
+	phase_label.text = "GIAI ĐOẠN 1 / 3"
 	health_bar.max_value = max_hp
 	health_bar.value = max_hp
 	ghost_bar.max_value = max_hp
@@ -41,13 +41,13 @@ func update_health(current_hp: int, phase: int):
 	
 	match phase:
 		1:
-			phase_label.text = "PHASE 1 / 3 — SLIME MONARCH"
+			phase_label.text = "GIAI ĐOẠN 1 / 3 — SLIME HOÀNG GIA"
 			phase_label.modulate = Color(0.9, 0.95, 1.0)
 		2:
-			phase_label.text = "🔥 PHASE 2 / 3 — CRIMSON RAGE 🔥"
+			phase_label.text = "🔥 GIAI ĐOẠN 2 / 3 — NỔI GIẬN CUỒNG NỘ 🔥"
 			phase_label.modulate = Color(1.0, 0.35, 0.25)
 		3:
-			phase_label.text = "⚡ PHASE 3 / 3 — COSMIC DESPERATION ⚡"
+			phase_label.text = "⚡ GIAI ĐOẠN 3 / 3 — TUYỆT VỌNG VŨ TRỤ ⚡"
 			phase_label.modulate = Color(0.85, 0.35, 1.0)
 
 
@@ -64,7 +64,7 @@ func _process(delta: float):
 
 
 func on_boss_defeated():
-	phase_label.text = "DEFEATED"
+	phase_label.text = "ĐÃ BỊ HẠ GỤC"
 	if victory_panel != null:
 		victory_panel.visible = true
 		victory_panel.scale = Vector2(0.5, 0.5)

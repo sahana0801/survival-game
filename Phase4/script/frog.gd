@@ -44,8 +44,10 @@ func _physics_process(delta: float):
 		return
 		
 	if knockback.length() > 5.0:
-		position += knockback * delta
-		knockback = knockback.move_toward(Vector2.ZERO, delta * 450.0)
+		velocity = knockback
+		knockback = knockback.move_toward(Vector2.ZERO, delta * 520.0)
+		move_and_slide()
+		return
 		
 	if spit_cooldown > 0.0:
 		spit_cooldown -= delta

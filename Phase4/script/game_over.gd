@@ -22,7 +22,7 @@ func update() -> void:
 		var min_str: String = ("0" + str(minutes)) if minutes < 10 else str(minutes)
 		var sec_str: String = ("0" + str(seconds)) if seconds < 10 else str(seconds)
 		var timestring: String = str(hours) + ":" + min_str + ":" + sec_str 
-		$StatisticsLabel.text = "You played for " + timestring + " and died on day " + str(PlayerStats.day) + "."
+		$StatisticsLabel.text = "Bạn đã chơi được " + timestring + " và hy sinh vào ngày " + str(PlayerStats.day) + "."
 		self.visible = true
 		done = true
 

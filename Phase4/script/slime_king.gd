@@ -39,8 +39,8 @@ func enemy():
 
 
 func apply_knockback(force: Vector2):
-	# Slime King is huge and heavy: resists 85% of knockback
-	knockback = force * 0.15
+	# Slime King is huge and heavy: resists 65% of knockback
+	knockback = force * 0.35
 
 
 func update_direction(move_vec: Vector2) -> void:
@@ -61,9 +61,11 @@ func _physics_process(delta: float):
 	if is_dead:
 		return
 		
-	if knockback.length() > 2.0:
-		position += knockback * delta
-		knockback = knockback.move_toward(Vector2.ZERO, delta * 300.0)
+	if knockback.length() > 5.0:
+		velocity = knockback
+		knockback = knockback.move_toward(Vector2.ZERO, delta * 450.0)
+		move_and_slide()
+		return
 		
 	if slam_timer > 0.0:
 		slam_timer -= delta

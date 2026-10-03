@@ -10,4 +10,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update():
-	text = "Bow Level %s" % PlayerStats.shooting
+	text = "Cấp Cung: %s" % PlayerStats.shooting

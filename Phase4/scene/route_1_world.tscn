@@ -97,7 +97,7 @@ offset_right = 167.0
 offset_bottom = 118.0
 theme = ExtResource("12_theme")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "Bow Level 1"
+text = "Cấp Cung: 1"
 script = ExtResource("13_shoot_script")
 player = NodePath("../../Player")
 
@@ -108,7 +108,7 @@ offset_right = 167.0
 offset_bottom = 143.0
 theme = ExtResource("12_theme")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "Day 1"
+text = "Ngày 1"
 script = ExtResource("14_day_script")
 player = NodePath("../../Player")
 
