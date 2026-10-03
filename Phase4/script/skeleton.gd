@@ -145,10 +145,10 @@ func death() -> void:
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	var damage: int = 0
 	if area.has_method("arrow_deal_damage"):
-		damage = int(round(100.0 * float(PlayerStats.shooting) / float(PlayerStats.max_shooting_level)))
+		damage = area.damage if "damage" in area else PlayerStats.get_bow_damage()
 		take_damage(damage)
 	elif area.has_method("sword_deal_damage"):
-		damage = area.damage
+		damage = area.damage if "damage" in area else PlayerStats.get_sword_damage()
 		take_damage(damage)
 
 

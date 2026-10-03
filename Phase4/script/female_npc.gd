@@ -140,6 +140,18 @@ func _return_to_campfire() -> void:
 	_play_idle()
 
 
+func _update_prompt_text() -> void:
+	if prompt_label == null:
+		return
+	if PlayerStats != null:
+		if PlayerStats.weapon_level < PlayerStats.MAX_WEAPON_TIER and PlayerStats.get_slime_count() >= 1:
+			prompt_label.text = "💬 [E] Rèn Vũ Khí (Có 1 Dịch Slime)"
+		elif PlayerStats.weapon_level >= PlayerStats.MAX_WEAPON_TIER:
+			prompt_label.text = "💬 [E] Trò chuyện (Vũ khí Tối Thượng)"
+		else:
+			prompt_label.text = "💬 [E] Trò chuyện với Elena"
+
+
 func _show_prompt(show: bool) -> void:
 	if prompt_badge == null:
 		return
@@ -148,6 +160,7 @@ func _show_prompt(show: bool) -> void:
 	prompt_tween = create_tween()
 	
 	if show:
+		_update_prompt_text()
 		prompt_badge.visible = true
 		prompt_tween.tween_property(prompt_badge, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	else:
@@ -160,7 +173,38 @@ func _advance_dialogue() -> void:
 	if player != null:
 		_face_towards(player.global_position)
 	
-	var text: String = DIALOGUES[dialogue_index]
+	# 1. Check if player has 1 Slime to upgrade weapon tier
+	if PlayerStats != null and PlayerStats.weapon_level < PlayerStats.MAX_WEAPON_TIER and PlayerStats.get_slime_count() >= 1:
+		var success = PlayerStats.upgrade_weapon_tier()
+		if success:
+			var cur_tier = PlayerStats.weapon_level
+			var tier_name = PlayerStats.get_weapon_tier_name()
+			var total_dmg = PlayerStats.get_weapon_damage()
+			var upgrade_speech = "✨ [color=#ffd700]RÈN THÀNH CÔNG![/color]\nTa đã dùng 1 Dịch Slime tôi luyện vũ khí của bạn lên [color=#55ffff]%s[/color]!\nSát thương cơ bản tăng thêm +5 (Hiện tại: +%d DMG)!" % [tier_name, total_dmg]
+			_display_speech(upgrade_speech)
+			_send_hud_message("Elena: Đã dùng 1 Dịch Slime tôi luyện vũ khí lên %s (+5 DMG)!" % tier_name)
+			if player != null:
+				Helpers.spawn_damage_number(player.global_position, "✦ NÂNG CẤP VŨ KHÍ: TIER %d ✦" % cur_tier, Color(1.0, 0.85, 0.25), true, "", "")
+			_update_prompt_text()
+			return
+
+	# 2. Check if already max tier
+	if PlayerStats != null and PlayerStats.weapon_level >= PlayerStats.MAX_WEAPON_TIER:
+		var max_speech = "🌟 [color=#55ffff]TUYỆT ĐỈNH VŨ KHÍ![/color]\nVũ khí của bạn đã đạt cảnh giới [color=#ffd700]Tier 8 - Thần Thoại[/color] tối thượng (+50 DMG). Hãy dùng nó xua tan bóng tối!"
+		_display_speech(max_speech)
+		_send_hud_message(npc_name + ": " + max_speech)
+		return
+
+	# 3. Quest guide if player needs slime to upgrade
+	if dialogue_index == 0:
+		var next_tier = PlayerStats.weapon_level + 1 if PlayerStats else 2
+		var quest_speech = "⚔️ Để nâng cấp vũ khí lên [color=#ffaa00]Tier %d[/color] (+5 DMG), hãy tiêu diệt quái Slime ngoài rừng để lấy [b]1 Dịch Slime[/b] mang về đây, ta sẽ dùng ngọn lửa trại rèn cho bạn!" % next_tier
+		dialogue_index = 1
+		_display_speech(quest_speech)
+		_send_hud_message(npc_name + ": " + quest_speech)
+		return
+
+	var text: String = DIALOGUES[dialogue_index % DIALOGUES.size()]
 	dialogue_index = (dialogue_index + 1) % DIALOGUES.size()
 	
 	_display_speech(text)

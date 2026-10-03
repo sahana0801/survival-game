@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://clgvk1r5uvb1c"]
+[gd_scene format=3 uid="uid://clgvk1r5uvb1c"]
 
-[ext_resource type="Texture2D" path="res://art/fantasy/Art/Props/Animation/Animation_Campfire.png" id="1_cfart"]
-[ext_resource type="Script" path="res://script/camp_fire.gd" id="1_trufi"]
-[ext_resource type="Texture2D" path="res://art/environment/light_glow.png" id="2_glow"]
+[ext_resource type="Texture2D" uid="uid://h758f7hy1jyd" path="res://art/fantasy/Art/Props/Animation/Animation_Campfire.png" id="1_cfart"]
+[ext_resource type="Script" uid="uid://bd5n151hxp40n" path="res://script/camp_fire.gd" id="1_trufi"]
+[ext_resource type="Texture2D" uid="uid://ddh1r3qlvpao8" path="res://art/environment/light_glow.png" id="2_glow"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cf0"]
 atlas = ExtResource("1_cfart")
@@ -63,7 +63,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cf7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"burning",
 "speed": 8.0
 }, {
@@ -71,7 +71,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cf7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"not_burning",
 "speed": 1.0
 }]
@@ -79,30 +79,17 @@ animations = [{
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
 blend_mode = 1
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_stone_ring"]
-radius = 15.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5ome"]
-size = Vector2(44, 32)
-
-[node name="camp_fire" type="StaticBody2D"]
-z_index = 5
+[node name="camp_fire" type="StaticBody2D" unique_id=616665063]
 y_sort_enabled = true
-collision_layer = 1
-collision_mask = 1
 script = ExtResource("1_trufi")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=182311317]
 sprite_frames = SubResource("SpriteFrames_at077")
 animation = &"burning"
 autoplay = "burning"
 offset = Vector2(0, -10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0)
-shape = SubResource("CircleShape2D_stone_ring")
-
-[node name="FireGlow" type="Sprite2D" parent="."]
+[node name="FireGlow" type="Sprite2D" parent="." unique_id=219602643]
 visible = false
 z_index = -3
 material = SubResource("CanvasItemMaterial_add")
@@ -110,19 +97,15 @@ position = Vector2(0, -6)
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("2_glow")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-enabled = false
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=140882514]
 position = Vector2(0, -6)
-color = Color(1, 0.65, 0.28, 1)
+enabled = false
+color = Color(1, 0.72, 0.35, 1)
 energy = 0.0
 texture = ExtResource("2_glow")
-texture_scale = 0.85
+texture_scale = 1.6
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -6)
-shape = SubResource("RectangleShape2D_v5ome")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=33435510]
+position = Vector2(-0.571423, 10.252157)
+scale = Vector2(0.85714287, 1.3577585)
+polygon = PackedVector2Array(-9.833338, -4.604763, -0.50000644, -3.8682554, 9.999992, -3.8682554, 18.166658, -6.0777793, 16.999992, -14.9158745, -15.666672, -14.9158745, -18.000004, -8.287303)

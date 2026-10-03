@@ -72,7 +72,7 @@ func _apply_light_intensity(intensity: float, wave: float) -> void:
 	# 2. PointLight2D soft light
 	if point_light != null:
 		point_light.enabled = true
-		point_light.energy = clampf((0.65 + wave * 0.12) * intensity, 0.0, 0.8)
+		point_light.energy = clampf((1.15 + wave * 0.15) * intensity, 0.0, 1.4)
 
 
 func toggle_fire() -> void:

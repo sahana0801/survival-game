@@ -22,7 +22,7 @@ grow_horizontal = 2
 theme = ExtResource("2_4dxoa")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 70
-text = "Trò Chơi Kết Thúc"
+text = "Game Over"
 
 [node name="StatisticsLabel" type="RichTextLabel" parent="."]
 top_level = true

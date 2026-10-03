@@ -27,6 +27,10 @@ var is_slashing: bool = false
 
 var arrow: PackedScene = preload("res://scene/arrow.tscn")
 var sword_slash_scene: PackedScene = preload("res://scene/sword_slash.tscn")
+var character_type: int = PlayerStats.CharacterType.KNIGHT
+var knight_frames: SpriteFrames = null
+var archer_frames: SpriteFrames = null
+var bow_sprite: Sprite2D = null
 var current_skin: int = 0
 var mouse_loc_from_player: Vector2 = Vector2.ZERO
 
@@ -96,12 +100,17 @@ func _physics_process(_delta):
 
 func _ready():
 	_setup_sword_idle_animations()
+	_setup_archer_assets()
 	# Connect all items that can be picked up
 	PlayerStats.StickCollected.connect(collect_stick)
 	PlayerStats.AppleCollected.connect(collect_apple)
 	PlayerStats.WaterCollected.connect(collect_water)
 	PlayerStats.SlimeCollected.connect(collect_slime)
 	PlayerStats.HealthPotionCollected.connect(collect_health_potion)
+	if not PlayerStats.ShootingChanged.is_connected(_on_weapon_tier_changed):
+		PlayerStats.ShootingChanged.connect(_on_weapon_tier_changed)
+	call_deferred("_setup_starter_inventory")
+	call_deferred("apply_character_type", PlayerStats.active_character)
 
 
 func _setup_sword_idle_animations() -> void:
@@ -171,24 +180,159 @@ func get_item(item_name: String) -> InventoryItem:
 	return newitem
 
 
-func equip_weapon(weapon_type: int):
-	if current_weapon == weapon_type:
-		current_weapon = Weapon.NONE
+func _setup_archer_assets() -> void:
+	if knight_frames == null and $AnimatedSprite2D != null:
+		knight_frames = $AnimatedSprite2D.sprite_frames
+
+	var girl_path = "res://art/SimpleCharacter/Girl-Sheet.png"
+	var girl_tex: Texture2D = null
+	if ResourceLoader.exists(girl_path):
+		girl_tex = load(girl_path)
+	if girl_tex == null:
+		var abs_path = ProjectSettings.globalize_path(girl_path)
+		if FileAccess.file_exists(girl_path):
+			var img = Image.load_from_file(abs_path)
+			if img != null:
+				girl_tex = ImageTexture.create_from_image(img)
+
+	if girl_tex != null:
+		archer_frames = SpriteFrames.new()
+		var make_f = func(idx: int) -> AtlasTexture:
+			var at = AtlasTexture.new()
+			at.atlas = girl_tex
+			at.region = Rect2(idx * 24, 0, 24, 24)
+			return at
+
+		var add_a = func(anim_name: StringName, start_idx: int, count: int, fps: float, loop: bool):
+			if not archer_frames.has_animation(anim_name):
+				archer_frames.add_animation(anim_name)
+			archer_frames.set_animation_speed(anim_name, fps)
+			archer_frames.set_animation_loop(anim_name, loop)
+			for i in range(count):
+				archer_frames.add_frame(anim_name, make_f.call(start_idx + i))
+
+		# Idles
+		add_a.call(&"idle", 0, 4, 5.0, true)
+		add_a.call(&"s-idle", 0, 4, 5.0, true)
+		add_a.call(&"s-idle-sword", 0, 4, 5.0, true)
+		add_a.call(&"w-idle", 4, 4, 5.0, true)
+		add_a.call(&"w-idle-sword", 4, 4, 5.0, true)
+		add_a.call(&"e-idle", 8, 4, 5.0, true)
+		add_a.call(&"e-idle-sword", 8, 4, 5.0, true)
+		add_a.call(&"n-idle", 12, 4, 5.0, true)
+		add_a.call(&"n-idle-sword", 12, 4, 5.0, true)
+
+		# Walks
+		add_a.call(&"s-walk", 16, 6, 8.0, true)
+		add_a.call(&"sw-walk", 16, 6, 8.0, true)
+		add_a.call(&"se-walk", 16, 6, 8.0, true)
+		add_a.call(&"w-walk", 22, 6, 8.0, true)
+		add_a.call(&"nw-walk", 22, 6, 8.0, true)
+		add_a.call(&"e-walk", 28, 6, 8.0, true)
+		add_a.call(&"ne-walk", 28, 6, 8.0, true)
+		add_a.call(&"n-walk", 34, 6, 8.0, true)
+
+		# Die & Death
+		add_a.call(&"die", 40, 4, 6.0, false)
+		add_a.call(&"death", 40, 4, 6.0, false)
+
+		# Attacks
+		add_a.call(&"s-attack", 16, 6, 12.0, false)
+		add_a.call(&"sw-attack", 16, 6, 12.0, false)
+		add_a.call(&"se-attack", 16, 6, 12.0, false)
+		add_a.call(&"w-attack", 22, 6, 12.0, false)
+		add_a.call(&"nw-attack", 22, 6, 12.0, false)
+		add_a.call(&"e-attack", 28, 6, 12.0, false)
+		add_a.call(&"ne-attack", 28, 6, 12.0, false)
+		add_a.call(&"n-attack", 34, 6, 12.0, false)
+
+	# 3. Setup in-hand BowSprite under Marker2D (Tier-based Bow)
+	if has_node("Marker2D"):
+		bow_sprite = $Marker2D.get_node_or_null("BowSprite") as Sprite2D
+		if bow_sprite == null:
+			bow_sprite = Sprite2D.new()
+			bow_sprite.name = "BowSprite"
+			$Marker2D.add_child(bow_sprite)
+		bow_sprite.rotation = deg_to_rad(-45.0)
+		bow_sprite.position = Vector2(14, 0)
+		bow_sprite.scale = Vector2(0.85, 0.85)
+		bow_sprite.visible = false
+		_update_bow_visual()
+
+
+func _update_bow_visual() -> void:
+	if bow_sprite == null:
+		return
+	if character_type == PlayerStats.CharacterType.ARCHER and current_weapon == Weapon.BOW:
+		bow_sprite.visible = true
+		var tex_path = PlayerStats.get_bow_texture_path()
+		if ResourceLoader.exists(tex_path):
+			bow_sprite.texture = load(tex_path)
 	else:
-		current_weapon = weapon_type
-	bow_equiped = (current_weapon == Weapon.BOW)
+		bow_sprite.visible = false
+
+
+func _on_weapon_tier_changed() -> void:
+	_update_bow_visual()
+
+
+func apply_character_type(char_type: int) -> void:
+	character_type = char_type
+	PlayerStats.set_active_character(char_type)
+
+	var spr: AnimatedSprite2D = $AnimatedSprite2D
+	if char_type == PlayerStats.CharacterType.KNIGHT:
+		if spr != null and knight_frames != null:
+			spr.sprite_frames = knight_frames
+			spr.scale = Vector2(2.0, 2.0)
+			spr.offset = Vector2(0, -16)
+		current_weapon = Weapon.SWORD
+		bow_equiped = false
+	else:
+		if spr != null and archer_frames != null:
+			spr.sprite_frames = archer_frames
+			spr.scale = Vector2(2.4, 2.4)
+			spr.offset = Vector2(0, -10)
+		current_weapon = Weapon.BOW
+		bow_equiped = true
+
+	_update_bow_visual()
 	weaponChanged.emit(current_weapon)
 
 
+func equip_weapon(weapon_type: int):
+	if character_type == PlayerStats.CharacterType.KNIGHT:
+		if weapon_type == Weapon.BOW:
+			PlayerStats.send_message("⚔️ Hiệp Sĩ chỉ chuyên dùng Kiếm! Hãy đổi sang Cung Thủ để dùng Cung.")
+			return
+		current_weapon = Weapon.SWORD if current_weapon != Weapon.SWORD else Weapon.NONE
+	else: # ARCHER
+		if weapon_type == Weapon.SWORD:
+			PlayerStats.send_message("🏹 Cung Thủ chỉ chuyên dùng Cung! Hãy đổi sang Hiệp Sĩ để dùng Kiếm.")
+			return
+		current_weapon = Weapon.BOW if current_weapon != Weapon.BOW else Weapon.NONE
+
+	bow_equiped = (current_weapon == Weapon.BOW)
+	_update_bow_visual()
+	weaponChanged.emit(current_weapon)
+
+
+func _setup_starter_inventory() -> void:
+	if inventory_stacked != null and inventory_stacked.get_item_count() == 0:
+		add_starter_item("health_potion", 2)
+		add_starter_item("water_potion", 2)
+		add_starter_item("apple", 2)
+
+
+func add_starter_item(item_name: String, count: int = 1) -> void:
+	for i in count:
+		var newitem = get_item(item_name)
+		if inventory_stacked.can_add_item(newitem):
+			inventory_stacked.add_item_automerge(newitem)
+
+
 func toggle_skin():
-	current_skin = (current_skin + 1) % 2
-	var skin_name = "Golden Hero" if current_skin == 1 else "Adventurer"
-	if current_skin == 1:
-		$AnimatedSprite2D.modulate = Color(1.15, 1.05, 0.85, 1.0)
-	else:
-		$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
-	Helpers.spawn_damage_number(global_position, skin_name, Color(0.3, 0.9, 1.0), true, "✦ ", " ✦")
-	skinChanged.emit(skin_name)
+	pass
 
 
 func get_attack_anim() -> String:
@@ -265,7 +409,20 @@ func play_anim(dir: Vector2) -> void:
 		
 	# Idle state
 	spr.speed_scale = 1.0
-	if current_weapon == Weapon.SWORD:
+	if character_type == PlayerStats.CharacterType.ARCHER:
+		var deg: float = rad_to_deg(mouse_loc_from_player.angle())
+		var a_idle := "s-idle"
+		if deg >= -45.0 and deg < 45.0:
+			a_idle = "e-idle"
+		elif deg >= 45.0 and deg < 135.0:
+			a_idle = "s-idle"
+		elif deg >= 135.0 or deg < -135.0:
+			a_idle = "w-idle"
+		else:
+			a_idle = "n-idle"
+		if spr.animation != a_idle or !spr.is_playing():
+			spr.play(a_idle)
+	elif current_weapon == Weapon.SWORD:
 		var sword_idle: String = get_sword_idle_anim()
 		if spr.animation != sword_idle or !spr.is_playing():
 			spr.play(sword_idle)
@@ -294,9 +451,6 @@ func handleInput():
 		
 	if Input.is_action_just_pressed("sword"):
 		equip_weapon(Weapon.SWORD)
-		
-	if Input.is_action_just_pressed("toggle_skin"):
-		toggle_skin()
 	
 	var mouse_pos = get_global_mouse_position()
 	$Marker2D.look_at(mouse_pos)
@@ -306,14 +460,20 @@ func handleInput():
 		arrow_audio.play()
 		bow_cooldown = false
 		
+		# Giật lùi cung (Juicy recoil feedback)
+		if bow_sprite != null and is_instance_valid(bow_sprite):
+			var tw = create_tween()
+			bow_sprite.position = Vector2(8, 0)
+			tw.tween_property(bow_sprite, "position", Vector2(14, 0), 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		
 		# 🎯 PINPOINT LASER ARCHERY: Bắn thẳng tắp 100% theo hướng chuột
 		var aim_dir = (mouse_pos - global_position).normalized()
 		var arrow_instance = arrow.instantiate()
-		arrow_instance.global_position = global_position + aim_dir * 12.0
+		arrow_instance.global_position = global_position + aim_dir * 14.0
 		arrow_instance.rotation = aim_dir.angle()
 		get_parent().add_child(arrow_instance)
 		
-		await get_tree().create_timer(0.35).timeout
+		await get_tree().create_timer(0.30).timeout
 		bow_cooldown = true
 		
 	# Melee Sword Slash (Chém kiếm cận chiến)
@@ -338,7 +498,13 @@ func handleInput():
 		sword_cooldown = true
 	
 	if Input.is_action_just_pressed("inventory"):
-		$CtrlInventoryStacked.visible = !$CtrlInventoryStacked.visible
+		var inv_win = get_tree().get_first_node_in_group("inventory_window")
+		if inv_win != null:
+			inv_win.visible = !inv_win.visible
+			if inv_win.visible and inv_win.has_method("refresh_slots"):
+				inv_win.refresh_slots()
+		else:
+			$CtrlInventoryStacked.visible = !$CtrlInventoryStacked.visible
 	
 	if Input.is_action_just_pressed("drink"):
 		drink()
@@ -394,16 +560,8 @@ func checkHealth() -> void:
 
 
 func hungry() -> void:
-	if not is_alive:
-		return
-	# Scale decay with activity (sprinting drains 15, walking drains 10, idle drains 5)
-	var decay: int = 15 if is_sprinting else (10 if player_state == "walking" else 5)
-	current_hunger = max(0, current_hunger - decay)
-	hungerChanged.emit()
-	if current_hunger <= 0:
-		current_health = max(0, current_health - 10)
-		checkHealth()
-		healthChanged.emit()
+	# Hunger mechanic removed
+	pass
 
 
 func thirsty() -> void:
@@ -420,10 +578,7 @@ func thirsty() -> void:
 
 
 func _on_hunger_timer_timeout() -> void:
-	if not is_alive:
-		return
-	hungry()
-	$hungerTimer.start()
+	pass
 
 
 func _on_thirst_timer_timeout() -> void:

@@ -51,7 +51,10 @@ func open_chest() -> void:
 	if ctrl_inv:
 		ctrl_inv.visible = true
 	if PlayerStats:
-		PlayerStats.c_inventory = inv
+		PlayerStats.c_inventory = ctrl_inv
+		PlayerStats.inventory = inv
+		if PlayerStats.cp_inventory != null:
+			PlayerStats.cp_inventory.visible = true
 
 func close_chest() -> void:
 	is_open = false
@@ -59,5 +62,8 @@ func close_chest() -> void:
 		anim.play("closed")
 	if ctrl_inv:
 		ctrl_inv.visible = false
-	if PlayerStats and PlayerStats.c_inventory == inv:
-		PlayerStats.c_inventory = null
+	if PlayerStats:
+		if PlayerStats.c_inventory == ctrl_inv:
+			PlayerStats.c_inventory = null
+		if PlayerStats.inventory == inv:
+			PlayerStats.inventory = null

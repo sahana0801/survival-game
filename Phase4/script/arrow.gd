@@ -1,10 +1,12 @@
 class_name Arrow extends Area2D
 
 var speed: float = 420.0
+var damage: int = 15
 
 
 func _ready() -> void:
 	set_as_top_level(true)
+	damage = PlayerStats.get_bow_damage()
 
 
 func _physics_process(delta: float) -> void:

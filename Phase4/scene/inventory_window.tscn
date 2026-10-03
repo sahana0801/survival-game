@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c6qhjvyilbooa"]
+
+[ext_resource type="Script" path="res://script/inventory_window.gd" id="1_inv"]
+
+[node name="InventoryWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -88.0
+offset_right = 128.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.2, 2.2)
+pivot_offset = Vector2(128, 88)
+script = ExtResource("1_inv")

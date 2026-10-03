@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cuw5w8j7rb683" path="res://sounds/arrow.mp3" id="7_jv4bs"]
 [ext_resource type="AudioStream" uid="uid://bf55l45o6cipa" path="res://sounds/male-scream-in-fear.mp3" id="8_23vgo"]
 [ext_resource type="AudioStream" uid="uid://c25ja0hfql47c" path="res://sounds/inventory-grab.mp3" id="9_0b7pb"]
-[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="9_v7y7g"]
+[ext_resource type="Script" path="res://script/rpg_inventory_ui.gd" id="9_v7y7g"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="10_1e16a"]
 [ext_resource type="Resource" uid="uid://c45uhadq0vieg" path="res://inventory/inventory_stacked.tres" id="11_4dxp5"]
 [ext_resource type="Texture2D" path="res://art/character/shadow.png" id="12_shadow"]
@@ -652,10 +652,10 @@ shape = SubResource("CircleShape2D_tjdb2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.6, 2.6)
-limit_left = -820
-limit_top = -220
-limit_right = 820
-limit_bottom = 1420
+limit_left = -780
+limit_top = -180
+limit_right = 780
+limit_bottom = 1380
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
 
@@ -690,17 +690,17 @@ stream = ExtResource("9_0b7pb")
 
 [node name="CtrlInventoryStacked" type="Control" parent="." groups=["player"]]
 visible = false
-z_index = 20
+z_index = 25
 y_sort_enabled = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -58.0
-offset_top = -104.0
-offset_right = 177.0
-offset_bottom = 74.0
-scale = Vector2(0.5, 0.5)
+offset_left = -90.0
+offset_top = -170.0
+offset_right = 90.0
+offset_bottom = -20.0
 script = ExtResource("9_v7y7g")
 inventory_path = NodePath("../InventoryStacked")
+window_title = "🎒 Túi Đồ"
 
 [node name="InventoryStacked" type="Node" parent="."]
 script = ExtResource("10_1e16a")

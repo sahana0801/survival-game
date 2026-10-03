@@ -20,4 +20,4 @@ map_wangset_to_terrain=false
 custom_data_prefix="data_"
 tiled_project_file=""
 post_processor=""
-save_tileset_to=""
+save_tileset_to="res://scene/fantasy_tileset.tres"

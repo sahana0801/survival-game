@@ -4,7 +4,8 @@ extends RichTextLabel
 
 
 func _ready():
-	PlayerStats.DayChanged.connect(update)
+	if not PlayerStats.DayChanged.is_connected(update):
+		PlayerStats.DayChanged.connect(update)
 	update()
 
 

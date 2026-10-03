@@ -220,9 +220,10 @@ func _on_hit_box_area_entered(area: Area2D):
 		return
 	var damage = 0
 	if area.has_method("arrow_deal_damage"):
-		damage = int(100 * PlayerStats.shooting / PlayerStats.max_shooting_level)
+		damage = area.damage if "damage" in area else PlayerStats.get_bow_damage()
 		take_damage(damage)
 	elif area.has_method("sword_deal_damage"):
 		# Sword deals +20% bonus holy damage to Wraiths!
-		damage = int(round(area.damage * 1.2))
+		var s_dmg = area.damage if "damage" in area else PlayerStats.get_sword_damage()
+		damage = int(round(s_dmg * 1.2))
 		take_damage(damage)

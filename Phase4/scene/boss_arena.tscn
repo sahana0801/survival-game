@@ -5,21 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://cx8slimekingscene99" path="res://scene/slime_king.tscn" id="3_sking"]
 [ext_resource type="PackedScene" uid="uid://cx8bossportalscene99" path="res://scene/boss_portal.tscn" id="4_portal"]
 [ext_resource type="PackedScene" uid="uid://cx8bossbarscene99" path="res://scene/boss_health_bar.tscn" id="5_bossbar"]
-[ext_resource type="PackedScene" uid="uid://cx8minimapscene99" path="res://scene/minimap.tscn" id="6_mmap"]
 [ext_resource type="PackedScene" uid="uid://c8hotbarscene99" path="res://scene/hotbar.tscn" id="7_hotbar"]
 [ext_resource type="PackedScene" uid="uid://bcjq1xw84ydbb" path="res://scene/message_layer.tscn" id="8_msg"]
 [ext_resource type="PackedScene" uid="uid://q4au0phn3dps" path="res://scene/pause_menu.tscn" id="9_pause"]
 [ext_resource type="PackedScene" uid="uid://1gyxjl47e7if" path="res://scene/game_over_panel.tscn" id="10_gover"]
 [ext_resource type="PackedScene" uid="uid://hy6wdxrypvps" path="res://scene/keyboard_layout_panel.tscn" id="11_keyb"]
-[ext_resource type="Texture2D" uid="uid://4xccsrmfqsqn" path="res://art/character/healthbarUnder.png" id="12_hbund"]
-[ext_resource type="Texture2D" uid="uid://cgxtl0ubcip7p" path="res://art/character/healthbarProgress.png" id="13_hbprog"]
-[ext_resource type="Script" path="res://script/PlayerHealthBar.gd" id="14_phbar"]
-[ext_resource type="Texture2D" uid="uid://c5qo3k8ssdawy" path="res://art/character/hungerbarProgress.png" id="15_hgprog"]
-[ext_resource type="Script" path="res://script/PlayerHungerBar.gd" id="16_phung"]
-[ext_resource type="Texture2D" uid="uid://6fbxagogyx8i" path="res://art/character/thirstbarProgress.png" id="17_thprog"]
-[ext_resource type="Script" path="res://script/PlayerThirstBar.gd" id="18_pthir"]
-[ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="19_wtheme"]
-[ext_resource type="Script" path="res://script/ShootingLevelText.gd" id="20_shoot"]
+[ext_resource type="PackedScene" uid="uid://cx8statuspanel99" path="res://scene/status_panel.tscn" id="12_spanel"]
+[ext_resource type="PackedScene" uid="uid://invwindow998877" path="res://scene/inventory_window.tscn" id="13_invwin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1100, 40)
@@ -83,57 +75,12 @@ position = Vector2(720, 320)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-offset_left = 10.0
-offset_top = 9.0
-offset_right = 157.0
-offset_bottom = 125.0
-
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
-offset_left = 17.0
-offset_top = 15.0
-offset_right = 81.0
-offset_bottom = 25.0
-scale = Vector2(2, 2)
-value = 100.0
-texture_under = ExtResource("12_hbund")
-texture_progress = ExtResource("13_hbprog")
-script = ExtResource("14_phbar")
-player = NodePath("../../Player")
-
-[node name="PlayerHungerBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
-offset_left = 17.0
-offset_top = 41.0
-offset_right = 81.0
-offset_bottom = 51.0
-scale = Vector2(2, 2)
-value = 100.0
-texture_under = ExtResource("12_hbund")
-texture_progress = ExtResource("15_hgprog")
-script = ExtResource("16_phung")
-player = NodePath("../../Player")
-
-[node name="PlayerThirstBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
-offset_left = 17.0
-offset_top = 67.0
-offset_right = 81.0
-offset_bottom = 77.0
-scale = Vector2(2, 2)
-value = 100.0
-texture_under = ExtResource("12_hbund")
-texture_progress = ExtResource("17_thprog")
-script = ExtResource("18_pthir")
-player = NodePath("../../Player")
-
-[node name="ShootingLevelText" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("player")]
-offset_left = 17.0
-offset_top = 95.0
-offset_right = 167.0
-offset_bottom = 118.0
-theme = ExtResource("19_wtheme")
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "Bow Level 1"
-script = ExtResource("20_shoot")
+[node name="StatusPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("12_spanel")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 208.0
+offset_bottom = 96.0
+scale = Vector2(2.2, 2.2)
 player = NodePath("../../Player")
 
 [node name="KeyboardLayoutPanel" parent="CanvasLayer" instance=ExtResource("11_keyb")]
@@ -159,18 +106,20 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -175.0
-offset_top = -80.0
-offset_right = 175.0
-offset_bottom = -12.0
+offset_left = -122.0
+offset_top = -62.0
+offset_right = 122.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(2.2, 2.2)
+pivot_offset = Vector2(122, 18)
+player = NodePath("../../Player")
+
+[node name="InventoryWindow" parent="CanvasLayer" groups=["inventory_window"] node_paths=PackedStringArray("player") instance=ExtResource("13_invwin")]
 player = NodePath("../../Player")
 
 [node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource("5_bossbar")]
-
-[node name="MiniMap" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("6_mmap")]
-player = NodePath("../../Player")
 
 [node name="MessageLayer" parent="." instance=ExtResource("8_msg")]
 

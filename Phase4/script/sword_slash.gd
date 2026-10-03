@@ -1,6 +1,6 @@
 class_name SwordSlash extends Area2D
 
-# Sát thương cơ bản đã giảm còn 60% (từ 75 -> 45)
+# Sát thương cơ bản 15, mỗi cấp tăng +5
 var damage: int = 15
 var duration: float = 0.20
 var elapsed: float = 0.0
@@ -9,9 +9,7 @@ var hit_enemies: Array = []
 
 func _ready():
 	set_as_top_level(true)
-	# 20% Critical Hit Chance on Sword
-	if randf() < 0.20:
-		damage = int(round(damage * 1.5))
+	damage = PlayerStats.get_sword_damage()
 
 
 func sword_deal_damage():
