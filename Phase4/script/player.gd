@@ -353,17 +353,17 @@ func player():
 	pass
 
 
-func hurtByEnemy(_area: Area2D) -> void:
+func hurtByEnemy(_source: Node = null, damage_amount: int = 10) -> void:
 	if not is_alive or is_hurt:
 		return
-	current_health = max(0, current_health - 10)
+	current_health = max(0, current_health - damage_amount)
 	checkHealth()
 	is_hurt = true
 	PlayerStats.player_hit = true
 	healthChanged.emit()
 	
 	# Floating Damage Number on Player (Red)
-	Helpers.spawn_damage_number(global_position, 10, Color(0.95, 0.25, 0.25), false, "-")
+	Helpers.spawn_damage_number(global_position, damage_amount, Color(0.95, 0.25, 0.25), false, "-")
 	screen_shake(4.5, 0.18)
 	
 	hurtTimer.start(1.0)

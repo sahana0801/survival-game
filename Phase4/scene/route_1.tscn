@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://5pro708f0qxj"]
+
+[ext_resource type="Texture2D" path="res://art/fantasy/Art/Maps/route_1_base.png" id="1_tex"]
+[ext_resource type="PackedScene" path="res://scene/training_dummy.tscn" id="2_dummy"]
+[ext_resource type="PackedScene" uid="uid://badrenyf6lxhy" path="res://scene/slime.tscn" id="3_slime"]
+[ext_resource type="PackedScene" uid="uid://fuxo58mmupy5" path="res://scene/chest.tscn" id="4_chest"]
+[ext_resource type="PackedScene" uid="uid://clgvk1r5uvb1c" path="res://scene/camp_fire.tscn" id="5_fire"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_north_fence"]
+size = Vector2(480, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_side_fence"]
+size = Vector2(16, 280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_south_fence_l"]
+size = Vector2(230, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_south_fence_r"]
+size = Vector2(160, 16)
+
+[node name="Route1" type="Node2D" unique_id=907586828]
+y_sort_enabled = true
+
+[node name="MapBase" type="Sprite2D" parent="." unique_id=1729144718]
+texture_filter = 1
+position = Vector2(11.999999, -44.999996)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_tex")
+centered = false
+
+[node name="Collisions" type="StaticBody2D" parent="." unique_id=844275136]
+
+[node name="RiverTop" type="CollisionPolygon2D" parent="Collisions" unique_id=1968717536]
+position = Vector2(33, -54)
+polygon = PackedVector2Array(-20, 381, 147, 308, 200, 260, 480, 260, 600, 360, 1080, 360, 1140, 460, 1160, 620, 1080, 620, 1060, 480, 600, 480, 460, 380, 200, 380, 112, 456, -16, 442)
+
+[node name="RiverMid" type="CollisionPolygon2D" parent="Collisions" unique_id=1196569105]
+position = Vector2(31, -37)
+polygon = PackedVector2Array(240, 600, 400, 600, 400, 800, 696, 923, 700, 1040, 620, 1040, 340, 880, 240, 820)
+
+[node name="RiverSouth" type="CollisionPolygon2D" parent="Collisions" unique_id=1553689713]
+polygon = PackedVector2Array(800, 1090, 880, 1090, 940, 1280, 940, 1600, 820, 1600, 820, 1280)
+
+[node name="CliffTopLeft" type="CollisionPolygon2D" parent="Collisions" unique_id=1799888606]
+polygon = PackedVector2Array(200, 80, 680, 80, 680, 150, 200, 150)
+
+[node name="CliffTopRightL" type="CollisionPolygon2D" parent="Collisions" unique_id=47153509]
+position = Vector2(7, -44)
+polygon = PackedVector2Array(800, 240, 1040, 218, 1240, 240, 1240, 300, 1042, 278, 800, 300)
+
+[node name="CliffTopRightR" type="CollisionPolygon2D" parent="Collisions" unique_id=164697037]
+polygon = PackedVector2Array(1380, 240, 1600, 240, 1600, 300, 1380, 300)
+
+[node name="CliffEastUpper" type="CollisionPolygon2D" parent="Collisions" unique_id=2081079734]
+polygon = PackedVector2Array(1260, 680, 1600, 680, 1600, 760, 1260, 760)
+
+[node name="CliffEastLower" type="CollisionPolygon2D" parent="Collisions" unique_id=1757431630]
+polygon = PackedVector2Array(1260, 860, 1600, 860, 1600, 940, 1260, 940)
+
+[node name="CliffBottomLeft" type="CollisionPolygon2D" parent="Collisions" unique_id=1155552584]
+polygon = PackedVector2Array(0, 1310, 820, 1310, 820, 1400, 0, 1400)
+
+[node name="CliffBottomRight" type="CollisionPolygon2D" parent="Collisions" unique_id=275385955]
+polygon = PackedVector2Array(940, 1310, 1600, 1310, 1600, 1400, 940, 1400)
+
+[node name="NorthFence" type="CollisionShape2D" parent="Collisions" unique_id=730188964]
+position = Vector2(640, 440)
+shape = SubResource("RectangleShape2D_north_fence")
+
+[node name="WestFence" type="CollisionShape2D" parent="Collisions" unique_id=1254522123]
+position = Vector2(400, 580)
+shape = SubResource("RectangleShape2D_side_fence")
+
+[node name="EastFence" type="CollisionShape2D" parent="Collisions" unique_id=1065883661]
+position = Vector2(880, 580)
+shape = SubResource("RectangleShape2D_side_fence")
+
+[node name="SouthFenceLeft" type="CollisionShape2D" parent="Collisions" unique_id=1088833233]
+position = Vector2(515, 720)
+shape = SubResource("RectangleShape2D_south_fence_l")
+
+[node name="SouthFenceRight" type="CollisionShape2D" parent="Collisions" unique_id=1341375383]
+position = Vector2(800, 720)
+shape = SubResource("RectangleShape2D_south_fence_r")
+
+[node name="HouseColl" type="CollisionPolygon2D" parent="Collisions" unique_id=665430922]
+position = Vector2(-7.000122, 0.928566)
+scale = Vector2(1.0000001, 0.8214286)
+polygon = PackedVector2Array(1056, -48, 1267, -45, 1256, 92, 1056, 92)
+
+[node name="WellColl" type="CollisionPolygon2D" parent="Collisions" unique_id=1946630761]
+polygon = PackedVector2Array(140, 970, 240, 970, 240, 1040, 140, 1040)
+
+[node name="RuinWallColl" type="CollisionPolygon2D" parent="Collisions" unique_id=1654673585]
+polygon = PackedVector2Array(1180, 980, 1430, 980, 1430, 1050, 1180, 1050)
+
+[node name="TombstoneColl" type="CollisionPolygon2D" parent="Collisions" unique_id=911404837]
+polygon = PackedVector2Array(540, 1200, 630, 1200, 630, 1270, 540, 1270)
+
+[node name="BorderTreesLeft" type="CollisionPolygon2D" parent="Collisions" unique_id=443174427]
+position = Vector2(9, -4)
+polygon = PackedVector2Array(0, 0, 80, 0, 80, 1600, 0, 1600)
+
+[node name="BorderTreesRight" type="CollisionPolygon2D" parent="Collisions" unique_id=1172582258]
+position = Vector2(3, -43)
+polygon = PackedVector2Array(1501, 8, 1600, 0, 1600, 1600, 1540, 1600)
+
+[node name="BorderTreesBottom" type="CollisionPolygon2D" parent="Collisions" unique_id=871238792]
+polygon = PackedVector2Array(0, 1420, 1600, 1420, 1600, 1600, 0, 1600)
+
+[node name="Dummies" type="Node2D" parent="." unique_id=335951720]
+y_sort_enabled = true
+
+[node name="TrainingDummy1" parent="Dummies" unique_id=1870376821 instance=ExtResource("2_dummy")]
+position = Vector2(580, 530)
+scale = Vector2(2, 2)
+
+[node name="TrainingDummy2" parent="Dummies" unique_id=2032114616 instance=ExtResource("2_dummy")]
+position = Vector2(580, 650)
+scale = Vector2(2, 2)
+
+[node name="TrainingDummy3" parent="Dummies" unique_id=1303200628 instance=ExtResource("2_dummy")]
+position = Vector2(780, 650)
+scale = Vector2(2, 2)
+
+[node name="Interactables" type="Node2D" parent="." unique_id=409405943]
+y_sort_enabled = true
+
+[node name="CampFire" parent="Interactables" unique_id=636760615 instance=ExtResource("5_fire")]
+position = Vector2(688, 223)
+scale = Vector2(2, 2)
+
+[node name="BeginnerChest" parent="Interactables" unique_id=2103233394 instance=ExtResource("4_chest")]
+position = Vector2(280, 970)
+scale = Vector2(2, 2)
+
+[node name="Monsters" type="Node2D" parent="." unique_id=1846910251]
+y_sort_enabled = true
+
+[node name="Slime1" parent="Monsters" unique_id=517485006 instance=ExtResource("3_slime")]
+position = Vector2(1190, 880)
+scale = Vector2(2, 2)
+slime_type = 2
+
+[node name="Slime2" parent="Monsters" unique_id=900140199 instance=ExtResource("3_slime")]
+position = Vector2(1270, 850)
+scale = Vector2(2, 2)
+slime_type = 2
+
+[node name="Slime3" parent="Monsters" unique_id=1454180838 instance=ExtResource("3_slime")]
+position = Vector2(1024, 915)
+scale = Vector2(2, 2)
+slime_type = 2

@@ -1,69 +1,71 @@
-[gd_scene load_steps=32 format=3 uid="uid://d0ylgb5olq8hw"]
+[gd_scene format=3 uid="uid://d0ylgb5olq8hw"]
 
-[ext_resource type="Script" path="res://script/world.gd" id="1_u3rvd"]
 [ext_resource type="PackedScene" uid="uid://d0mn0prgj1gs5" path="res://scene/player.tscn" id="1_cv17m"]
-[ext_resource type="PackedScene" path="res://scene/beginning_fields.tscn" id="2_fields"]
-[ext_resource type="Script" path="res://script/spawner.gd" id="9_f75or"]
-[ext_resource type="PackedScene" uid="uid://badrenyf6lxhy" path="res://scene/slime.tscn" id="9_uwyin"]
+[ext_resource type="Script" uid="uid://c58prwnjh0wpw" path="res://script/world.gd" id="1_u3rvd"]
+[ext_resource type="PackedScene" uid="uid://dkpvxmhcni7c7" path="res://scene/beginning_fields.tscn" id="2_fields"]
+[ext_resource type="PackedScene" path="res://scene/scene_teleport_trigger.tscn" id="3_trigger"]
+[ext_resource type="Script" uid="uid://bav1nd2q8p426" path="res://script/spawner.gd" id="9_f75or"]
 [ext_resource type="Texture2D" uid="uid://4xccsrmfqsqn" path="res://art/character/healthbarUnder.png" id="10_5sj4s"]
 [ext_resource type="Texture2D" uid="uid://cgxtl0ubcip7p" path="res://art/character/healthbarProgress.png" id="11_e74t4"]
-[ext_resource type="Script" path="res://script/PlayerHealthBar.gd" id="12_rlepb"]
+[ext_resource type="Script" uid="uid://whs02cb5mks0" path="res://script/PlayerHealthBar.gd" id="12_rlepb"]
 [ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="13_ayrhu"]
 [ext_resource type="PackedScene" uid="uid://d1u8i88q2wc4b" path="res://scene/day_and_night.tscn" id="13_pnjbg"]
 [ext_resource type="Texture2D" uid="uid://c5qo3k8ssdawy" path="res://art/character/hungerbarProgress.png" id="13_s8gls"]
-[ext_resource type="Script" path="res://script/ShootingLevelText.gd" id="14_jn25r"]
-[ext_resource type="Script" path="res://script/PlayerHungerBar.gd" id="14_n5cic"]
+[ext_resource type="Script" uid="uid://4yaja03w7e3i" path="res://script/ShootingLevelText.gd" id="14_jn25r"]
+[ext_resource type="Script" uid="uid://c3epd2oyjofvp" path="res://script/PlayerHungerBar.gd" id="14_n5cic"]
 [ext_resource type="Texture2D" uid="uid://6fbxagogyx8i" path="res://art/character/thirstbarProgress.png" id="15_j307i"]
-[ext_resource type="Script" path="res://script/PlayerThirstBar.gd" id="16_14p4a"]
+[ext_resource type="Script" uid="uid://c3uf13h36xhfq" path="res://script/PlayerThirstBar.gd" id="16_14p4a"]
 [ext_resource type="PackedScene" uid="uid://clgvk1r5uvb1c" path="res://scene/camp_fire.tscn" id="16_choyu"]
-[ext_resource type="Script" path="res://script/pick_water_area.gd" id="17_oqlrm"]
-[ext_resource type="Resource" uid="uid://ebe43cksatol" path="res://inventory/items/water_potion.tres" id="18_u3prd"]
-[ext_resource type="Script" path="res://script/day_text.gd" id="19_csa84"]
+[ext_resource type="Script" uid="uid://dvwjdw7xdlsgt" path="res://script/pick_water_area.gd" id="17_oqlrm"]
+[ext_resource type="Script" uid="uid://5knojombi6oq" path="res://script/day_text.gd" id="19_csa84"]
 [ext_resource type="PackedScene" uid="uid://hy6wdxrypvps" path="res://scene/keyboard_layout_panel.tscn" id="19_ssdro"]
 [ext_resource type="PackedScene" uid="uid://1gyxjl47e7if" path="res://scene/game_over_panel.tscn" id="21_8srsg"]
-[ext_resource type="Script" path="res://script/FPSCounter.gd" id="22_7epms"]
+[ext_resource type="Script" uid="uid://cnxwvos1bidtb" path="res://script/FPSCounter.gd" id="22_7epms"]
 [ext_resource type="AudioStream" uid="uid://nvqbsu0gbl6n" path="res://sounds/sonatina_letsadventure_2Harbingers.ogg" id="27_5gxfb"]
 [ext_resource type="PackedScene" uid="uid://bcjq1xw84ydbb" path="res://scene/message_layer.tscn" id="28_3ystj"]
-[ext_resource type="PackedScene" uid="uid://ckjo8h1hayvsi" path="res://scene/frog.tscn" id="30_8drt3"]
 [ext_resource type="PackedScene" uid="uid://q4au0phn3dps" path="res://scene/pause_menu.tscn" id="31_skkg5"]
-[ext_resource type="PackedScene" uid="uid://c8hotbarscene99" path="res://scene/hotbar.tscn" id="32_hotbar"]
-[ext_resource type="PackedScene" uid="uid://dw5wtj55dpfxg" path="res://scene/skeleton.tscn" id="33_skel"]
-[ext_resource type="PackedScene" uid="uid://c8wraithscene99" path="res://scene/shadow_wraith.tscn" id="34_wraith"]
-[ext_resource type="PackedScene" uid="uid://cx8bossbarscene99" path="res://scene/boss_health_bar.tscn" id="35_bossbar"]
-[ext_resource type="PackedScene" uid="uid://cx8bossportalscene99" path="res://scene/boss_portal.tscn" id="36_bportal"]
-[ext_resource type="PackedScene" uid="uid://cx8minimapscene99" path="res://scene/minimap.tscn" id="37_mmap"]
+[ext_resource type="PackedScene" uid="uid://bvqqajp4qoguo" path="res://scene/hotbar.tscn" id="32_hotbar"]
+[ext_resource type="PackedScene" uid="uid://b1gfyt8sw64co" path="res://scene/boss_health_bar.tscn" id="35_bossbar"]
+[ext_resource type="PackedScene" uid="uid://dvjfuxgyumnva" path="res://scene/boss_portal.tscn" id="36_bportal"]
+[ext_resource type="PackedScene" uid="uid://cpe2xfwvayyc1" path="res://scene/minimap.tscn" id="37_mmap"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" unique_id=1370820750]
 process_mode = 1
 y_sort_enabled = true
 script = ExtResource("1_u3rvd")
 
-[node name="BeginningFields" parent="." instance=ExtResource("2_fields")]
+[node name="BeginningFields" parent="." unique_id=1922194781 instance=ExtResource("2_fields")]
 position = Vector2(-800, -200)
 
-[node name="Player" parent="." instance=ExtResource("1_cv17m")]
+[node name="ExitToRoute1" parent="." instance=ExtResource("3_trigger")]
+position = Vector2(600, 1370)
+target_scene = "res://scene/route_1_world.tscn"
+target_spawn_pos = Vector2(600, -80)
+zone_name = "🌿 Route 1"
+
+[node name="Player" parent="." unique_id=190135378 instance=ExtResource("1_cv17m")]
 position = Vector2(0, 340)
 
-[node name="collisions" type="StaticBody2D" parent="."]
+[node name="collisions" type="StaticBody2D" parent="." unique_id=105027485]
 
-[node name="outer_border" type="CollisionPolygon2D" parent="collisions"]
+[node name="outer_border" type="CollisionPolygon2D" parent="collisions" unique_id=389375218]
 polygon = PackedVector2Array(-800, 1400, -800, -200, 800, -200, 800, 1400, -800, 1400, -840, 1440, 840, 1440, 840, -240, -840, -240, -840, 1440)
 
-[node name="spawner" type="Marker2D" parent="."]
+[node name="spawner" type="Marker2D" parent="." unique_id=527534358]
 script = ExtResource("9_f75or")
 
-[node name="Timer" type="Timer" parent="spawner"]
+[node name="Timer" type="Timer" parent="spawner" unique_id=1808829779]
 wait_time = 1.149
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2016804989]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=795601562]
 offset_left = 10.0
 offset_top = 9.0
 offset_right = 157.0
 offset_bottom = 145.0
 
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=354083474 node_paths=PackedStringArray("player")]
 offset_left = 17.0
 offset_top = 15.0
 offset_right = 81.0
@@ -75,7 +77,7 @@ texture_progress = ExtResource("11_e74t4")
 script = ExtResource("12_rlepb")
 player = NodePath("../../Player")
 
-[node name="PlayerHungerBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="PlayerHungerBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=903662955 node_paths=PackedStringArray("player")]
 offset_left = 17.0
 offset_top = 41.0
 offset_right = 81.0
@@ -87,7 +89,7 @@ texture_progress = ExtResource("13_s8gls")
 script = ExtResource("14_n5cic")
 player = NodePath("../../Player")
 
-[node name="PlayerThirstBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="PlayerThirstBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=280283980 node_paths=PackedStringArray("player")]
 offset_left = 17.0
 offset_top = 67.0
 offset_right = 81.0
@@ -99,7 +101,7 @@ texture_progress = ExtResource("15_j307i")
 script = ExtResource("16_14p4a")
 player = NodePath("../../Player")
 
-[node name="ShootingLevelText" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="ShootingLevelText" type="RichTextLabel" parent="CanvasLayer" unique_id=330286190 node_paths=PackedStringArray("player")]
 offset_left = 17.0
 offset_top = 95.0
 offset_right = 167.0
@@ -110,7 +112,7 @@ text = "Bow Level 1"
 script = ExtResource("14_jn25r")
 player = NodePath("../../Player")
 
-[node name="DayText" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="DayText" type="RichTextLabel" parent="CanvasLayer" unique_id=1181064417 node_paths=PackedStringArray("player")]
 offset_left = 17.0
 offset_top = 120.0
 offset_right = 167.0
@@ -121,7 +123,7 @@ text = "Day 1"
 script = ExtResource("19_csa84")
 player = NodePath("../../Player")
 
-[node name="KeyboardLayoutPanel" parent="CanvasLayer" instance=ExtResource("19_ssdro")]
+[node name="KeyboardLayoutPanel" parent="CanvasLayer" unique_id=793200401 instance=ExtResource("19_ssdro")]
 offset_left = 716.0
 offset_top = 299.0
 offset_right = 1331.0
@@ -129,7 +131,7 @@ offset_bottom = 746.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="GameOverPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("21_8srsg")]
+[node name="GameOverPanel" parent="CanvasLayer" unique_id=228012698 node_paths=PackedStringArray("player") instance=ExtResource("21_8srsg")]
 visible = false
 offset_left = 713.0
 offset_top = 323.0
@@ -137,14 +139,14 @@ offset_right = 1323.0
 offset_bottom = 608.0
 player = NodePath("../../Player")
 
-[node name="FPSPanel" type="Panel" parent="CanvasLayer"]
+[node name="FPSPanel" type="Panel" parent="CanvasLayer" unique_id=2108767648]
 visible = false
 offset_left = 18.0
 offset_top = 1022.0
 offset_right = 96.0
 offset_bottom = 1054.0
 
-[node name="FPSCounter" type="Label" parent="CanvasLayer/FPSPanel"]
+[node name="FPSCounter" type="Label" parent="CanvasLayer/FPSPanel" unique_id=1076450234]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
@@ -153,56 +155,40 @@ offset_bottom = 27.0
 text = "FPS"
 script = ExtResource("22_7epms")
 
-[node name="Hotbar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("32_hotbar")]
-layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -175.0
-offset_top = -80.0
-offset_right = 175.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="Hotbar" parent="CanvasLayer" unique_id=604245038 node_paths=PackedStringArray("player") instance=ExtResource("32_hotbar")]
 player = NodePath("../../Player")
 
-[node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource("35_bossbar")]
+[node name="BossHealthBar" parent="CanvasLayer" unique_id=1780953784 instance=ExtResource("35_bossbar")]
 
-[node name="MiniMap" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("37_mmap")]
+[node name="MiniMap" parent="CanvasLayer" unique_id=1730131494 node_paths=PackedStringArray("player") instance=ExtResource("37_mmap")]
 player = NodePath("../../Player")
 
-[node name="day_and_night" parent="." instance=ExtResource("13_pnjbg")]
+[node name="day_and_night" parent="." unique_id=284878864 instance=ExtResource("13_pnjbg")]
 z_index = 1
 y_sort_enabled = true
 position = Vector2(-1000, -300)
 
-[node name="camp_fire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("16_choyu")]
+[node name="camp_fire" parent="." unique_id=935445075 instance=ExtResource("16_choyu")]
 position = Vector2(-120, 1035)
 scale = Vector2(2.5, 2.5)
-player = NodePath("../Player")
 
-[node name="water_collect_area" type="Area2D" parent="." node_paths=PackedStringArray("player")]
+[node name="water_collect_area" type="Area2D" parent="." unique_id=1437338469]
 script = ExtResource("17_oqlrm")
-player = NodePath("../Player")
-item = ExtResource("18_u3prd")
 
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2145046056]
 stream = ExtResource("27_5gxfb")
 volume_db = -12.0
 autoplay = true
 
-[node name="MessageLayer" parent="." instance=ExtResource("28_3ystj")]
+[node name="MessageLayer" parent="." unique_id=1797318548 instance=ExtResource("28_3ystj")]
 visible = false
 offset = Vector2(250, 10)
 transform = Transform2D(1, 0, 0, 1, 250, 10)
 
-[node name="BossPortal" parent="." instance=ExtResource("36_bportal")]
-position = Vector2(480, 450)
+[node name="BossPortal" parent="." unique_id=759468879 instance=ExtResource("36_bportal")]
+position = Vector2(152, 870)
 
-[node name="PauseMenu" parent="." instance=ExtResource("31_skkg5")]
+[node name="PauseMenu" parent="." unique_id=97765560 instance=ExtResource("31_skkg5")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
