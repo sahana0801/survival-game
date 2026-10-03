@@ -1,7 +1,10 @@
 class_name Player extends CharacterBody2D
 
 # Constants
-const SPEED = 150
+const WALK_SPEED: float = 150.0
+const SPRINT_SPEED: float = 240.0
+const SPEED: float = 150.0
+var is_sprinting: bool = false
 
 # Signals
 signal healthChanged
@@ -14,27 +17,27 @@ signal skinChanged(skin_name: String)
 enum Weapon { NONE = 0, BOW = 1, SWORD = 2 }
 var current_weapon = Weapon.NONE
 
-var player_state
-@onready var is_hurt = false
-@onready var is_alive = true
-var bow_equiped = false
-var bow_cooldown = true
-var sword_cooldown = true
-var is_slashing = false
+var player_state: String = "idle"
+var is_hurt: bool = false
+var is_alive: bool = true
+var bow_equiped: bool = false
+var bow_cooldown: bool = true
+var sword_cooldown: bool = true
+var is_slashing: bool = false
 
-var arrow = preload("res://scene/arrow.tscn")
-var sword_slash_scene = preload("res://scene/sword_slash.tscn")
-var current_skin = 0
-var mouse_loc_from_player = null
+var arrow: PackedScene = preload("res://scene/arrow.tscn")
+var sword_slash_scene: PackedScene = preload("res://scene/sword_slash.tscn")
+var current_skin: int = 0
+var mouse_loc_from_player: Vector2 = Vector2.ZERO
 
-@onready var max_health = 100
-@onready var current_health = max_health
-@onready var max_hunger = 100
-@onready var current_hunger = max_hunger
-@onready var max_thirst = 100
-@onready var current_thirst = max_thirst
-@onready var hurtBox = $hurtBox
-@onready var hurtTimer = $hurtBox/hurtTimer
+var max_health: int = 100
+var current_health: int = 100
+var max_hunger: int = 100
+var current_hunger: int = 100
+var max_thirst: int = 100
+var current_thirst: int = 100
+@onready var hurtBox: Area2D = $hurtBox
+@onready var hurtTimer: Timer = $hurtBox/hurtTimer
 
 #Inventory
 @onready var inventory_stacked = $InventoryStacked
@@ -92,12 +95,41 @@ func _physics_process(_delta):
 
 
 func _ready():
+	_setup_sword_idle_animations()
 	# Connect all items that can be picked up
 	PlayerStats.StickCollected.connect(collect_stick)
 	PlayerStats.AppleCollected.connect(collect_apple)
 	PlayerStats.WaterCollected.connect(collect_water)
 	PlayerStats.SlimeCollected.connect(collect_slime)
 	PlayerStats.HealthPotionCollected.connect(collect_health_potion)
+
+
+func _setup_sword_idle_animations() -> void:
+	var spr: AnimatedSprite2D = $AnimatedSprite2D
+	if spr == null or spr.sprite_frames == null:
+		return
+	var tex = load("res://art/fantasy/Art/Characters/Main Character/Character_Idle_Sword.png") as Texture2D
+	if tex == null:
+		return
+	var frames: SpriteFrames = spr.sprite_frames
+	# Row 0: West, Row 1: East, Row 2: North, Row 3: South
+	var row_map := {
+		0: "w-idle-sword",
+		1: "e-idle-sword",
+		2: "n-idle-sword",
+		3: "s-idle-sword"
+	}
+	for row in row_map:
+		var anim_name: String = row_map[row]
+		if not frames.has_animation(anim_name):
+			frames.add_animation(anim_name)
+			frames.set_animation_speed(anim_name, 5.0)
+			frames.set_animation_loop(anim_name, true)
+			for col in range(4):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(col * 40, row * 48, 40, 48)
+				frames.add_frame(anim_name, atlas)
 
 
 func collect_stick():
@@ -160,72 +192,102 @@ func toggle_skin():
 
 
 func get_attack_anim() -> String:
-	var m = mouse_loc_from_player
-	if m.x >= -25 and m.x <= 25 and m.y < 0:
-		return "n-attack"
-	elif m.y >= -25 and m.y <= 25 and m.x > 0:
+	var deg: float = rad_to_deg(mouse_loc_from_player.angle())
+	if deg >= -22.5 and deg < 22.5:
 		return "e-attack"
-	elif m.x >= -25 and m.x <= 25 and m.y > 0:
-		return "s-attack"
-	elif m.y >= -25 and m.y <= 25 and m.x < 0:
-		return "w-attack"
-	elif m.x >= 25 and m.y <= -25:
-		return "ne-attack"
-	elif m.x >= 0.5 and m.y >= 25:
+	elif deg >= 22.5 and deg < 67.5:
 		return "se-attack"
-	elif m.x <= -0.5 and m.y >= 25:
+	elif deg >= 67.5 and deg < 112.5:
+		return "s-attack"
+	elif deg >= 112.5 and deg < 157.5:
 		return "sw-attack"
-	elif m.x <= -25 and m.y <= -25:
+	elif deg >= 157.5 or deg < -157.5:
+		return "w-attack"
+	elif deg >= -157.5 and deg < -112.5:
 		return "nw-attack"
+	elif deg >= -112.5 and deg < -67.5:
+		return "n-attack"
+	elif deg >= -67.5 and deg < -22.5:
+		return "ne-attack"
 	return "s-attack"
 
 
-func play_anim(dir):
-	var sword_pose = current_weapon == Weapon.SWORD or is_slashing
-	if !sword_pose:
-		if player_state == "idle":
-			$AnimatedSprite2D.play("idle")
-		if player_state == "walking":
-			if dir.y == -1:
-				$AnimatedSprite2D.play("n-walk")
-			elif dir.y == 1:
-				$AnimatedSprite2D.play("s-walk")
-			if dir.x == -1:
-				$AnimatedSprite2D.play("w-walk")
-			elif  dir.x == 1:
-				$AnimatedSprite2D.play("e-walk")
-			
-			if dir.x > 0.5 and dir.y < -0.5:
-				$AnimatedSprite2D.play("ne-walk")
-			if dir.x > 0.5 and dir.y > 0.5:
-				$AnimatedSprite2D.play("se-walk")
-			if dir.x < -0.5 and dir.y > 0.5:
-				$AnimatedSprite2D.play("sw-walk")
-			if dir.x < -0.5 and dir.y < -0.5:
-				$AnimatedSprite2D.play("nw-walk")
-	else:	# sword held or slashing
-		var spr: AnimatedSprite2D = $AnimatedSprite2D
-		var attack_anim = get_attack_anim()
-		if is_slashing:
-			spr.play(attack_anim)
-		elif spr.animation != attack_anim or spr.is_playing():
-			# Sword raised and ready: hold the first frame of the slash
-			spr.play(attack_anim)
-			spr.stop()
-			spr.frame = 0
+func get_walk_anim(dir: Vector2) -> String:
+	var deg: float = rad_to_deg(dir.angle())
+	if deg >= -22.5 and deg < 22.5:
+		return "e-walk"
+	elif deg >= 22.5 and deg < 67.5:
+		return "se-walk"
+	elif deg >= 67.5 and deg < 112.5:
+		return "s-walk"
+	elif deg >= 112.5 and deg < 157.5:
+		return "sw-walk"
+	elif deg >= 157.5 or deg < -157.5:
+		return "w-walk"
+	elif deg >= -157.5 and deg < -112.5:
+		return "nw-walk"
+	elif deg >= -112.5 and deg < -67.5:
+		return "n-walk"
+	elif deg >= -67.5 and deg < -22.5:
+		return "ne-walk"
+	return "s-walk"
+
+
+func get_sword_idle_anim() -> String:
+	var deg: float = rad_to_deg(mouse_loc_from_player.angle())
+	if deg >= -45.0 and deg < 45.0:
+		return "e-idle-sword"
+	elif deg >= 45.0 and deg < 135.0:
+		return "s-idle-sword"
+	elif deg >= 135.0 or deg < -135.0:
+		return "w-idle-sword"
+	else:
+		return "n-idle-sword"
+
+
+func play_anim(dir: Vector2) -> void:
+	var spr: AnimatedSprite2D = $AnimatedSprite2D
+	
+	# Attack slash animation takes highest priority
+	if is_slashing:
+		spr.speed_scale = 1.0
+		spr.play(get_attack_anim())
+		return
+		
+	# Moving: adjust playback speed if sprinting
+	if player_state == "walking":
+		if is_sprinting:
+			spr.speed_scale = 1.6
+		else:
+			spr.speed_scale = 1.0
+		spr.play(get_walk_anim(dir))
+		return
+		
+	# Idle state
+	spr.speed_scale = 1.0
+	if current_weapon == Weapon.SWORD:
+		var sword_idle: String = get_sword_idle_anim()
+		if spr.animation != sword_idle or !spr.is_playing():
+			spr.play(sword_idle)
+	else:
+		if spr.animation != "idle" or !spr.is_playing():
+			spr.play("idle")
 
 
 func handleInput():
-	mouse_loc_from_player = get_global_mouse_position() - self.position
+	mouse_loc_from_player = get_global_mouse_position() - global_position
 	
 	var direction = Input.get_vector("left", "right", "up", "down")
 	
-	if direction.x == 0 and direction.y == 0:
+	if direction.is_zero_approx():
 		player_state = "idle"
-	elif  direction.x != 0 or direction.y != 0:
+		is_sprinting = false
+		velocity = Vector2.ZERO
+	else:
 		player_state = "walking"
-		
-	velocity = direction * SPEED
+		is_sprinting = Input.is_action_pressed("sprint") or Input.is_key_pressed(KEY_SHIFT)
+		var current_speed: float = SPRINT_SPEED if is_sprinting else WALK_SPEED
+		velocity = direction * current_speed
 	
 	if Input.is_action_just_pressed("bow"):
 		equip_weapon(Weapon.BOW)
@@ -291,8 +353,10 @@ func player():
 	pass
 
 
-func hurtByEnemy(_area):
-	current_health -= 10
+func hurtByEnemy(_area: Area2D) -> void:
+	if not is_alive or is_hurt:
+		return
+	current_health = max(0, current_health - 10)
 	checkHealth()
 	is_hurt = true
 	PlayerStats.player_hit = true
@@ -308,15 +372,19 @@ func hurtByEnemy(_area):
 	PlayerStats.player_hit = false
 
 
-func checkHealth():
+func checkHealth() -> void:
 	if current_health > max_health:
 		current_health = max_health
 	if current_health < 30:
 		PlayerStats.player_hit = true
-	if current_health <= 0:
+	if current_health <= 0 and is_alive:
+		is_alive = false
 		player_dying.play()
 		current_health = 0
-		is_alive = false
+		if has_node("hungerTimer"):
+			$hungerTimer.stop()
+		if has_node("thirstTimer"):
+			$thirstTimer.stop()
 		if ctrl_inventory_stacked.visible:
 			ctrl_inventory_stacked.visible = false
 		$AnimatedSprite2D.play("death")
@@ -325,32 +393,42 @@ func checkHealth():
 		playerDied.emit()
 
 
-func hungry():
-	current_hunger -= 10
+func hungry() -> void:
+	if not is_alive:
+		return
+	# Scale decay with activity (sprinting drains 15, walking drains 10, idle drains 5)
+	var decay: int = 15 if is_sprinting else (10 if player_state == "walking" else 5)
+	current_hunger = max(0, current_hunger - decay)
 	hungerChanged.emit()
 	if current_hunger <= 0:
-		current_hunger = 0
-		current_health -= 10
+		current_health = max(0, current_health - 10)
 		checkHealth()
 		healthChanged.emit()
 
 
-func thirsty():
-	current_thirst -= 10
+func thirsty() -> void:
+	if not is_alive:
+		return
+	# Scale decay with activity (sprinting drains 15, walking drains 10, idle drains 5)
+	var decay: int = 15 if is_sprinting else (10 if player_state == "walking" else 5)
+	current_thirst = max(0, current_thirst - decay)
 	thirstChanged.emit()
 	if current_thirst <= 0:
-		current_thirst = 0
-		current_health -= 10
+		current_health = max(0, current_health - 10)
 		checkHealth()
 		healthChanged.emit()
 
 
-func _on_hunger_timer_timeout():
+func _on_hunger_timer_timeout() -> void:
+	if not is_alive:
+		return
 	hungry()
 	$hungerTimer.start()
 
 
-func _on_thirst_timer_timeout():
+func _on_thirst_timer_timeout() -> void:
+	if not is_alive:
+		return
 	thirsty()
 	$thirstTimer.start()
 

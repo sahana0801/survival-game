@@ -1,42 +1,39 @@
 class_name Campfire extends StaticBody2D
-#https://opengameart.org/content/outdoor-tileset
 
-var is_burning = false
-var is_placed = false
-
-@export var player: Player
-
-@onready var tutorial_message_2_shown = false
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var is_burning: bool = false
+var is_placed: bool = false
+var player: CharacterBody2D = null
+var tutorial_message_2_shown: bool = false
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	inflame()
+func _ready() -> void:
+	set_process(false)
+	$AnimatedSprite2D.play("not_burning")
 
 
-
-func inflame():
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("fire") and player != null:
-		is_burning = !is_burning
+		toggle_fire()
+
+
+func toggle_fire() -> void:
+	is_burning = !is_burning
 	if is_burning:
 		$AnimatedSprite2D.play("burning")
 	else:
 		$AnimatedSprite2D.play("not_burning")
 
 
-
-func _on_area_2d_body_entered(body):
-	if body.has_method("player"):
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is Player or body.has_method("player"):
 		player = body
+		set_process(true)
 		if !tutorial_message_2_shown:
 			PlayerStats.send_message("You can ignite the campfire by pressing \"F\"")
 			tutorial_message_2_shown = true
 
 
-func _on_area_2d_body_exited(body):
-	if body.has_method("player"):
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body == player:
 		player = null
+		set_process(false)

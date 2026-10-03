@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://script/beginning_fields.gd" id="2_script"]
 
 [node name="BeginningFields" type="Node2D"]
+z_index = -1
 y_sort_enabled = true
 script = ExtResource("2_script")
 

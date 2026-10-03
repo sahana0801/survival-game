@@ -1,21 +1,66 @@
 class_name BeginningFields extends Node2D
 ## Post-processing for the imported "Beginning Fields" Tiled map.
 ## - Removes the baked campfire tiles (the game uses its own animated camp_fire scene).
-## - The Tiled "Water" layer is filled edge to edge with a transparent filler tile, so the
-##   real water cells are every cell that is NOT the most common tile. Interior water cells
-##   have no tile collision, so a blocker is generated for them, plus the drinking area.
+## - Promotes Object Layer 1 objects to World so they Y-sort with Player, Enemies, etc.
+## - Attaches TreeOcclusionFade to trees and houses so they fade when player goes behind them.
 
 @export var water_area_path: NodePath = ^"../water_collect_area"
+
+const TreeOcclusionFadeScript = preload("res://script/tree_occlusion_fade.gd")
 
 @onready var map: Node2D = $Map
 
 
 func _ready() -> void:
+	z_index = -1
 	_remove_baked_campfire()
 	var water := map.get_node_or_null("Water") as TileMapLayer
 	if water != null:
 		_build_water_collision(water)
 		_build_water_area(water)
+	call_deferred("_promote_objects_to_world")
+
+
+func _promote_objects_to_world() -> void:
+	var world := get_parent()
+	if world == null:
+		return
+	var obj_layer := map.get_node_or_null("Object Layer 1")
+	if obj_layer == null:
+		return
+		
+	var objects: Array = obj_layer.get_children()
+	for obj in objects:
+		if not is_instance_valid(obj):
+			continue
+		var g_pos: Vector2 = obj.global_position
+		var g_scale: Vector2 = obj.global_scale
+		obj.owner = null
+		obj_layer.remove_child(obj)
+		world.add_child(obj)
+		obj.global_position = g_pos
+		obj.global_scale = g_scale
+		obj.z_index = 0
+		obj.y_sort_enabled = true
+		
+		# Attach occlusion fade component if it's a tree or house
+		if obj.name.begins_with("Tree") or obj.name.begins_with("House"):
+			_attach_occlusion_fade(obj)
+
+
+func _attach_occlusion_fade(obj: Node2D) -> void:
+	var sprite: Sprite2D = null
+	for child in obj.get_children():
+		if child is Sprite2D:
+			sprite = child
+			break
+	if sprite == null or sprite.texture == null:
+		return
+	
+	var fader = TreeOcclusionFadeScript.new()
+	fader.name = "OcclusionFade"
+	obj.add_child(fader)
+	fader.setup(obj, sprite)
 
 
 ## Cells of a layer that contain a real tile (ignores the single most common filler tile).
@@ -40,9 +85,11 @@ static func get_real_cells(layer: TileMapLayer) -> Array[Vector2i]:
 
 
 func _remove_baked_campfire() -> void:
-	for n in map.get_node("Object Layer 1").get_children():
-		if n.name.begins_with("Animation_Campfire"):
-			n.queue_free()
+	var obj_layer := map.get_node_or_null("Object Layer 1")
+	if obj_layer != null:
+		for n in obj_layer.get_children():
+			if n.name.begins_with("Animation_Campfire"):
+				n.queue_free()
 
 
 func _cell_world_size(layer: TileMapLayer) -> Vector2:

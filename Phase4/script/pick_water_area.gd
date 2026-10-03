@@ -1,28 +1,28 @@
 extends Area2D
 
-@export var player: Player
-@export var item: InvItem
-
-@onready var tutorial_message_3_shown = false
+var player: CharacterBody2D = null
+var tutorial_message_3_shown: bool = false
 
 
-func _process(_delta):
-	pick_water()
+func _ready() -> void:
+	set_process(false)
 
 
-func pick_water():
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("harvest") and player != null:
 		PlayerStats.WaterCollected.emit()
 
 
-func _on_body_entered(body):
-	if body.has_method("player"):
+func _on_body_entered(body: Node2D) -> void:
+	if body is Player or body.has_method("player"):
 		player = body
+		set_process(true)
 		if !tutorial_message_3_shown:
 			PlayerStats.send_message("You can get some water with \"E\"")
 			tutorial_message_3_shown = true
 
 
-func _on_body_exited(body):
-	if body.has_method("player"):
+func _on_body_exited(body: Node2D) -> void:
+	if body == player:
 		player = null
+		set_process(false)

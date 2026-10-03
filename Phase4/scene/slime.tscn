@@ -1,7 +1,7 @@
-[gd_scene load_steps=33 format=3 uid="uid://badrenyf6lxhy"]
+[gd_scene load_steps=15 format=3 uid="uid://badrenyf6lxhy"]
 
 [ext_resource type="Script" path="res://script/slime.gd" id="1_1ciuu"]
-[ext_resource type="Texture2D" uid="uid://cgiw1gkpcta4w" path="res://art/character/survivalgame-enemy-slime.png" id="2_jja2w"]
+[ext_resource type="SpriteFrames" path="res://art/character/Slime/slime1_frames.tres" id="2_slime_frames"]
 [ext_resource type="PackedScene" uid="uid://n8b0xn8pvth7" path="res://scene/slime_collectable.tscn" id="4_ist1c"]
 [ext_resource type="Texture2D" uid="uid://4xccsrmfqsqn" path="res://art/character/healthbarUnder.png" id="5_roxur"]
 [ext_resource type="Texture2D" uid="uid://cgxtl0ubcip7p" path="res://art/character/healthbarProgress.png" id="6_234m7"]
@@ -10,155 +10,11 @@
 [ext_resource type="AudioStream" uid="uid://c25ja0hfql47c" path="res://sounds/inventory-grab.mp3" id="9_8vpki"]
 [ext_resource type="PackedScene" uid="uid://cfrrtbt38ggp2" path="res://scene/wander_controller.tscn" id="9_c08nb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ra2ed"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0f4sy"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dl4ov"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6n7eo"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nfdak"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(320, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5eeto"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(352, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2q5y0"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(384, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5k8lj"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(416, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8bxbd"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(448, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b4wb7"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k6if3"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ulpys"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jvar7"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_idykv"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yvrew"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ovkj"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lx7ix"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5k3kg"]
-atlas = ExtResource("2_jja2w")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dbxaf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ra2ed")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0f4sy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dl4ov")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6n7eo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nfdak")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5eeto")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2q5y0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5k8lj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8bxbd")
-}],
-"loop": true,
-"name": &"death",
-"speed": 9.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b4wb7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k6if3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ulpys")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 3.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jvar7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_idykv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yvrew")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ovkj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lx7ix")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5k3kg")
-}],
-"loop": true,
-"name": &"move",
-"speed": 5.0
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_vieam"]
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_40nnv"]
-radius = 4.0
+radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xi426"]
 radius = 39.0512
@@ -167,25 +23,22 @@ radius = 39.0512
 radius = 14.0
 
 [node name="Slime" type="CharacterBody2D" groups=["enemy", "slime"]]
-z_index = 14
 y_sort_enabled = true
 script = ExtResource("1_1ciuu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-sprite_frames = SubResource("SpriteFrames_dbxaf")
-animation = &"move"
-frame = 3
-frame_progress = 0.744574
+sprite_frames = ExtResource("2_slime_frames")
+animation = &"idle_s"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_vieam")
 
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(1, 0)
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_40nnv")
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -203,10 +56,10 @@ visible = false
 shape = SubResource("CircleShape2D_5u4rl")
 
 [node name="healthBar" type="TextureProgressBar" parent="."]
-offset_left = -5.0
-offset_top = -16.0
-offset_right = 59.0
-offset_bottom = -5.0
+offset_left = -6.0
+offset_top = -18.0
+offset_right = 58.0
+offset_bottom = -7.0
 scale = Vector2(0.2, 0.3)
 texture_under = ExtResource("5_roxur")
 texture_progress = ExtResource("6_234m7")
