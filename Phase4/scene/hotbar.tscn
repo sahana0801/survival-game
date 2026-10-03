@@ -1,0 +1,239 @@
+[gd_scene format=3 uid="uid://bvqqajp4qoguo"]
+
+[ext_resource type="Script" path="res://script/hotbar.gd" id="1_htbar"]
+[ext_resource type="Script" path="res://script/hotbar_slot.gd" id="2_slot"]
+[ext_resource type="Texture2D" path="res://art/bow.png" id="3_bow"]
+[ext_resource type="Texture2D" path="res://art/sword.png" id="4_sword"]
+[ext_resource type="Texture2D" path="res://art/health_potion.png" id="5_potion"]
+[ext_resource type="Texture2D" path="res://art/environment/apple-icon.png" id="6_apple"]
+[ext_resource type="Texture2D" path="res://art/skin_icon.png" id="7_skin"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.06, 0.08, 0.12, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.32, 0.42, 0.65)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 6
+
+[node name="Hotbar" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -175.0
+offset_top = -80.0
+offset_right = 175.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_htbar")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -26.0
+offset_right = 155.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="SlotBow" type="PanelContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("2_slot")
+hotkey_text = "1"
+active_border_color = Color(1, 0.85, 0.25, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/SlotBow"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="IconRect" type="TextureRect" parent="Panel/HBoxContainer/SlotBow/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_bow")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HotkeyLabel" type="Label" parent="Panel/HBoxContainer/SlotBow"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "1"
+
+[node name="SlotSword" type="PanelContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("2_slot")
+hotkey_text = "2"
+active_border_color = Color(0.25, 0.85, 1, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/SlotSword"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="IconRect" type="TextureRect" parent="Panel/HBoxContainer/SlotSword/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_sword")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HotkeyLabel" type="Label" parent="Panel/HBoxContainer/SlotSword"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "2"
+
+[node name="SlotPotion" type="PanelContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("2_slot")
+hotkey_text = "Z"
+active_border_color = Color(0.3, 0.95, 0.4, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/SlotPotion"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="IconRect" type="TextureRect" parent="Panel/HBoxContainer/SlotPotion/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_potion")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HotkeyLabel" type="Label" parent="Panel/HBoxContainer/SlotPotion"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "Z"
+
+[node name="SlotApple" type="PanelContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("2_slot")
+hotkey_text = "X"
+active_border_color = Color(1, 0.4, 0.35, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/SlotApple"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="IconRect" type="TextureRect" parent="Panel/HBoxContainer/SlotApple/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_apple")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HotkeyLabel" type="Label" parent="Panel/HBoxContainer/SlotApple"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "X"
+
+[node name="SlotSkin" type="PanelContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("2_slot")
+hotkey_text = "T"
+active_border_color = Color(0.9, 0.45, 1, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/SlotSkin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="IconRect" type="TextureRect" parent="Panel/HBoxContainer/SlotSkin/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("7_skin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HotkeyLabel" type="Label" parent="Panel/HBoxContainer/SlotSkin"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "T"
+
+[connection signal="gui_input" from="Panel/HBoxContainer/SlotBow" to="." method="_on_slot_bow_gui_input"]
+[connection signal="gui_input" from="Panel/HBoxContainer/SlotSword" to="." method="_on_slot_sword_gui_input"]
+[connection signal="gui_input" from="Panel/HBoxContainer/SlotPotion" to="." method="_on_slot_potion_gui_input"]
+[connection signal="gui_input" from="Panel/HBoxContainer/SlotApple" to="." method="_on_slot_apple_gui_input"]
+[connection signal="gui_input" from="Panel/HBoxContainer/SlotSkin" to="." method="_on_slot_skin_gui_input"]

@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1u8i88q2wc4b"]
+
+[ext_resource type="Script" path="res://script/day_and_night.gd" id="1_ynb8c"]
+[ext_resource type="AudioStream" uid="uid://cu5g1hnfdfrej" path="res://sounds/insects-and-frogs-at-night-17237.mp3" id="2_cpa58"]
+[ext_resource type="AudioStream" uid="uid://c5bnyqqrpkaoj" path="res://sounds/vogel-im-wald-und-kroten-am-teich.mp3" id="3_4aeg0"]
+
+[sub_resource type="Animation" id="Animation_wmqfs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.00392157, 0.00392157, 0.00392157, 0.882353)]
+}
+
+[sub_resource type="Animation" id="Animation_8870x"]
+resource_name = "day_to_night"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.00392157, 0.00392157, 0.00392157, 0), Color(0.00392157, 0.00392157, 0.00392157, 0.882353)]
+}
+
+[sub_resource type="Animation" id="Animation_rmx7w"]
+resource_name = "night_to_day"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.00392157, 0.00392157, 0.00392157, 0.882353), Color(0.00392157, 0.00392157, 0.00392157, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yx0yy"]
+_data = {
+"RESET": SubResource("Animation_wmqfs"),
+"day_to_night": SubResource("Animation_8870x"),
+"night_to_day": SubResource("Animation_rmx7w")
+}
+
+[node name="day_and_night" type="StaticBody2D"]
+script = ExtResource("1_ynb8c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -64.0
+offset_top = -44.0
+offset_right = 2555.0
+offset_bottom = 3342.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 0.882353)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yx0yy")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 240.0
+one_shot = true
+autostart = true
+
+[node name="NightSounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_cpa58")
+volume_db = -10.0
+
+[node name="DaySounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4aeg0")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://1gyxjl47e7if"]
+
+[ext_resource type="Script" path="res://script/game_over.gd" id="1_2wa2y"]
+[ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="2_4dxoa"]
+
+[node name="GameOverPanel" type="Panel"]
+offset_left = 673.0
+offset_top = 381.0
+offset_right = 1228.0
+offset_bottom = 680.0
+script = ExtResource("1_2wa2y")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -166.5
+offset_right = 166.5
+offset_bottom = 68.0
+grow_horizontal = 2
+theme = ExtResource("2_4dxoa")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 70
+text = "Game over"
+
+[node name="StatisticsLabel" type="RichTextLabel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -106.0
+offset_right = 253.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_4dxoa")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+text = "You played for 4:45 min
+and died on day 5"
+
+[node name="RestartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 230.0
+offset_right = 163.0
+offset_bottom = 261.0
+text = "Restart"
+
+[node name="MainMenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 230.0
+offset_right = 478.0
+offset_bottom = 261.0
+text = "Main Menu"
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]

@@ -1,0 +1,16 @@
+[
+	{ "name": "Carl", "text": "Hello there!" },
+	{ "name": "Carl", "text": "Who are you?" },
+	{ "name": "You", "text": "Just someone..." },
+	{ "name": "Carl", "text": "Never mind. I'm Carl..." },
+	{ "name": "You", "text": "But you..." },
+	{ "name": "Carl", "text": "I'm living here in that house." },
+	{ "name": "You", "text": "Far away from the next city." },
+	{ "name": "Carl", "text": "Yes, but I like it to be alone." },
+	{ "name": "You", "text": "Ok, then I better leave you alone..." },
+	{ "name": "Carl", "text": "Please wait a second..." },
+	{ "name": "You", "text": "Yes..." },
+	{ "name": "Carl", "text": "Have you seen those skeletons near the lake?" },
+	{ "name": "You", "text": "Which lake?" },
+	{ "name": "Carl", "text": "That one south from here. They are scary." }
+]

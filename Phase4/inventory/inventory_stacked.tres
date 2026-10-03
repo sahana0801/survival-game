@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://c45uhadq0vieg"]
+
+[ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_hh2fj"]
+
+[resource]
+script = ExtResource("1_hh2fj")
+json_data = "[
+    {
+        \"id\": \"stick\",
+        \"image\": \"res://art/environment/stick-icon.png\",
+        \"name\": \"Stick\",
+        \"stack_size\": \"5\"
+    },
+    {
+        \"id\": \"water_potion\",
+        \"image\": \"res://inventory/water_potion.png\",
+        \"name\": \"Water potion\",
+        \"stack_size\": \"1\"
+    },
+    {
+        \"id\": \"slime\",
+        \"image\": \"res://art/environment/SlimeIcon.png\",
+        \"name\": \"Slime\",
+        \"stack_size\": \"1\"
+    },
+    {
+        \"id\": \"health_potion\",
+        \"image\": \"res://art/health_potion.png\",
+        \"name\": \"Health potion\",
+        \"stack_size\": \"1\"
+    },
+    {
+        \"id\": \"apple\",
+        \"image\": \"res://art/environment/apple-icon.png\",
+        \"name\": \"Apple\",
+        \"stack_size\": \"1\"
+    }
+]"

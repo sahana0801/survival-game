@@ -1,0 +1,111 @@
+[gd_scene load_steps=15 format=3 uid="uid://clgvk1r5uvb1c"]
+
+[ext_resource type="Texture2D" uid="uid://5jafiq8b0rvk" path="res://art/environment/spooky_tileset.png" id="1_iw5yu"]
+[ext_resource type="Script" path="res://script/camp_fire.gd" id="1_trufi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ojfn"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(0, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bgbk"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(16, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7ru6"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(32, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oirvd"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(48, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxdtw"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(64, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_141f2"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(80, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg0ok"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(96, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pjdy"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(112, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkrk3"]
+atlas = ExtResource("1_iw5yu")
+region = Rect2(128, 160, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_at077"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ojfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bgbk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7ru6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oirvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxdtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_141f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg0ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pjdy")
+}],
+"loop": true,
+"name": &"burning",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkrk3")
+}],
+"loop": true,
+"name": &"not_burning",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3f5nf"]
+size = Vector2(17, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5ome"]
+size = Vector2(30, 13)
+
+[node name="camp_fire" type="StaticBody2D"]
+z_index = 5
+y_sort_enabled = true
+script = ExtResource("1_trufi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_at077")
+animation = &"burning"
+frame = 4
+frame_progress = 0.802064
+offset = Vector2(0, -12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -8)
+shape = SubResource("RectangleShape2D_3f5nf")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_v5ome")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://ltwdu7bfam6u"]
+
+[ext_resource type="Script" path="res://script/chest.gd" id="1_1s18u"]
+[ext_resource type="Texture2D" uid="uid://mrl304n7jvyd" path="res://art/environment/survivalgame-randomitems.png" id="1_pc5sx"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_g73nr"]
+[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="4_5akbj"]
+[ext_resource type="Resource" uid="uid://c45uhadq0vieg" path="res://inventory/inventory_stacked.tres" id="4_jvxc1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k2dy"]
+atlas = ExtResource("1_pc5sx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02yr3"]
+atlas = ExtResource("1_pc5sx")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_07dw8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k2dy")
+}],
+"loop": false,
+"name": &"closed",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02yr3")
+}],
+"loop": false,
+"name": &"open",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5w2m"]
+size = Vector2(26, 24)
+
+[node name="Chest" type="StaticBody2D"]
+script = ExtResource("1_1s18u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_07dw8")
+animation = &"open"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_u5w2m")
+
+[node name="InventoryStacked" type="Node" parent="."]
+script = ExtResource("3_g73nr")
+item_protoset = ExtResource("4_jvxc1")
+
+[node name="CtrlInventoryStacked" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -34.0
+offset_top = 10.0
+offset_right = 104.0
+offset_bottom = 106.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_5akbj")
+progress_bar_visible = false
+label_visible = false
+inventory_path = NodePath("../InventoryStacked")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

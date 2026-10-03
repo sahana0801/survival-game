@@ -1,0 +1,571 @@
+[gd_scene load_steps=30 format=3 uid="uid://dyniigaodesyl"]
+
+[ext_resource type="Script" path="res://script/test_map.gd" id="1_tv5xl"]
+[ext_resource type="Texture2D" uid="uid://l5vo2jow3a5c" path="res://art/environment/survivalgame-terrian-defult.png" id="2_c0xo2"]
+[ext_resource type="Texture2D" uid="uid://o5avspwfgfh" path="res://art/environment/survivalgame-terrian-water.png" id="3_x11xy"]
+[ext_resource type="Shader" path="res://shaders/water.gdshader" id="4_g5omh"]
+[ext_resource type="Texture2D" uid="uid://bai183cv75ru0" path="res://icon.svg" id="4_sw4fn"]
+[ext_resource type="Texture2D" uid="uid://ctwa2xohet2k7" path="res://art/environment/survivalgame-trees.png" id="4_swo7c"]
+[ext_resource type="Texture2D" uid="uid://cfswwxbbdhohi" path="res://art/environment/survivalgame-terrian-cliffs.png" id="5_3ewx0"]
+[ext_resource type="PackedScene" uid="uid://d0mn0prgj1gs5" path="res://scene/player.tscn" id="6_55ccf"]
+[ext_resource type="Texture2D" uid="uid://4b6jalj4vw4j" path="res://art/environment/survivalgame-terrian-water_transparent.png" id="6_734ua"]
+[ext_resource type="PackedScene" uid="uid://dw5wtj55dpfxg" path="res://scene/skeleton.tscn" id="7_v4b1b"]
+[ext_resource type="PackedScene" uid="uid://ltwdu7bfam6u" path="res://scene/chest.tscn" id="8_3m25m"]
+[ext_resource type="PackedScene" uid="uid://ckjo8h1hayvsi" path="res://scene/frog.tscn" id="12_ftnos"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wa1n0"]
+texture = ExtResource("5_3ewx0")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+6:0/0 = 0
+9:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+17:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+18:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+6:2/0 = 0
+9:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+17:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qhy5c"]
+texture = ExtResource("3_x11xy")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+5:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k46iq"]
+texture = ExtResource("6_734ua")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+5:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+15:2/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_dviov"]
+tile_size = Vector2i(40, 40)
+sources/0 = SubResource("TileSetAtlasSource_wa1n0")
+sources/1 = SubResource("TileSetAtlasSource_qhy5c")
+sources/3 = SubResource("TileSetAtlasSource_k46iq")
+
+[sub_resource type="Gradient" id="Gradient_50m86"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q2dco"]
+noise_type = 4
+seed = 7
+frequency = 0.1424
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jx2vc"]
+normalize = false
+color_ramp = SubResource("Gradient_50m86")
+noise = SubResource("FastNoiseLite_q2dco")
+
+[sub_resource type="Gradient" id="Gradient_61ohe"]
+offsets = PackedFloat32Array(0, 0.288828, 0.705722, 1)
+colors = PackedColorArray(0, 0, 0.8, 1, 0.288828, 0.288828, 0.857766, 1, 0.705722, 0.705722, 0.941144, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nyakm"]
+noise_type = 3
+seed = 9
+frequency = 0.0517
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aitg5"]
+normalize = false
+color_ramp = SubResource("Gradient_61ohe")
+noise = SubResource("FastNoiseLite_nyakm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wf1j0"]
+shader = ExtResource("4_g5omh")
+shader_parameter/scroll1 = Vector2(0.05, 0.05)
+shader_parameter/scroll2 = Vector2(-0.05, -0.05)
+shader_parameter/distortion_strength = 0.022
+shader_parameter/tone_color = Color(0.533333, 0.686275, 1, 1)
+shader_parameter/top_color = Color(0.890196, 0.92549, 1, 1)
+shader_parameter/light_start = 0.27
+shader_parameter/light_end = 0.777
+shader_parameter/noise1 = SubResource("NoiseTexture2D_jx2vc")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_aitg5")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6syes"]
+texture = ExtResource("2_c0xo2")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+8:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+20:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+24:0/0 = 0
+25:0/0 = 0
+26:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+20:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+24:1/0 = 0
+25:1/0 = 0
+26:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+8:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+20:2/0 = 0
+22:2/0 = 0
+23:2/0 = 0
+24:2/0 = 0
+25:2/0 = 0
+26:2/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+15:3/0 = 0
+16:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yq33g"]
+texture = ExtResource("3_x11xy")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+5:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kkybw"]
+texture = ExtResource("4_swo7c")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_swmpy"]
+texture = ExtResource("5_3ewx0")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+6:0/0 = 0
+9:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+17:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+18:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+6:2/0 = 0
+9:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+17:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq0vc"]
+texture = ExtResource("6_734ua")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+5:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_6mxpm"]
+tile_size = Vector2i(40, 40)
+sources/0 = SubResource("TileSetAtlasSource_6syes")
+sources/1 = SubResource("TileSetAtlasSource_yq33g")
+sources/2 = SubResource("TileSetAtlasSource_kkybw")
+sources/3 = SubResource("TileSetAtlasSource_swmpy")
+sources/4 = SubResource("TileSetAtlasSource_jq0vc")
+
+[node name="test_map" type="Node2D"]
+script = ExtResource("1_tv5xl")
+
+[node name="WaterMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_dviov")
+format = 2
+layer_0/name = "Cliffs"
+layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(196614, 524291, 0, 196615, 524291, 0, 196613, 524291, 0, 196616, 589827, 0, 196612, 458755, 0, 262148, 458755, 1, 327684, 458755, 1, 262152, 589827, 1, 327688, 589827, 2, 393223, 589827, 2, 393220, 458755, 2, 393221, 524291, 2, 327687, 720899, 1)
+layer_1/name = "Water"
+layer_1/y_sort_enabled = true
+layer_1/z_index = -2
+layer_1/tile_data = PackedInt32Array(196612, 524289, 1, 196613, 524289, 1, 196614, 524289, 1, 196615, 524289, 1, 196616, 524289, 1, 262152, 524289, 1, 327688, 524289, 1, 327687, 917505, 1, 327686, 851969, 1, 327685, 786433, 1, 327684, 524289, 1, 262148, 524289, 1, 262149, 786433, 0, 262150, 851969, 0, 262151, 917505, 0, 393223, 917505, 2, 393222, 851969, 2, 393221, 786433, 2, 393220, 524289, 1, 458758, 524289, 1, 524294, 524289, 1)
+
+[node name="WaterShader" type="TextureRect" parent="."]
+z_index = -1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_wf1j0")
+offset_left = 151.0
+offset_top = 122.0
+offset_right = 361.0
+offset_bottom = 365.0
+texture = ExtResource("4_sw4fn")
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_6mxpm")
+format = 2
+layer_0/name = "ground"
+layer_0/y_sort_enabled = true
+layer_0/z_index = -1
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 65536, 1, 2, 0, 0, 3, 0, 0, 4, 131072, 2, 5, 0, 0, 6, 0, 0, 7, 65536, 0, 8, 65536, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 1, 13, 0, 0, 14, 0, 0, 15, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 2, 393216, 0, 0, 458752, 131072, 1, 524288, 0, 0, 589824, 0, 2, 65537, 65536, 1, 131073, 65536, 1, 196609, 65536, 1, 196610, 65536, 1, 196621, 65536, 1, 262157, 65536, 1, 262156, 65536, 1, 327692, 65536, 1, 327691, 65536, 1, 393227, 65536, 1, 393226, 65536, 1, 393225, 65536, 1, 458761, 65536, 1, 589839, 65536, 1, 524303, 131072, 2, 458767, 131072, 2, 393231, 131072, 2, 327695, 131072, 2, 327694, 131072, 2, 262158, 131072, 2, 196622, 131072, 2, 131087, 131072, 2, 65551, 131072, 2, 65543, 65536, 0, 65542, 65536, 0, 131078, 65536, 0, 131077, 65536, 0, 589825, 0, 2, 589826, 0, 2, 524290, 0, 2, 524291, 0, 2, 589827, 0, 2, 589828, 0, 2, 589829, 0, 2, 524293, 0, 2, 458757, 0, 2, 589830, 65536, 1, 589831, 65536, 1, 589832, 65536, 1, 589833, 65536, 1, 589834, 65536, 1, 589835, 65536, 1, 589836, 65536, 1, 589837, 65536, 1, 589838, 65536, 1, 196623, 131072, 1, 262159, 131072, 1, 131079, 0, 1, 131080, 0, 1, 131081, 0, 1, 131082, 0, 1, 131083, 0, 1, 131084, 0, 1, 131085, 0, 1, 131086, 0, 1, 65544, 0, 1, 65545, 0, 1, 65546, 0, 1, 65547, 0, 1, 65548, 0, 1, 65549, 0, 1, 65550, 0, 1, 262145, 131072, 1, 327681, 131072, 1, 393217, 131072, 1, 458753, 131072, 1, 524289, 131072, 1, 524295, 131072, 1, 524296, 131072, 1, 524297, 131072, 1, 524298, 131072, 1, 524299, 131072, 1, 524300, 131072, 1, 524301, 131072, 1, 524302, 131072, 1, 393230, 131072, 1, 458766, 131072, 1, 196618, 131072, 1, 262154, 131072, 1, 327690, 131072, 1, 196617, 65536, 1, 262153, 65536, 1, 327689, 65536, 1, 393224, 65536, 1, 458760, 65536, 1, 458759, 65536, 1, 524292, 65536, 1, 65538, 65536, 1, 131074, 65536, 1, 262146, 65536, 1, 327682, 65536, 1, 393218, 65536, 1, 458754, 65536, 1, 65539, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 262147, 65536, 1, 327683, 65536, 1, 393219, 65536, 1, 458755, 65536, 1, 196619, 65536, 1, 262155, 65536, 1, 196620, 65536, 1, 327693, 131072, 2, 393229, 131072, 2, 458765, 131072, 2, 458762, 131072, 2, 458763, 131072, 2, 458764, 131072, 2, 393228, 131072, 2, 65541, 131072, 2, 65540, 131072, 2, 131076, 131072, 2, 458756, 131072, 2, 458758, 4, 1, 524294, 4, 2, 393222, 327684, 2, 327687, 720900, 1)
+layer_1/name = "cliffs"
+layer_1/y_sort_enabled = true
+layer_1/tile_data = PackedInt32Array(196619, 720899, 0, 262155, 720899, 1, 327691, 720899, 2, 196620, 786435, 0, 262156, 786435, 1, 327692, 1114115, 2, 196621, 851971, 0, 262157, 851971, 1, 327693, 851971, 2, 327680, 720899, 0, 393216, 720899, 1, 458752, 720899, 2, 327681, 786435, 0, 393217, 786435, 1, 458753, 786435, 2, 327682, 851971, 0, 393218, 1179651, 1, 458754, 851971, 2, 196612, 458756, 0, 262148, 458756, 1, 327684, 458756, 1, 393220, 458756, 2, 393221, 524292, 2, 458758, 4, 1, 524294, 4, 2, 196616, 589828, 0, 262152, 589828, 1, 327688, 589828, 2, 196615, 524292, 0, 196614, 524292, 0, 196613, 524292, 0)
+layer_2/name = "trees"
+layer_2/y_sort_enabled = true
+layer_2/y_sort_origin = 1
+layer_2/tile_data = PackedInt32Array(65539, 524290, 0, 13, 524290, 0, 524302, 524290, 0, 524293, 524290, 0, 589827, 524290, 0, 196609, 524290, 0, 65545, 524290, 0, 458763, 524290, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.855
+
+[node name="Player" parent="." instance=ExtResource("6_55ccf")]
+position = Vector2(98, 122)
+
+[node name="Skeleton" parent="." instance=ExtResource("7_v4b1b")]
+position = Vector2(494, 262)
+
+[node name="collisions" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="collisions"]
+polygon = PackedVector2Array(89, 242, 91, 227, 28, 229, 24, 292, 91, 292, 91, 273, 80, 271, 105, 271, 106, 314, 14, 315, 12, 234, 26, 221, 98, 222, 106, 234, 106, 247)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="collisions"]
+polygon = PackedVector2Array(175, 138, 188, 130, 333, 130, 352, 141, 353, 225, 325, 228, 309, 244, 301, 266, 279, 272, 275, 350, 261, 355, 246, 347, 243, 269, 173, 267)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="collisions"]
+polygon = PackedVector2Array(480, 206, 480, 234, 461, 234, 455, 221, 455, 158, 464, 146, 535, 145, 545, 155, 546, 223, 541, 233, 521, 234, 518, 205, 531, 210, 532, 153, 472, 153, 469, 206)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="collisions"]
+polygon = PackedVector2Array(631, -1, 642, 14, 640, 401, -2, 401, -1, 387, 2, -1, 627, 3, 644, -16, -28, -24, -35, 420, 673, 420, 667, -26)
+
+[node name="Chest" parent="." instance=ExtResource("8_3m25m")]
+position = Vector2(503, 175)
+
+[node name="Frog" parent="." instance=ExtResource("12_ftnos")]
+position = Vector2(259, 202)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
