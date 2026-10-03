@@ -1,0 +1,12 @@
+# Godot 4+ cache & export files
+.godot/
+*.translation
+
+# Mono / C# (if any)
+.mono/
+[Bb]in/
+[Oo]bj/
+
+# OS generated
+.DS_Store
+Thumbs.db

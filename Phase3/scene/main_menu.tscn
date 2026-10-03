@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4jabv080y23m"]
+
+[ext_resource type="Texture2D" uid="uid://dt7f3giupd0xu" path="res://art/main_menu_screen_large.png" id="1_8ehsx"]
+[ext_resource type="Script" path="res://script/main_menu.gd" id="2_kt8ck"]
+[ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="3_8yfrg"]
+[ext_resource type="AudioStream" uid="uid://c5uqlcbfc1oi2" path="res://sounds/sonatina_letsadventure_1ATaleForTheJourney.ogg" id="4_f4oj2"]
+
+[node name="MainMenu" type="TextureRect"]
+offset_right = 712.0
+offset_bottom = 339.0
+texture = ExtResource("1_8ehsx")
+script = ExtResource("2_kt8ck")
+
+[node name="NewGameButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 279.0
+offset_right = 709.0
+offset_bottom = 335.0
+theme = ExtResource("3_8yfrg")
+theme_override_font_sizes/font_size = 55
+text = "New Game"
+
+[node name="LoadGameButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 343.0
+offset_right = 644.0
+offset_bottom = 386.0
+theme = ExtResource("3_8yfrg")
+theme_override_font_sizes/font_size = 55
+text = "Load Game"
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 445.0
+offset_top = 405.0
+offset_right = 639.0
+offset_bottom = 448.0
+theme = ExtResource("3_8yfrg")
+theme_override_font_sizes/font_size = 55
+text = "Exit Game"
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_f4oj2")
+autoplay = true
+
+[node name="CreditsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1228.0
+offset_top = 852.0
+offset_right = 1426.0
+offset_bottom = 895.0
+theme = ExtResource("3_8yfrg")
+theme_override_font_sizes/font_size = 55
+text = "Credits"
+
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 900.0
+offset_top = 609.0
+offset_right = 1098.0
+offset_bottom = 652.0
+theme = ExtResource("3_8yfrg")
+theme_override_font_sizes/font_size = 55
+text = "Settings
+"
+
+[connection signal="pressed" from="NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]

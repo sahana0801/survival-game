@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://q4au0phn3dps"]
+
+[ext_resource type="Script" path="res://script/pause_menu.gd" id="1_bd770"]
+[ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="1_v570q"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bd770")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+process_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.5
+offset_top = -120.5
+offset_right = 220.5
+offset_bottom = 120.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 16.0
+offset_right = 332.0
+offset_bottom = 56.0
+theme = ExtResource("1_v570q")
+theme_override_font_sizes/normal_font_size = 40
+text = "Game paused"
+scroll_active = false
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 70.0
+offset_right = 278.0
+offset_bottom = 110.0
+theme = ExtResource("1_v570q")
+theme_override_font_sizes/font_size = 30
+text = "Resume"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 123.0
+offset_right = 264.0
+offset_bottom = 163.0
+theme = ExtResource("1_v570q")
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 176.0
+offset_right = 278.0
+offset_bottom = 216.0
+theme = ExtResource("1_v570q")
+theme_override_font_sizes/font_size = 30
+text = "Exit"
+
+[connection signal="pressed" from="CanvasLayer/Panel/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/ExitButton" to="." method="_on_exit_button_pressed"]

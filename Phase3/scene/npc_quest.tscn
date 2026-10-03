@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs1d6lbjq57ka"]
+
+[ext_resource type="Texture2D" uid="uid://b3due6hwdglbn" path="res://art/inventory_art/inventory-slot.png" id="1_atsjj"]
+[ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="2_ddvpv"]
+[ext_resource type="FontFile" uid="uid://cc245gvbb22hq" path="res://font/INKFREE.TTF" id="3_0ii30"]
+
+[node name="npc_quest" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="quest1_ui" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = -63.0
+offset_top = -123.0
+offset_right = 64.0
+offset_bottom = -65.0
+texture = ExtResource("1_atsjj")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Name" type="RichTextLabel" parent="quest1_ui"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 124.0
+offset_bottom = 20.0
+theme = ExtResource("2_ddvpv")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_0ii30")
+text = "Carl's Quest"
+
+[node name="Text" type="RichTextLabel" parent="quest1_ui"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 20.0
+offset_right = 299.0
+offset_bottom = 108.0
+scale = Vector2(0.4, 0.4)
+theme = ExtResource("2_ddvpv")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_0ii30")
+text = "Chatting........."

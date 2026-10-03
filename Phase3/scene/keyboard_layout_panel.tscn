@@ -1,0 +1,290 @@
+[gd_scene load_steps=3 format=3 uid="uid://hy6wdxrypvps"]
+
+[ext_resource type="Script" path="res://script/keyboardLayoutPanel.gd" id="1_qxyet"]
+[ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="2_ecb7s"]
+
+[node name="KeyboardLayoutPanel" type="Panel"]
+visible = false
+offset_right = 615.0
+offset_bottom = 447.0
+script = ExtResource("1_qxyet")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 4.0
+offset_right = 431.0
+offset_bottom = 44.0
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/normal_font_size = 36
+text = "Keyboard layout"
+tab_size = 1
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 38.0
+offset_right = 595.0
+offset_bottom = 335.0
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Right"
+
+[node name="Label2" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "D"
+
+[node name="Label3" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Left"
+
+[node name="Label4" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "A"
+
+[node name="Label5" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Up"
+
+[node name="Label6" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "W"
+
+[node name="Label7" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Down"
+
+[node name="Label8" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "S"
+
+[node name="Label9" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Bow"
+
+[node name="Label10" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "1"
+
+[node name="Label11" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Inventory"
+
+[node name="Label12" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "I"
+
+[node name="Label13" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Fire"
+
+[node name="Label14" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "F"
+
+[node name="Label15" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Harvest (pick up items)"
+
+[node name="Label16" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "E"
+
+[node name="Label17" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Drink"
+
+[node name="Label18" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Y"
+
+[node name="Label19" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Eat"
+
+[node name="Label20" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "X"
+
+[node name="Label21" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Chat with NPC"
+
+[node name="Label22" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "C"
+
+[node name="Label23" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Next dialogue with NPC"
+
+[node name="Label24" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Enter"
+
+[node name="Label25" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Shoot arrow"
+
+[node name="Label26" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Mouse left"
+
+[node name="Label27" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Inventories (two need to be open)"
+
+[node name="Label28" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Mouse left select item"
+
+[node name="Label29" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+
+[node name="Label31" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Mouse right transfer item"
+
+[node name="Label32" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Keyboard Layout (Help)"
+
+[node name="Label33" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "F1"
+
+[node name="Label34" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Frames per second"
+
+[node name="Label35" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "F12"
+
+[node name="Label36" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Exit Game"
+
+[node name="Label30" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "ESC"
+
+[node name="closeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 550.0
+offset_top = 403.0
+offset_right = 605.0
+offset_bottom = 437.0
+text = "Close"
+
+[connection signal="pressed" from="closeButton" to="." method="_on_close_button_pressed"]

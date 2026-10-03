@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://drr476tf4x2js"]
+
+[ext_resource type="Material" uid="uid://irrq3p45gv5t" path="res://shaders/water_shader_material.tres" id="1_bbyd0"]
+[ext_resource type="PackedScene" uid="uid://badrenyf6lxhy" path="res://scene/slime.tscn" id="3_uf4yd"]
+[ext_resource type="Script" path="res://shaders/Water.gd" id="5_d80il"]
+
+[node name="World" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(102, 96)
+
+[node name="Water" type="Sprite2D" parent="Node2D"]
+material = ExtResource("1_bbyd0")
+position = Vector2(89, 96)
+scale = Vector2(1.19375, 1.475)
+script = ExtResource("5_d80il")
+
+[node name="Slime" parent="." instance=ExtResource("3_uf4yd")]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://boubpgpx7qw0"]
+
+[ext_resource type="Texture2D" uid="uid://bwoxtvrtmxlbr" path="res://art/health_potion.png" id="1_xe3ce"]
+
+[node name="Health_Potion_collectable" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xe3ce")
