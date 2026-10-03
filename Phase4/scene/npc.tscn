@@ -1,8 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://pkc5es7jq8x2"]
+[gd_scene format=3 uid="uid://cl4dt2wrd3qfv"]
 
-[ext_resource type="Texture2D" uid="uid://c7838dsh4x7ij" path="res://art/character/Human-Worker-Red.png" id="1_ckwfj"]
+[ext_resource type="Texture2D" path="res://art/character/Human-Worker-Red.png" id="1_ckwfj"]
 [ext_resource type="Script" path="res://script/npc.gd" id="1_o3bcq"]
-[ext_resource type="PackedScene" uid="uid://4h3uaee614dl" path="res://dialogue/dialogue.tscn" id="3_0xwdb"]
+[ext_resource type="PackedScene" path="res://dialogue/dialogue.tscn" id="3_0xwdb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fwtos"]
 atlas = ExtResource("1_ckwfj")
@@ -85,7 +85,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5lix3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 2.0
 }, {
@@ -102,7 +102,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_60rck")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_e",
 "speed": 5.0
 }, {
@@ -119,7 +119,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fpcpv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_n",
 "speed": 5.0
 }, {
@@ -136,7 +136,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7khn6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_s",
 "speed": 5.0
 }, {
@@ -153,7 +153,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kew61")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_w",
 "speed": 5.0
 }]
@@ -164,26 +164,26 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_xebve"]
 radius = 18.0278
 
-[node name="npc" type="CharacterBody2D" groups=["npc"]]
+[node name="npc" type="CharacterBody2D" unique_id=1114509821 groups=["npc"]]
 script = ExtResource("1_o3bcq")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1467869957]
 sprite_frames = SubResource("SpriteFrames_fup5k")
 animation = &"idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=20134835]
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_oqhlk")
 
-[node name="chat_detection_area" type="Area2D" parent="."]
+[node name="chat_detection_area" type="Area2D" parent="." unique_id=1690987503]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="chat_detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chat_detection_area" unique_id=1606064400]
 shape = SubResource("CircleShape2D_xebve")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1402207616]
 autostart = true
 
-[node name="Dialogue" parent="." instance=ExtResource("3_0xwdb")]
+[node name="Dialogue" parent="." unique_id=2128128143 instance=ExtResource("3_0xwdb")]
 
 [connection signal="body_entered" from="chat_detection_area" to="." method="_on_chat_detection_area_body_entered"]
 [connection signal="body_exited" from="chat_detection_area" to="." method="_on_chat_detection_area_body_exited"]

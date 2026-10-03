@@ -1,9 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://d0ylgb5olq8hw"]
+[gd_scene load_steps=32 format=3 uid="uid://d0ylgb5olq8hw"]
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_u3rvd"]
 [ext_resource type="PackedScene" uid="uid://d0mn0prgj1gs5" path="res://scene/player.tscn" id="1_cv17m"]
 [ext_resource type="PackedScene" path="res://scene/beginning_fields.tscn" id="2_fields"]
-[ext_resource type="PackedScene" uid="uid://dyb2qp4jsbfm5" path="res://scene/apple_tree.tscn" id="6_im1k3"]
 [ext_resource type="Script" path="res://script/spawner.gd" id="9_f75or"]
 [ext_resource type="PackedScene" uid="uid://badrenyf6lxhy" path="res://scene/slime.tscn" id="9_uwyin"]
 [ext_resource type="Texture2D" uid="uid://4xccsrmfqsqn" path="res://art/character/healthbarUnder.png" id="10_5sj4s"]
@@ -23,7 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://hy6wdxrypvps" path="res://scene/keyboard_layout_panel.tscn" id="19_ssdro"]
 [ext_resource type="PackedScene" uid="uid://1gyxjl47e7if" path="res://scene/game_over_panel.tscn" id="21_8srsg"]
 [ext_resource type="Script" path="res://script/FPSCounter.gd" id="22_7epms"]
-[ext_resource type="PackedScene" uid="uid://c1qcc6lclah8e" path="res://scene/world_2.tscn" id="26_q5dhs"]
 [ext_resource type="AudioStream" uid="uid://nvqbsu0gbl6n" path="res://sounds/sonatina_letsadventure_2Harbingers.ogg" id="27_5gxfb"]
 [ext_resource type="PackedScene" uid="uid://bcjq1xw84ydbb" path="res://scene/message_layer.tscn" id="28_3ystj"]
 [ext_resource type="PackedScene" uid="uid://ckjo8h1hayvsi" path="res://scene/frog.tscn" id="30_8drt3"]
@@ -46,18 +44,10 @@ position = Vector2(-800, -200)
 [node name="Player" parent="." instance=ExtResource("1_cv17m")]
 position = Vector2(0, 340)
 
-[node name="apple_tree" parent="." instance=ExtResource("6_im1k3")]
-position = Vector2(160, 260)
-scale = Vector2(2, 2)
-
-[node name="apple_tree2" parent="." instance=ExtResource("6_im1k3")]
-position = Vector2(-320, 200)
-scale = Vector2(2, 2)
-
 [node name="collisions" type="StaticBody2D" parent="."]
 
 [node name="outer_border" type="CollisionPolygon2D" parent="collisions"]
-polygon = PackedVector2Array(-800, 1400, -800, -200, 800, -200, 800, 1400, 640, 1400, 640, 1440, 840, 1440, 840, -240, -840, -240, -840, 1440, 480, 1440, 480, 1400)
+polygon = PackedVector2Array(-800, 1400, -800, -200, 800, -200, 800, 1400, -800, 1400, -840, 1440, 840, 1440, 840, -240, -840, -240, -840, 1440)
 
 [node name="spawner" type="Marker2D" parent="."]
 script = ExtResource("9_f75or")
@@ -198,8 +188,6 @@ script = ExtResource("17_oqlrm")
 player = NodePath("../Player")
 item = ExtResource("18_u3prd")
 
-[node name="world2" parent="." instance=ExtResource("26_q5dhs")]
-position = Vector2(640, 0)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("27_5gxfb")

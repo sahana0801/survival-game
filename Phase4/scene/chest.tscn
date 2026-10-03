@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ltwdu7bfam6u"]
+[gd_scene format=3 uid="uid://fuxo58mmupy5"]
 
 [ext_resource type="Script" path="res://script/chest.gd" id="1_1s18u"]
-[ext_resource type="Texture2D" uid="uid://mrl304n7jvyd" path="res://art/environment/survivalgame-randomitems.png" id="1_pc5sx"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_g73nr"]
-[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="4_5akbj"]
+[ext_resource type="Texture2D" path="res://art/environment/survivalgame-randomitems.png" id="1_pc5sx"]
+[ext_resource type="Script" uid="uid://ctrkxmyhsornw" path="res://addons/gloot/core/inventory_stacked.gd" id="3_g73nr"]
+[ext_resource type="Script" uid="uid://ctygnoen6pv3c" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="4_5akbj"]
 [ext_resource type="Resource" uid="uid://c45uhadq0vieg" path="res://inventory/inventory_stacked.tres" id="4_jvxc1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5k2dy"]
@@ -20,7 +20,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5k2dy")
 }],
-"loop": false,
+"loop": 0,
 "name": &"closed",
 "speed": 0.0
 }, {
@@ -28,7 +28,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_02yr3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"open",
 "speed": 0.0
 }]
@@ -36,23 +36,23 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5w2m"]
 size = Vector2(26, 24)
 
-[node name="Chest" type="StaticBody2D"]
+[node name="Chest" type="StaticBody2D" unique_id=31956172]
 script = ExtResource("1_1s18u")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=841996031]
 sprite_frames = SubResource("SpriteFrames_07dw8")
 animation = &"open"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1643163141]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1492401959]
 shape = SubResource("RectangleShape2D_u5w2m")
 
-[node name="InventoryStacked" type="Node" parent="."]
+[node name="InventoryStacked" type="Node" parent="." unique_id=1990006709]
 script = ExtResource("3_g73nr")
 item_protoset = ExtResource("4_jvxc1")
 
-[node name="CtrlInventoryStacked" type="Control" parent="."]
+[node name="CtrlInventoryStacked" type="Control" parent="." unique_id=138965089]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -34.0

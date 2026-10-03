@@ -173,28 +173,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Chat with NPC"
+text = "Switch Weapon"
 
 [node name="Label22" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "C"
+text = "1 / 2"
 
 [node name="Label23" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Next dialogue with NPC"
+text = "Toggle Skin"
 
 [node name="Label24" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Enter"
+text = "T"
 
 [node name="Label25" type="Label" parent="GridContainer"]
 layout_mode = 2

@@ -7,16 +7,12 @@ var world
 var tilemap
 
 @onready var stick: Stick
-@onready var appleTree: AppleTree
 @onready var slime: Slime
 
 const StickSpawner = preload("res://inventory/stick_collactable.tscn")
-const AppleTreeSpawner = preload("res://scene/apple_tree.tscn")
 const SlimeSpawner = preload("res://scene/slime.tscn")
 
-var count_apple_trees = 0
 var count_slimes = 0
-var max_apple_trees = 10
 var max_slimes = 0
 
 var new_ground_layer: TileMapLayer = null
@@ -92,16 +88,6 @@ func add_stick_to_world():
 	world.add_child(stick)
 
 
-func add_apple_tree_to_world():
-	if free_cells.is_empty(): return
-	var rand_value = pick_free_cell()
-	appleTree = AppleTreeSpawner.instantiate()
-	appleTree.position = get_spawn_position(rand_value)
-	appleTree.scale = Vector2(2, 2)
-	world.add_child(appleTree)
-	var remove_id = free_cells.find(rand_value)
-	if remove_id >= 0:
-		free_cells.remove_at(remove_id)
 
 
 func add_slime_to_world():
@@ -116,9 +102,6 @@ func add_slime_to_world():
 
 
 func _on_timer_timeout():
-	if count_apple_trees < max_apple_trees:
-		add_apple_tree_to_world()
-		count_apple_trees += 1
 	add_stick_to_world()
 	if count_slimes < max_slimes:
 		add_slime_to_world()

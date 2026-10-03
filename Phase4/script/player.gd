@@ -24,8 +24,6 @@ var is_slashing = false
 
 var arrow = preload("res://scene/arrow.tscn")
 var sword_slash_scene = preload("res://scene/sword_slash.tscn")
-var skin_green = preload("res://art/character/survivalgame-player-green.png")
-var skin_red = preload("res://art/character/Human-Worker-Red.png")
 var current_skin = 0
 var mouse_loc_from_player = null
 
