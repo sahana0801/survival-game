@@ -13,6 +13,7 @@ signal manaChanged
 signal thirstChanged
 signal playerDied
 signal weaponChanged(weapon_index: int)
+@warning_ignore("unused_signal")
 signal skinChanged(skin_name: String)
 
 enum Weapon { NONE = 0, BOW = 1, SWORD = 2 }

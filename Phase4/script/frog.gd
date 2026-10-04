@@ -61,8 +61,8 @@ func _physics_process(delta: float):
 		move_and_slide()
 		
 		# Spit poison glob when in medium range
-		var dist = global_position.distance_to(player.global_position)
-		if dist < 220.0 and spit_cooldown <= 0.0:
+		var dist_sq = global_position.distance_squared_to(player.global_position)
+		if dist_sq < 48400.0 and spit_cooldown <= 0.0: # 220 px
 			spit_poison(dir)
 	else:
 		match current_state:
@@ -101,7 +101,11 @@ func take_damage(damage: int, is_crit: bool = false):
 	
 	# Hurt flash
 	modulate = Color(1.8, 0.4, 0.4)
-	await get_tree().create_timer(0.12).timeout
+	var tree = get_tree()
+	if tree != null:
+		await tree.create_timer(0.12).timeout
+	if not is_inside_tree():
+		return
 	modulate = Color(0.85, 1.15, 0.85)
 	
 	if current_health <= 0:
@@ -125,6 +129,8 @@ func death():
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
 	await tween.finished
+	if not is_inside_tree():
+		return
 	queue_free()
 
 

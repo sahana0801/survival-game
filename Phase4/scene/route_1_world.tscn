@@ -1,53 +1,56 @@
 [gd_scene format=3 uid="uid://c3j74rjbnv8s1"]
 
-[ext_resource type="Script" path="res://script/world.gd" id="1_world_script"]
-[ext_resource type="PackedScene" path="res://scene/route_1.tscn" id="2_route1"]
+[ext_resource type="Script" uid="uid://c58prwnjh0wpw" path="res://script/world.gd" id="1_world_script"]
+[ext_resource type="PackedScene" uid="uid://5pro708f0qxj" path="res://scene/route_1.tscn" id="2_route1"]
 [ext_resource type="PackedScene" path="res://scene/scene_teleport_trigger.tscn" id="3_trigger"]
 [ext_resource type="PackedScene" uid="uid://d0mn0prgj1gs5" path="res://scene/player.tscn" id="4_player"]
-[ext_resource type="PackedScene" uid="uid://cx8statuspanel99" path="res://scene/status_panel.tscn" id="5_spanel"]
+[ext_resource type="PackedScene" uid="uid://qdi2shl3wgcw" path="res://scene/status_panel.tscn" id="5_spanel"]
 [ext_resource type="PackedScene" uid="uid://hy6wdxrypvps" path="res://scene/keyboard_layout_panel.tscn" id="15_keyb"]
 [ext_resource type="PackedScene" uid="uid://1gyxjl47e7if" path="res://scene/game_over_panel.tscn" id="16_gover"]
-[ext_resource type="Script" path="res://script/FPSCounter.gd" id="17_fps"]
+[ext_resource type="Script" uid="uid://cnxwvos1bidtb" path="res://script/FPSCounter.gd" id="17_fps"]
 [ext_resource type="PackedScene" uid="uid://bvqqajp4qoguo" path="res://scene/hotbar.tscn" id="18_hotbar"]
 [ext_resource type="PackedScene" uid="uid://d1u8i88q2wc4b" path="res://scene/day_and_night.tscn" id="20_daynight"]
 [ext_resource type="AudioStream" uid="uid://nvqbsu0gbl6n" path="res://sounds/sonatina_letsadventure_2Harbingers.ogg" id="21_music"]
 [ext_resource type="PackedScene" uid="uid://bcjq1xw84ydbb" path="res://scene/message_layer.tscn" id="22_msg"]
 [ext_resource type="PackedScene" uid="uid://q4au0phn3dps" path="res://scene/pause_menu.tscn" id="23_pause"]
-[ext_resource type="PackedScene" uid="uid://invwindow998877" path="res://scene/inventory_window.tscn" id="24_invwin"]
+[ext_resource type="PackedScene" uid="uid://c6qhjvyilbooa" path="res://scene/inventory_window.tscn" id="24_invwin"]
+[ext_resource type="PackedScene" uid="uid://ca5l3eld01vnq" path="res://scene/night_boss_portal.tscn" id="25_nightportal"]
 
-[node name="Route1World" type="Node2D"]
+[node name="Route1World" type="Node2D" unique_id=1979732864]
 process_mode = 1
 y_sort_enabled = true
 script = ExtResource("1_world_script")
 
-[node name="Route1" parent="." instance=ExtResource("2_route1")]
+[node name="Route1" parent="." unique_id=630901202 instance=ExtResource("2_route1")]
 position = Vector2(-800, -200)
 
-[node name="ExitToVillage" parent="." instance=ExtResource("3_trigger")]
+[node name="NightBossPortal" parent="." unique_id=872714558 instance=ExtResource("25_nightportal")]
+position = Vector2(245, 28)
+
+[node name="ExitToVillage" parent="." unique_id=63488975 instance=ExtResource("3_trigger")]
 position = Vector2(600, -170)
 target_scene = "res://scene/world.tscn"
 target_spawn_pos = Vector2(600, 1310)
 zone_name = "🏡 Làng Khởi Đầu"
 
-[node name="Player" parent="." instance=ExtResource("4_player")]
+[node name="Player" parent="." unique_id=725291160 instance=ExtResource("4_player")]
 position = Vector2(600, -80)
 
-[node name="collisions" type="StaticBody2D" parent="."]
+[node name="collisions" type="StaticBody2D" parent="." unique_id=134779425]
 
-[node name="outer_border" type="CollisionPolygon2D" parent="collisions"]
+[node name="outer_border" type="CollisionPolygon2D" parent="collisions" unique_id=864332330]
 polygon = PackedVector2Array(-800, 1400, -800, -200, 800, -200, 800, 1400, -800, 1400, -840, 1440, 840, 1440, 840, -240, -840, -240, -840, 1440)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2114384914]
 
-[node name="StatusPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("5_spanel")]
+[node name="StatusPanel" parent="CanvasLayer" unique_id=397585450 node_paths=PackedStringArray("player") instance=ExtResource("5_spanel")]
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 208.0
 offset_bottom = 96.0
-scale = Vector2(2.2, 2.2)
 player = NodePath("../../Player")
 
-[node name="KeyboardLayoutPanel" parent="CanvasLayer" instance=ExtResource("15_keyb")]
+[node name="KeyboardLayoutPanel" parent="CanvasLayer" unique_id=66145235 instance=ExtResource("15_keyb")]
 offset_left = 716.0
 offset_top = 299.0
 offset_right = 1331.0
@@ -55,7 +58,7 @@ offset_bottom = 746.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="GameOverPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("16_gover")]
+[node name="GameOverPanel" parent="CanvasLayer" unique_id=1859799014 node_paths=PackedStringArray("player") instance=ExtResource("16_gover")]
 visible = false
 offset_left = 713.0
 offset_top = 323.0
@@ -63,14 +66,14 @@ offset_right = 1323.0
 offset_bottom = 608.0
 player = NodePath("../../Player")
 
-[node name="FPSPanel" type="Panel" parent="CanvasLayer"]
+[node name="FPSPanel" type="Panel" parent="CanvasLayer" unique_id=655876191]
 visible = false
 offset_left = 18.0
 offset_top = 1022.0
 offset_right = 96.0
 offset_bottom = 1054.0
 
-[node name="FPSCounter" type="Label" parent="CanvasLayer/FPSPanel"]
+[node name="FPSCounter" type="Label" parent="CanvasLayer/FPSPanel" unique_id=327227710]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
@@ -79,28 +82,28 @@ offset_bottom = 27.0
 text = "FPS"
 script = ExtResource("17_fps")
 
-[node name="Hotbar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("18_hotbar")]
+[node name="Hotbar" parent="CanvasLayer" unique_id=24385992 node_paths=PackedStringArray("player") instance=ExtResource("18_hotbar")]
 player = NodePath("../../Player")
 
-[node name="InventoryWindow" parent="CanvasLayer" groups=["inventory_window"] node_paths=PackedStringArray("player") instance=ExtResource("24_invwin")]
+[node name="InventoryWindow" parent="CanvasLayer" unique_id=98879951 node_paths=PackedStringArray("player") groups=["inventory_window"] instance=ExtResource("24_invwin")]
 player = NodePath("../../Player")
 
-[node name="day_and_night" parent="." instance=ExtResource("20_daynight")]
+[node name="day_and_night" parent="." unique_id=712181851 instance=ExtResource("20_daynight")]
 z_index = 1
 y_sort_enabled = true
 position = Vector2(-1000, -300)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1008684995]
 stream = ExtResource("21_music")
 volume_db = -12.0
 autoplay = true
 
-[node name="MessageLayer" parent="." instance=ExtResource("22_msg")]
+[node name="MessageLayer" parent="." unique_id=1515830715 instance=ExtResource("22_msg")]
 visible = false
 offset = Vector2(250, 10)
 transform = Transform2D(1, 0, 0, 1, 250, 10)
 
-[node name="PauseMenu" parent="." instance=ExtResource("23_pause")]
+[node name="PauseMenu" parent="." unique_id=464582541 instance=ExtResource("23_pause")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

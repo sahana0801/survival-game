@@ -128,7 +128,7 @@ offset = Vector2(250, 10)
 transform = Transform2D(1, 0, 0, 1, 250, 10)
 
 [node name="BossPortal" parent="." unique_id=759468879 instance=ExtResource("36_bportal")]
-position = Vector2(-696, 676)
+position = Vector2(-700, 674)
 
 [node name="PauseMenu" parent="." unique_id=97765560 instance=ExtResource("31_skkg5")]
 anchors_preset = 8

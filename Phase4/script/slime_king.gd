@@ -103,8 +103,8 @@ func perform_ground_slam():
 		
 	# Ground slam impact!
 	if player != null and is_instance_valid(player):
-		var dist = global_position.distance_to(player.global_position)
-		if dist < 120.0 and player.has_method("hurtByEnemy"):
+		var dist_sq = global_position.distance_squared_to(player.global_position)
+		if dist_sq < 14400.0 and player.has_method("hurtByEnemy"): # 120 px
 			player.hurtByEnemy(self, 25)
 			
 	# Radial Slime Orbs shockwave

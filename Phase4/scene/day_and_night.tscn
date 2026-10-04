@@ -21,7 +21,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8870x"]
 resource_name = "day_to_night"
-length = 10.0
+length = 30.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -29,7 +29,7 @@ tracks/0/path = NodePath("CanvasModulate:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1, 10),
+"times": PackedFloat32Array(0, 30),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.2, 0.22, 0.32, 1)]
@@ -37,7 +37,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_rmx7w"]
 resource_name = "night_to_day"
-length = 10.0
+length = 30.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -45,7 +45,7 @@ tracks/0/path = NodePath("CanvasModulate:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 10),
+"times": PackedFloat32Array(0, 30),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0.2, 0.22, 0.32, 1), Color(1, 1, 1, 1)]
@@ -70,7 +70,7 @@ libraries = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 240.0
+wait_time = 180.0
 one_shot = true
 autostart = true
 

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cukrd53p6qii5"]
+
+[ext_resource type="Script" uid="uid://djfcnlsdxtxfc" path="res://script/undead_executioner.gd" id="1_boss"]
+[ext_resource type="SpriteFrames" uid="uid://4ma5lql1sa8m" path="res://art/character/undead_executioner/undead_executioner_frames.tres" id="2_bframes"]
+[ext_resource type="Texture2D" uid="uid://bqji7qptq4r7h" path="res://art/character/shadow.png" id="3_shadow"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 51.0
+
+[node name="UndeadExecutioner" type="CharacterBody2D" unique_id=1562493877 groups=["boss", "enemy"]]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_boss")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1211815269]
+modulate = Color(0.1, 0.1, 0.15, 0.6)
+position = Vector2(-10, 66.5)
+scale = Vector2(3.5999997, 1.4166669)
+texture = ExtResource("3_shadow")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1495458664]
+scale = Vector2(2.585, 2.585)
+sprite_frames = ExtResource("2_bframes")
+animation = &"attack"
+frame = 12
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=317438467]
+position = Vector2(0, 10)
+shape = SubResource("CircleShape2D_body")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=905078309]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=69638009]
+position = Vector2(-7, 11)
+shape = SubResource("CircleShape2D_hit")
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hitbox_area_entered"]

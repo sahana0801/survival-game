@@ -82,6 +82,8 @@ func _on_day_started():
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.8)
 	await tween.finished
+	if not is_inside_tree():
+		return
 	_sleep_wraith()
 
 
@@ -121,8 +123,8 @@ func _physics_process(delta: float):
 		move_and_slide()
 		
 		# Shadow Blink behind player
-		var dist = global_position.distance_to(player.global_position)
-		if dist < 240.0 and dist > 50.0 and blink_timer <= 0.0:
+		var dist_sq = global_position.distance_squared_to(player.global_position)
+		if dist_sq < 57600.0 and dist_sq > 2500.0 and blink_timer <= 0.0: # 50px < dist < 240px
 			perform_shadow_blink()
 
 
@@ -141,6 +143,8 @@ func perform_shadow_blink():
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.08, 0.25)
 	await tween.finished
+	if not is_inside_tree():
+		return
 	
 	if is_dead or player == null or !is_active_at_night:
 		return
@@ -157,6 +161,8 @@ func perform_shadow_blink():
 	var tween_in = create_tween()
 	tween_in.tween_property(self, "modulate:a", 0.88, 0.2)
 	await tween_in.finished
+	if not is_inside_tree():
+		return
 	is_blinking = false
 
 
@@ -173,7 +179,11 @@ func take_damage(damage: int, is_crit: bool = false):
 	
 	# Spectral hurt flash
 	modulate = Color(2.0, 1.0, 2.0, 1.0)
-	await get_tree().create_timer(0.12).timeout
+	var tree = get_tree()
+	if tree != null:
+		await tree.create_timer(0.12).timeout
+	if not is_inside_tree():
+		return
 	modulate = Color(1.0, 1.0, 1.0, 0.85)
 	
 	if current_health <= 0:
@@ -197,6 +207,8 @@ func death():
 	tween.tween_property(self, "scale", Vector2(1.6, 0.1), 0.4)
 	tween.parallel().tween_property(self, "modulate:a", 0.0, 0.4)
 	await tween.finished
+	if not is_inside_tree():
+		return
 	
 	_sleep_wraith()
 	scale = Vector2.ONE

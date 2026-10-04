@@ -1,0 +1,80 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cpe5b4vtiqec1"]
+
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/appear/frame_00.png" id="m_appear_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/appear/frame_01.png" id="m_appear_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/appear/frame_02.png" id="m_appear_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/appear/frame_03.png" id="m_appear_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/appear/frame_04.png" id="m_appear_4"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/appear/frame_05.png" id="m_appear_5"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/idle/frame_00.png" id="m_idle_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/idle/frame_01.png" id="m_idle_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/idle/frame_02.png" id="m_idle_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/idle/frame_03.png" id="m_idle_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/death/frame_00.png" id="m_death_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/death/frame_01.png" id="m_death_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/death/frame_02.png" id="m_death_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/death/frame_03.png" id="m_death_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/minion_frames/death/frame_04.png" id="m_death_4"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("m_appear_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_appear_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_appear_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_appear_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_appear_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_appear_5")
+}],
+"loop": false,
+"name": &"appear",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("m_idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_idle_3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("m_death_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_death_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_death_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_death_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("m_death_4")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}]

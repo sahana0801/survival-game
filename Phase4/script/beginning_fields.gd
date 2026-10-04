@@ -100,7 +100,7 @@ func _build_water_collision(water: TileMapLayer) -> void:
 	var body := StaticBody2D.new()
 	body.name = "WaterBlock"
 	add_child(body)
-	var size := _cell_world_size(water)
+	var cell_size := _cell_world_size(water)
 	var has_physics := water.tile_set.get_physics_layers_count() > 0
 	for cell in get_real_cells(water):
 		var data := water.get_cell_tile_data(cell)
@@ -109,7 +109,7 @@ func _build_water_collision(water: TileMapLayer) -> void:
 			continue
 		var shape := CollisionShape2D.new()
 		var rect := RectangleShape2D.new()
-		rect.size = size
+		rect.size = cell_size
 		shape.shape = rect
 		shape.position = to_local(water.to_global(water.map_to_local(cell)))
 		body.add_child(shape)
@@ -122,11 +122,11 @@ func _build_water_area(water: TileMapLayer) -> void:
 	for child in area.get_children():
 		if child is CollisionPolygon2D:
 			child.queue_free()
-	var size := _cell_world_size(water) * 3.0
+	var cell_size := _cell_world_size(water) * 3.0
 	for cell in get_real_cells(water):
 		var shape := CollisionShape2D.new()
 		var rect := RectangleShape2D.new()
-		rect.size = size
+		rect.size = cell_size
 		shape.shape = rect
 		shape.position = area.to_local(water.to_global(water.map_to_local(cell)))
 		area.add_child(shape)

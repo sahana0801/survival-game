@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dq54qfh5pyx5w"]
+[gd_scene format=3 uid="uid://dq54qfh5pyx5w"]
 
-[ext_resource type="Script" path="res://script/slime_king.gd" id="1_sking"]
-[ext_resource type="SpriteFrames" path="res://art/character/Slime/slime2_frames.tres" id="2_slime2_frames"]
-[ext_resource type="Texture2D" path="res://art/crown.png" id="3_crown"]
+[ext_resource type="Script" uid="uid://xuo31lcwc8uc" path="res://script/slime_king.gd" id="1_sking"]
+[ext_resource type="SpriteFrames" uid="uid://c6iy7vo6v1hrw" path="res://art/character/Slime/slime2_frames.tres" id="2_slime2_frames"]
+[ext_resource type="Texture2D" uid="uid://j535tuojoat" path="res://art/crown.png" id="3_crown"]
 [ext_resource type="AudioStream" uid="uid://cbdeil2rpyk1r" path="res://sounds/slime_hit.mp3" id="4_hit"]
 [ext_resource type="AudioStream" uid="uid://boq4kmv40ya4d" path="res://sounds/slime_dead.mp3" id="5_dead"]
 
@@ -10,55 +10,57 @@
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
-radius = 320.0
+radius = 133.00375
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
 radius = 20.0
 
-[node name="SlimeKing" type="CharacterBody2D" groups=["boss", "enemy"]]
+[node name="SlimeKing" type="CharacterBody2D" unique_id=8996760 groups=["boss", "enemy"]]
 z_index = 15
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_sking")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=493671074]
 y_sort_enabled = true
+scale = Vector2(1.97, 1.97)
 sprite_frames = ExtResource("2_slime2_frames")
 animation = &"idle_s"
+frame_progress = 0.82961875
 
-[node name="Crown" type="Sprite2D" parent="."]
+[node name="Crown" type="Sprite2D" parent="." unique_id=649446621]
 texture_filter = 1
 position = Vector2(0, -13)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_crown")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1372949416]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_body")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=98923274]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1626722862]
 shape = SubResource("CircleShape2D_detect")
 
-[node name="hitbox" type="Area2D" parent="."]
+[node name="hitbox" type="Area2D" parent="." unique_id=1321810176]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=1247790532]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_hit")
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." unique_id=2125365452]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=2066492623]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_hit")
 
-[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=1306826129]
 stream = ExtResource("4_hit")
 volume_db = -4.0
 
-[node name="DeadSound" type="AudioStreamPlayer2D" parent="."]
+[node name="DeadSound" type="AudioStreamPlayer2D" parent="." unique_id=2006985780]
 stream = ExtResource("5_dead")
 volume_db = -2.0
 

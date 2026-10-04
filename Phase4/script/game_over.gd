@@ -14,9 +14,9 @@ func update() -> void:
 	if !done:
 		PlayerStats.end_time = Time.get_unix_time_from_system()
 		var time_played: int = int(PlayerStats.end_time - PlayerStats.start_time)
-		var hours: int = time_played / 3600
+		var hours: int = floori(float(time_played) / 3600.0)
 		time_played = time_played % 3600
-		var minutes: int = time_played / 60
+		var minutes: int = floori(float(time_played) / 60.0)
 		time_played = time_played % 60
 		var seconds: int = time_played
 		var min_str: String = ("0" + str(minutes)) if minutes < 10 else str(minutes)

@@ -15,18 +15,29 @@ var active_character: int = CharacterType.KNIGHT
 
 signal ShootingChanged
 signal DayChanged
+@warning_ignore("unused_signal")
 signal DayStarted
+@warning_ignore("unused_signal")
 signal NightStarted
+@warning_ignore("unused_signal")
+signal RequestToggleDayNight
+@warning_ignore("unused_signal")
 signal DrinkWater
+@warning_ignore("unused_signal")
 signal EatApple
 signal sendMessage(text: String)
 signal characterChanged(new_char: int)
 
 # Collect Items: player.gd connects to <item>
+@warning_ignore("unused_signal")
 signal StickCollected
+@warning_ignore("unused_signal")
 signal AppleCollected
+@warning_ignore("unused_signal")
 signal WaterCollected
+@warning_ignore("unused_signal")
 signal HealthPotionCollected
+@warning_ignore("unused_signal")
 signal SlimeCollected
 
 # Tutorial message flags
@@ -52,6 +63,16 @@ func _ready() -> void:
 func changeDay() -> void:
 	day += 1
 	DayChanged.emit()
+
+
+func toggle_day_night() -> void:
+	is_night = !is_night
+	if is_night:
+		NightStarted.emit()
+	else:
+		changeDay()
+		DayStarted.emit()
+	RequestToggleDayNight.emit()
 
 
 const MAX_WEAPON_TIER: int = 8
@@ -229,7 +250,7 @@ func consume_slime(amount: int = 1) -> bool:
 	if inv == null or get_slime_count() < amount:
 		return false
 	var needed = amount
-	var to_remove: Array = []
+	var to_remove: Array[InventoryItem] = []
 	for item in inv.get_items():
 		if item != null and is_instance_valid(item) and item.prototype_id == "slime":
 			var stack = item.get_property("stack_size", 1)

@@ -35,8 +35,20 @@ func _process(_delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		pause_menu.visible = true
-		get_tree().paused = true
+	var is_esc: bool = event.is_action_pressed("ui_cancel") or (
+		event is InputEventKey and event.pressed and not event.echo and (
+			event.keycode == KEY_ESCAPE or event.physical_keycode == KEY_ESCAPE
+		)
+	)
+	if is_esc:
+		var pm := get_node_or_null("PauseMenu")
+		if pm != null and pm.has_method("toggle_menu"):
+			pm.toggle_menu()
+			get_viewport().set_input_as_handled()
+		elif pause_menu != null:
+			pause_menu.visible = !pause_menu.visible
+			get_tree().paused = pause_menu.visible
+			get_viewport().set_input_as_handled()
 	if event.is_action_pressed("help"):
-		$CanvasLayer/KeyboardLayoutPanel.visible = !$CanvasLayer/KeyboardLayoutPanel.visible
+		if has_node("CanvasLayer/KeyboardLayoutPanel"):
+			$CanvasLayer/KeyboardLayoutPanel.visible = !$CanvasLayer/KeyboardLayoutPanel.visible

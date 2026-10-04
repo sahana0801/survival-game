@@ -5,7 +5,7 @@ var damage: int = 15
 var is_crit: bool = false
 var duration: float = 0.20
 var elapsed: float = 0.0
-var hit_enemies: Array = []
+var hit_enemies: Array[Node2D] = []
 
 
 func _ready():
@@ -15,7 +15,7 @@ func _ready():
 	is_crit = hit_data["is_crit"]
 
 
-func sword_deal_damage():
+func sword_deal_damage() -> void:
 	pass
 
 
@@ -33,7 +33,7 @@ func _on_body_entered(body: Node2D):
 	_check_hit(body, null)
 
 
-func _check_hit(target: Node2D, area: Area2D):
+func _check_hit(target: Node2D, _area: Area2D = null) -> void:
 	if target == null or target in hit_enemies:
 		return
 	if target.is_in_group("player") or target.name == "Player":

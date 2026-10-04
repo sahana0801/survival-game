@@ -154,13 +154,19 @@ func death() -> void:
 	healthBar.visible = false
 	$hitbox/CollisionShape2D.set_deferred("disabled", true)
 	$detection_area/CollisionShape2D.set_deferred("disabled", true)
-	await get_tree().create_timer(1.0).timeout
+	var tree = get_tree()
+	if tree != null:
+		await tree.create_timer(1.0).timeout
+	if not is_inside_tree():
+		return
 	
 	anim_sprite.visible = false
 	drop_slime()
 
 
 func drop_slime() -> void:
+	if not is_inside_tree():
+		return
 	slime.visible = true
 	$slime_collectable/collect_area.visible = true
 
@@ -168,8 +174,12 @@ func drop_slime() -> void:
 func playercollect() -> void:
 	if Input.is_action_just_pressed("harvest") and player_in_collect_range and $slime_collectable/collect_area.visible:
 		PlayerStats.SlimeCollected.emit()
-		await get_tree().create_timer(0.3).timeout
-		self.queue_free()
+		var tree = get_tree()
+		if tree != null:
+			await tree.create_timer(0.3).timeout
+		if not is_inside_tree():
+			return
+		queue_free()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

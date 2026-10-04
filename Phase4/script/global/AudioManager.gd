@@ -4,7 +4,7 @@ const MIN_AUDIO_VOLUME : float = 0.0001
 const MAX_AUDIO_VOLUME : float = 1.0000
  
 # List of volume levels for audio buses (used as anchor points for fade-in and fade-out effects)
-var m_VolumeLevels : Array = []
+var m_VolumeLevels : Array[float] = []
  
 # Initialize the audio manager
 func _ready() -> void:

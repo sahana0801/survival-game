@@ -82,8 +82,8 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = is_facing_left
 		if has_node("hitbox"):
 			$hitbox.scale.x = -1.0 if is_facing_left else 1.0
-		var dist: float = global_position.distance_to(player.global_position)
-		if dist < 65.0:
+		var dist_sq: float = global_position.distance_squared_to(player.global_position)
+		if dist_sq < 4225.0: # 65 px
 			$AnimatedSprite2D.play("attack")
 			if attack_cooldown <= 0.0 and player.has_method("hurtByEnemy"):
 				player.hurtByEnemy(self, attack_damage)

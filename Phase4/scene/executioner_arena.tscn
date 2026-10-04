@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://pjxf2adnxd6m"]
+
+[ext_resource type="Script" path="res://script/executioner_arena.gd" id="1_arena"]
+[ext_resource type="PackedScene" uid="uid://d0mn0prgj1gs5" path="res://scene/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://cx8undeadexecscene99" path="res://scene/undead_executioner.tscn" id="3_execboss"]
+[ext_resource type="PackedScene" uid="uid://dvjfuxgyumnva" path="res://scene/boss_portal.tscn" id="4_portal"]
+[ext_resource type="PackedScene" uid="uid://cx8bossbarscene99" path="res://scene/boss_health_bar.tscn" id="5_bossbar"]
+[ext_resource type="PackedScene" uid="uid://c8hotbarscene99" path="res://scene/hotbar.tscn" id="7_hotbar"]
+[ext_resource type="PackedScene" uid="uid://bcjq1xw84ydbb" path="res://scene/message_layer.tscn" id="8_msg"]
+[ext_resource type="PackedScene" uid="uid://q4au0phn3dps" path="res://scene/pause_menu.tscn" id="9_pause"]
+[ext_resource type="PackedScene" uid="uid://1gyxjl47e7if" path="res://scene/game_over_panel.tscn" id="10_gover"]
+[ext_resource type="PackedScene" uid="uid://hy6wdxrypvps" path="res://scene/keyboard_layout_panel.tscn" id="11_keyb"]
+[ext_resource type="PackedScene" uid="uid://cx8statuspanel99" path="res://scene/status_panel.tscn" id="12_spanel"]
+[ext_resource type="PackedScene" uid="uid://invwindow998877" path="res://scene/inventory_window.tscn" id="13_invwin"]
+[ext_resource type="Texture2D" path="res://art/environment/executioner_bg.png" id="14_arena_bg"]
+
+[node name="ExecutionerArena" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_arena")
+
+[node name="ArenaBackground" type="Sprite2D" parent="."]
+z_index = -5
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("14_arena_bg")
+centered = false
+
+[node name="ArenaWalls" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="WallTop" type="CollisionPolygon2D" parent="ArenaWalls"]
+polygon = PackedVector2Array(0, 0, 1788, 0, 1788, 505, 1609, 505, 1595.3, 440.6, 1554.6, 378.7, 1488.5, 321.7, 1399.6, 271.7, 1291.2, 230.6, 1167.6, 200.1, 1033.5, 181.3, 894, 175, 754.5, 181.3, 620.4, 200.1, 496.8, 230.6, 388.4, 271.7, 299.5, 321.7, 233.4, 378.7, 192.7, 440.6, 179, 505, 0, 505)
+
+[node name="WallBottom" type="CollisionPolygon2D" parent="ArenaWalls"]
+polygon = PackedVector2Array(1788, 505, 1788, 952, 0, 952, 0, 505, 179, 505, 192.7, 569.4, 233.4, 631.3, 299.5, 688.3, 388.4, 738.3, 496.8, 779.4, 620.4, 809.9, 754.5, 828.7, 894, 835, 1033.5, 828.7, 1167.6, 809.9, 1291.2, 779.4, 1399.6, 738.3, 1488.5, 688.3, 1554.6, 631.3, 1595.3, 569.4, 1609, 505)
+
+[node name="Ambience" type="CanvasModulate" parent="."]
+color = Color(0.95, 0.93, 1.0, 1.0)
+
+[node name="ReturnPortal" parent="." instance=ExtResource("4_portal")]
+position = Vector2(374, 505)
+target_scene = "res://scene/route_1_world.tscn"
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(534, 505)
+
+[node name="UndeadExecutioner" parent="." instance=ExtResource("3_execboss")]
+position = Vector2(894, 505)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StatusPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("12_spanel")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 208.0
+offset_bottom = 96.0
+scale = Vector2(2.2, 2.2)
+player = NodePath("../../Player")
+
+[node name="KeyboardLayoutPanel" parent="CanvasLayer" instance=ExtResource("11_keyb")]
+offset_left = 716.0
+offset_top = 299.0
+offset_right = 1331.0
+offset_bottom = 746.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GameOverPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("10_gover")]
+visible = false
+offset_left = 713.0
+offset_top = 323.0
+offset_right = 1323.0
+offset_bottom = 608.0
+player = NodePath("../../Player")
+
+[node name="Hotbar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("7_hotbar")]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = -62.0
+offset_right = 122.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2.2, 2.2)
+pivot_offset = Vector2(122, 18)
+player = NodePath("../../Player")
+
+[node name="InventoryWindow" parent="CanvasLayer" groups=["inventory_window"] node_paths=PackedStringArray("player") instance=ExtResource("13_invwin")]
+player = NodePath("../../Player")
+
+[node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource("5_bossbar")]
+
+[node name="MessageLayer" parent="." instance=ExtResource("8_msg")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("9_pause")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 500.0
+offset_right = 500.0
+size_flags_horizontal = 4
+size_flags_vertical = 4

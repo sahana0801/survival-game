@@ -5,6 +5,7 @@ var damage: int = 15
 var is_crit: bool = false
 var arrow_tier_idx: int = 1
 var lifetime: float = 2.0
+var is_consumed: bool = false
 
 
 func _ready() -> void:
@@ -38,6 +39,9 @@ func arrow_deal_damage() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if is_consumed:
+		return
+		
 	# Bỏ qua người chơi
 	if body is Player or body.has_method("player"):
 		return
@@ -52,10 +56,15 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	# Va chạm quái vật / kẻ địch
 	if body.is_in_group("enemy") or body.has_method("enemy") or body.has_method("take_damage"):
+		is_consumed = true
 		if body.has_method("take_damage"):
 			body.take_damage(damage, is_crit)
 		Helpers.spawn_arrow_impact(global_position, arrow_tier_idx)
-		await get_tree().create_timer(0.01).timeout
+		var tree = get_tree()
+		if tree != null:
+			await tree.create_timer(0.01).timeout
+		if not is_inside_tree():
+			return
 		queue_free()
 		return
 	

@@ -152,14 +152,14 @@ func _update_prompt_text() -> void:
 			prompt_label.text = "💬 [E] Trò chuyện với Elena"
 
 
-func _show_prompt(show: bool) -> void:
+func _show_prompt(p_show: bool) -> void:
 	if prompt_badge == null:
 		return
 	if prompt_tween != null and prompt_tween.is_valid():
 		prompt_tween.kill()
 	prompt_tween = create_tween()
 	
-	if show:
+	if p_show:
 		_update_prompt_text()
 		prompt_badge.visible = true
 		prompt_tween.tween_property(prompt_badge, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)

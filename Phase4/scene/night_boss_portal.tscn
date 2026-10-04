@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://ca5l3eld01vnq"]
+
+[ext_resource type="Script" uid="uid://inf52354c3bl" path="res://script/night_boss_portal.gd" id="1_nportal"]
+[ext_resource type="SpriteFrames" uid="uid://bhad2m4dbc33o" path="res://art/environment/portal/portal_frames.tres" id="2_pframes"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_portal"]
+radius = 49.365982
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
+bg_color = Color(0.06, 0.04, 0.12, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9, 0.3, 0.6, 0.9)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 8.0
+expand_margin_top = 3.0
+expand_margin_right = 8.0
+expand_margin_bottom = 3.0
+
+[node name="NightBossPortal" type="Area2D" unique_id=571303254]
+z_index = 1
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_nportal")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1226405419]
+modulate = Color(1.1, 0.7, 1.2, 1)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("2_pframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1888576908]
+shape = SubResource("CircleShape2D_portal")
+
+[node name="PromptLabel" type="Label" parent="." unique_id=1379852672]
+visible = false
+z_index = 5
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -68.0
+offset_right = 140.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.75, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_prompt")
+text = "[E] Vào Cõi Tử Thần (Boss: Tử Thần Hành Quyết)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

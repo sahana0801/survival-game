@@ -5,7 +5,8 @@ class_name NSceneManager
 	"Menu": "res://scene/main_menu.tscn",
 	"Credits": "res://scene/credits.tscn",
 	"World 1": "res://scene/world.tscn",
-	"Route 1": "res://scene/route_1_world.tscn"
+	"Route 1": "res://scene/route_1_world.tscn",
+	"Executioner Arena": "res://scene/executioner_arena.tscn"
 }
 
 var m_CurrentSceneAlias : String = ""

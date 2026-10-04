@@ -1,13 +1,10 @@
 class_name Spawner extends Marker2D
 
-var used_by_water: Array = []
-var used_by_trees: Array = []
+var used_by_water: Array[Vector2i] = []
+var used_by_trees: Array[Vector2i] = []
 var free_cells: Array[Vector2i] = []
 var world: Node = null
 var tilemap: TileMap = null
-
-@onready var stick: Stick
-@onready var slime: Slime
 
 const StickSpawner: PackedScene = preload("res://inventory/stick_collactable.tscn")
 const SlimeSpawner: PackedScene = preload("res://scene/slime.tscn")
@@ -53,7 +50,7 @@ func _ready() -> void:
 
 
 func is_in_safe_zone(pos: Vector2) -> bool:
-	return pos.distance_to(VILLAGE_SAFE_CENTER) < VILLAGE_SAFE_RADIUS
+	return pos.distance_squared_to(VILLAGE_SAFE_CENTER) < 462400.0 # 680.0 px
 
 
 func get_spawn_position(cell: Vector2i) -> Vector2:

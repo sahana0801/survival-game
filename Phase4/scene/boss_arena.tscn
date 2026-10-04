@@ -1,89 +1,89 @@
 [gd_scene format=3 uid="uid://bun21v3mcptfq"]
 
-[ext_resource type="Script" path="res://script/boss_arena.gd" id="1_arena"]
+[ext_resource type="Script" uid="uid://cha1urbe03frc" path="res://script/boss_arena.gd" id="1_arena"]
 [ext_resource type="PackedScene" uid="uid://d0mn0prgj1gs5" path="res://scene/player.tscn" id="2_player"]
-[ext_resource type="PackedScene" uid="uid://cx8slimekingscene99" path="res://scene/slime_king.tscn" id="3_sking"]
-[ext_resource type="PackedScene" uid="uid://cx8bossportalscene99" path="res://scene/boss_portal.tscn" id="4_portal"]
-[ext_resource type="PackedScene" uid="uid://cx8bossbarscene99" path="res://scene/boss_health_bar.tscn" id="5_bossbar"]
-[ext_resource type="PackedScene" uid="uid://c8hotbarscene99" path="res://scene/hotbar.tscn" id="7_hotbar"]
+[ext_resource type="PackedScene" uid="uid://dq54qfh5pyx5w" path="res://scene/slime_king.tscn" id="3_sking"]
+[ext_resource type="PackedScene" uid="uid://dvjfuxgyumnva" path="res://scene/boss_portal.tscn" id="4_portal"]
+[ext_resource type="PackedScene" uid="uid://b1gfyt8sw64co" path="res://scene/boss_health_bar.tscn" id="5_bossbar"]
+[ext_resource type="PackedScene" uid="uid://bvqqajp4qoguo" path="res://scene/hotbar.tscn" id="7_hotbar"]
 [ext_resource type="PackedScene" uid="uid://bcjq1xw84ydbb" path="res://scene/message_layer.tscn" id="8_msg"]
 [ext_resource type="PackedScene" uid="uid://q4au0phn3dps" path="res://scene/pause_menu.tscn" id="9_pause"]
 [ext_resource type="PackedScene" uid="uid://1gyxjl47e7if" path="res://scene/game_over_panel.tscn" id="10_gover"]
 [ext_resource type="PackedScene" uid="uid://hy6wdxrypvps" path="res://scene/keyboard_layout_panel.tscn" id="11_keyb"]
-[ext_resource type="PackedScene" uid="uid://cx8statuspanel99" path="res://scene/status_panel.tscn" id="12_spanel"]
-[ext_resource type="PackedScene" uid="uid://invwindow998877" path="res://scene/inventory_window.tscn" id="13_invwin"]
+[ext_resource type="PackedScene" uid="uid://qdi2shl3wgcw" path="res://scene/status_panel.tscn" id="12_spanel"]
+[ext_resource type="PackedScene" uid="uid://c6qhjvyilbooa" path="res://scene/inventory_window.tscn" id="13_invwin"]
+[ext_resource type="Texture2D" uid="uid://dy75ihoq5g0fl" path="res://art/environment/slimeking_bg.png" id="14_arena_bg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
-size = Vector2(1100, 40)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bridge_v"]
+size = Vector2(40, 120)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
-size = Vector2(40, 720)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bridge_h"]
+size = Vector2(160, 40)
 
-[node name="BossArena" type="Node2D"]
+[node name="BossArena" type="Node2D" unique_id=1959390452]
 y_sort_enabled = true
 script = ExtResource("1_arena")
 
-[node name="DungeonFloor" type="ColorRect" parent="."]
-z_index = -2
-offset_left = -300.0
-offset_top = -200.0
-offset_right = 1300.0
-offset_bottom = 850.0
-color = Color(0.07, 0.08, 0.11, 1)
+[node name="ArenaBackground" type="Sprite2D" parent="." unique_id=2006905792]
+z_index = -5
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("14_arena_bg")
+centered = false
 
-[node name="CombatAreaRing" type="Polygon2D" parent="."]
-z_index = -1
-color = Color(0.12, 0.13, 0.18, 1)
-polygon = PackedVector2Array(0, 0, 960, 0, 960, 640, 0, 640)
-
-[node name="InnerRunicRing" type="Polygon2D" parent="."]
-z_index = -1
-color = Color(0.15, 0.12, 0.22, 0.8)
-polygon = PackedVector2Array(200, 100, 760, 100, 860, 320, 760, 540, 200, 540, 100, 320)
-
-[node name="ArenaWalls" type="StaticBody2D" parent="."]
+[node name="ArenaWalls" type="StaticBody2D" parent="." unique_id=1902464716]
 collision_mask = 0
 
-[node name="WallTop" type="CollisionShape2D" parent="ArenaWalls"]
-position = Vector2(480, -20)
-shape = SubResource("RectangleShape2D_wall_h")
+[node name="CornerTopLeft" type="CollisionPolygon2D" parent="ArenaWalls" unique_id=282751185]
+polygon = PackedVector2Array(260, 160, 830, 160, 830, 240, 710, 280, 600, 340, 510, 410, 260, 410)
 
-[node name="WallBottom" type="CollisionShape2D" parent="ArenaWalls"]
-position = Vector2(480, 660)
-shape = SubResource("RectangleShape2D_wall_h")
+[node name="CornerTopRight" type="CollisionPolygon2D" parent="ArenaWalls" unique_id=1923914818]
+polygon = PackedVector2Array(958, 160, 1528, 160, 1528, 410, 1278, 410, 1188, 340, 1078, 280, 958, 240)
 
-[node name="WallLeft" type="CollisionShape2D" parent="ArenaWalls"]
-position = Vector2(-20, 320)
-shape = SubResource("RectangleShape2D_wall_v")
+[node name="CornerBottomLeft" type="CollisionPolygon2D" parent="ArenaWalls" unique_id=408517548]
+polygon = PackedVector2Array(260, 498, 510, 498, 600, 568, 710, 628, 830, 668, 830, 760, 260, 760)
 
-[node name="WallRight" type="CollisionShape2D" parent="ArenaWalls"]
-position = Vector2(980, 320)
-shape = SubResource("RectangleShape2D_wall_v")
+[node name="CornerBottomRight" type="CollisionPolygon2D" parent="ArenaWalls" unique_id=2140063397]
+polygon = PackedVector2Array(1278, 498, 1528, 498, 1528, 760, 958, 760, 958, 668, 1078, 628, 1188, 568)
 
-[node name="Ambience" type="CanvasModulate" parent="."]
-color = Color(0.72, 0.65, 0.85, 1)
+[node name="BridgeEndLeft" type="CollisionShape2D" parent="ArenaWalls" unique_id=1576555434]
+position = Vector2(232, 470)
+shape = SubResource("RectangleShape2D_bridge_v")
 
-[node name="ReturnPortal" parent="." instance=ExtResource("4_portal")]
-position = Vector2(80, 320)
+[node name="BridgeEndRight" type="CollisionShape2D" parent="ArenaWalls" unique_id=2037778707]
+position = Vector2(1564, 477)
+shape = SubResource("RectangleShape2D_bridge_v")
+
+[node name="BridgeEndTop" type="CollisionShape2D" parent="ArenaWalls" unique_id=417044697]
+position = Vector2(894, 134)
+shape = SubResource("RectangleShape2D_bridge_h")
+
+[node name="BridgeEndBottom" type="CollisionShape2D" parent="ArenaWalls" unique_id=2075260904]
+position = Vector2(896, 795)
+shape = SubResource("RectangleShape2D_bridge_h")
+
+[node name="Ambience" type="CanvasModulate" parent="." unique_id=1004755945]
+color = Color(0.92, 0.88, 1, 1)
+
+[node name="ReturnPortal" parent="." unique_id=1493915100 instance=ExtResource("4_portal")]
+position = Vector2(264, 474)
 target_scene = "res://scene/world.tscn"
 
-[node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector2(220, 320)
+[node name="Player" parent="." unique_id=1083526550 instance=ExtResource("2_player")]
+position = Vector2(332, 480)
 
-[node name="SlimeKing" parent="." instance=ExtResource("3_sking")]
-position = Vector2(720, 320)
+[node name="SlimeKing" parent="." unique_id=1175386884 instance=ExtResource("3_sking")]
+position = Vector2(1194, 454)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=328722837]
 
-[node name="StatusPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("12_spanel")]
+[node name="StatusPanel" parent="CanvasLayer" unique_id=1275337583 node_paths=PackedStringArray("player") instance=ExtResource("12_spanel")]
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 208.0
 offset_bottom = 96.0
-scale = Vector2(2.2, 2.2)
 player = NodePath("../../Player")
 
-[node name="KeyboardLayoutPanel" parent="CanvasLayer" instance=ExtResource("11_keyb")]
+[node name="KeyboardLayoutPanel" parent="CanvasLayer" unique_id=950666832 instance=ExtResource("11_keyb")]
 offset_left = 716.0
 offset_top = 299.0
 offset_right = 1331.0
@@ -91,7 +91,7 @@ offset_bottom = 746.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="GameOverPanel" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("10_gover")]
+[node name="GameOverPanel" parent="CanvasLayer" unique_id=831590653 node_paths=PackedStringArray("player") instance=ExtResource("10_gover")]
 visible = false
 offset_left = 713.0
 offset_top = 323.0
@@ -99,31 +99,20 @@ offset_right = 1323.0
 offset_bottom = 608.0
 player = NodePath("../../Player")
 
-[node name="Hotbar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("7_hotbar")]
-layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
+[node name="Hotbar" parent="CanvasLayer" unique_id=1895701969 node_paths=PackedStringArray("player") instance=ExtResource("7_hotbar")]
 offset_left = -122.0
-offset_top = -62.0
 offset_right = 122.0
-offset_bottom = -26.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(2.2, 2.2)
 pivot_offset = Vector2(122, 18)
 player = NodePath("../../Player")
 
-[node name="InventoryWindow" parent="CanvasLayer" groups=["inventory_window"] node_paths=PackedStringArray("player") instance=ExtResource("13_invwin")]
+[node name="InventoryWindow" parent="CanvasLayer" unique_id=1341784328 node_paths=PackedStringArray("player") groups=["inventory_window"] instance=ExtResource("13_invwin")]
 player = NodePath("../../Player")
 
-[node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource("5_bossbar")]
+[node name="BossHealthBar" parent="CanvasLayer" unique_id=1712321294 instance=ExtResource("5_bossbar")]
 
-[node name="MessageLayer" parent="." instance=ExtResource("8_msg")]
+[node name="MessageLayer" parent="." unique_id=194629109 instance=ExtResource("8_msg")]
 
-[node name="PauseMenu" parent="." instance=ExtResource("9_pause")]
+[node name="PauseMenu" parent="." unique_id=330348165 instance=ExtResource("9_pause")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

@@ -281,16 +281,16 @@ func _build_gear_tab() -> void:
 		icon_tex = load("res://art/bow.png")
 
 	if icon_tex != null:
-		var tr := TextureRect.new()
-		tr.texture = icon_tex
-		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		tr.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		tr.offset_left = 3
-		tr.offset_top = 3
-		tr.offset_right = -3
-		tr.offset_bottom = -3
-		s.add_child(tr)
+		var tex_rect := TextureRect.new()
+		tex_rect.texture = icon_tex
+		tex_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tex_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		tex_rect.offset_left = 3
+		tex_rect.offset_top = 3
+		tex_rect.offset_right = -3
+		tex_rect.offset_bottom = -3
+		s.add_child(tex_rect)
 	r.add_child(s)
 
 	var name_lbl := Label.new()

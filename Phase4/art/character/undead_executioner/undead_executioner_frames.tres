@@ -1,0 +1,254 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://4ma5lql1sa8m"]
+
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_00.png" id="idle_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_01.png" id="idle_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_02.png" id="idle_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_03.png" id="idle_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_04.png" id="idle_4"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_05.png" id="idle_5"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_06.png" id="idle_6"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/idle/frame_07.png" id="idle_7"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_00.png" id="attack_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_01.png" id="attack_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_02.png" id="attack_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_03.png" id="attack_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_04.png" id="attack_4"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_05.png" id="attack_5"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_06.png" id="attack_6"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_07.png" id="attack_7"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_08.png" id="attack_8"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_09.png" id="attack_9"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_10.png" id="attack_10"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_11.png" id="attack_11"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/attack/frame_12.png" id="attack_12"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_00.png" id="skill_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_01.png" id="skill_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_02.png" id="skill_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_03.png" id="skill_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_04.png" id="skill_4"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_05.png" id="skill_5"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_06.png" id="skill_6"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_07.png" id="skill_7"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_08.png" id="skill_8"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_09.png" id="skill_9"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_10.png" id="skill_10"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/skill/frame_11.png" id="skill_11"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/summon/frame_00.png" id="summon_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/summon/frame_01.png" id="summon_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/summon/frame_02.png" id="summon_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/summon/frame_03.png" id="summon_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/summon/frame_04.png" id="summon_4"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_00.png" id="death_0"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_01.png" id="death_1"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_02.png" id="death_2"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_03.png" id="death_3"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_04.png" id="death_4"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_05.png" id="death_5"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_06.png" id="death_6"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_07.png" id="death_7"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_08.png" id="death_8"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_09.png" id="death_9"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_10.png" id="death_10"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_11.png" id="death_11"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_12.png" id="death_12"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_13.png" id="death_13"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_14.png" id="death_14"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_15.png" id="death_15"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_16.png" id="death_16"]
+[ext_resource type="Texture2D" path="res://art/character/undead_executioner/frames/death/frame_17.png" id="death_17"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("attack_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_12")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("skill_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("skill_11")
+}],
+"loop": false,
+"name": &"skill",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("summon_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("summon_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("summon_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("summon_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("summon_4")
+}],
+"loop": false,
+"name": &"summon",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("death_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_17")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}]

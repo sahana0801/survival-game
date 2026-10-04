@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b5jw2re5ykyug"]
+
+[ext_resource type="Script" uid="uid://c5rvi6lx2b5ra" path="res://script/executioner_minion.gd" id="1_minion"]
+[ext_resource type="SpriteFrames" uid="uid://cpe5b4vtiqec1" path="res://art/character/undead_executioner/executioner_minion_frames.tres" id="2_mframes"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 20.024984
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 23.021729
+
+[node name="ExecutionerMinion" type="CharacterBody2D" unique_id=2012770246 groups=["enemy"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_minion")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=286327788]
+scale = Vector2(2.35, 2.35)
+sprite_frames = ExtResource("2_mframes")
+animation = &"death"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=592433588]
+position = Vector2(-4, 16)
+shape = SubResource("CircleShape2D_body")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=942490338]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1325591739]
+position = Vector2(-3, 16)
+shape = SubResource("CircleShape2D_hit")
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hitbox_body_entered"]
