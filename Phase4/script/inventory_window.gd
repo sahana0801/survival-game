@@ -41,6 +41,8 @@ func _ready() -> void:
 	# Connect to PlayerStats and Inventory
 	if PlayerStats != null:
 		PlayerStats.sendMessage.connect(func(_msg): pass)
+		PlayerStats.characterChanged.connect(func(_char): _build_gear_tab())
+		PlayerStats.ShootingChanged.connect(_build_gear_tab)
 	call_deferred("_connect_inventory")
 
 
@@ -68,7 +70,13 @@ func _get_inv():
 	return null
 
 
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		accept_event()
+
+
 func _build_ui() -> void:
+	mouse_filter = Control.MOUSE_FILTER_STOP
 	custom_minimum_size = Vector2(256, 175)
 	size = Vector2(256, 175)
 
@@ -76,7 +84,12 @@ func _build_ui() -> void:
 	window_panel = PanelContainer.new()
 	window_panel.theme_type_variation = &"WindowPanel"
 	window_panel.custom_minimum_size = Vector2(256, 175)
+	window_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	window_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	window_panel.gui_input.connect(func(event: InputEvent):
+		if event is InputEventMouseButton:
+			accept_event()
+	)
 	add_child(window_panel)
 
 	var main_vbox := VBoxContainer.new()
@@ -195,16 +208,23 @@ func _build_ui() -> void:
 
 
 func _create_slot(index: int) -> PanelContainer:
-	var s := PanelContainer.new()
+	var s := RPGInventorySlot.new()
+	s.slot_index = index
+	s.window = self
 	s.theme_type_variation = &"InsetPanel"
 	s.custom_minimum_size = Vector2(24, 24)
 	s.mouse_filter = Control.MOUSE_FILTER_PASS
 
 	var icon_rect := TextureRect.new()
 	icon_rect.name = "Icon"
-	icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	icon_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	icon_rect.offset_left = 3
+	icon_rect.offset_top = 3
+	icon_rect.offset_right = -3
+	icon_rect.offset_bottom = -3
 	s.add_child(icon_rect)
 
 	var count_lbl := Label.new()
@@ -236,41 +256,57 @@ func _build_gear_tab() -> void:
 	for child in gear_box.get_children():
 		child.queue_free()
 
-	var gear_list := [
-		["helmet", "Mũ Chiến Binh", "Phòng thủ +4"],
-		["shield", "Khiên Hiệp Sĩ", "Chống đỡ +7"],
-		["sword", "Kiếm Sắt", "Cấp Vũ Khí hiện tại"]
-	]
-	for it in gear_list:
-		var r := HBoxContainer.new()
-		r.add_theme_constant_override("separation", 4)
-		gear_box.add_child(r)
+	var is_archer = (PlayerStats.active_character == PlayerStats.CharacterType.ARCHER) if PlayerStats else false
+	var weapon_name = "Cung Gỗ" if is_archer else "Kiếm Sắt"
+	var icon_path = PlayerStats.get_bow_texture_path() if is_archer else PlayerStats.get_sword_texture_path()
+	var tier_name = PlayerStats.get_weapon_tier_name() if PlayerStats else "Tier 1"
+	var min_d = PlayerStats.get_weapon_min_damage() if PlayerStats else 12
+	var max_d = PlayerStats.get_weapon_max_damage() if PlayerStats else 18
+	var crit_pct = int(PlayerStats.get_weapon_crit_chance() * 100) if PlayerStats else 5
+	var stat_text = "Cấp %s (%d~%d DMG, %d%% Crit)" % [tier_name, min_d, max_d, crit_pct]
 
-		var s := PanelContainer.new()
-		s.theme_type_variation = &"CommonSlot"
-		s.custom_minimum_size = Vector2(24, 24)
-		var icon_tex := load(KIT_PATH + "icons/%s.png" % it[0]) as Texture2D
-		if icon_tex != null:
-			var tr := TextureRect.new()
-			tr.texture = icon_tex
-			tr.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
-			s.add_child(tr)
-		r.add_child(s)
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", 4)
+	gear_box.add_child(r)
 
-		var name_lbl := Label.new()
-		name_lbl.text = it[1]
-		name_lbl.add_theme_font_override("font", hud_font)
-		name_lbl.add_theme_font_size_override("font_size", 9)
-		name_lbl.add_theme_color_override("font_color", Color(0.22, 0.14, 0.08, 1.0))
-		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		r.add_child(name_lbl)
+	var s := PanelContainer.new()
+	s.theme_type_variation = &"CommonSlot"
+	s.custom_minimum_size = Vector2(24, 24)
+	var icon_tex: Texture2D = null
+	if ResourceLoader.exists(icon_path):
+		icon_tex = load(icon_path)
+	elif not is_archer and ResourceLoader.exists(KIT_PATH + "icons/sword.png"):
+		icon_tex = load(KIT_PATH + "icons/sword.png")
+	elif is_archer and ResourceLoader.exists("res://art/bow.png"):
+		icon_tex = load("res://art/bow.png")
 
-		var stat_lbl := Label.new()
-		stat_lbl.text = it[2]
-		stat_lbl.add_theme_font_override("font", hud_font)
-		stat_lbl.add_theme_font_size_override("font_size", 9)
-		stat_lbl.add_theme_color_override("font_color", Color(0.12, 0.45, 0.15, 1.0))
-		r.add_child(stat_lbl)
+	if icon_tex != null:
+		var tr := TextureRect.new()
+		tr.texture = icon_tex
+		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tr.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		tr.offset_left = 3
+		tr.offset_top = 3
+		tr.offset_right = -3
+		tr.offset_bottom = -3
+		s.add_child(tr)
+	r.add_child(s)
+
+	var name_lbl := Label.new()
+	name_lbl.text = weapon_name
+	name_lbl.add_theme_font_override("font", hud_font)
+	name_lbl.add_theme_font_size_override("font_size", 9)
+	name_lbl.add_theme_color_override("font_color", Color(0.22, 0.14, 0.08, 1.0))
+	name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	r.add_child(name_lbl)
+
+	var stat_lbl := Label.new()
+	stat_lbl.text = stat_text
+	stat_lbl.add_theme_font_override("font", hud_font)
+	stat_lbl.add_theme_font_size_override("font_size", 9)
+	stat_lbl.add_theme_color_override("font_color", Color(0.12, 0.45, 0.15, 1.0))
+	r.add_child(stat_lbl)
 
 
 func _select_slot(index: int) -> void:
@@ -303,8 +339,18 @@ func _update_slot_highlights() -> void:
 				s.theme_type_variation = &"InsetPanel"
 
 
+func _get_item_id(item) -> String:
+	if item == null:
+		return ""
+	if "prototype_id" in item and item.prototype_id != "":
+		return str(item.prototype_id)
+	if item.has_method("get_id"):
+		return str(item.get_id())
+	return ""
+
+
 func _get_rarity_style(item) -> StringName:
-	var id = item.get_id() if item.has_method("get_id") else ""
+	var id = _get_item_id(item)
 	match id:
 		"sword", "bow":
 			return &"RareSlot"
@@ -393,8 +439,13 @@ func _on_use_pressed() -> void:
 	if selected_item == null or player == null or not is_instance_valid(selected_item):
 		return
 
+	var category = selected_item.get_property("category", "")
+	if category != "consumable":
+		PlayerStats.send_message("❌ Vật phẩm này không thể sử dụng trực tiếp!")
+		return
+
 	var inv = _get_inv()
-	var id: String = selected_item.get_id() if selected_item.has_method("get_id") else ""
+	var id: String = _get_item_id(selected_item)
 	var name_str: String = selected_item.get_title() if selected_item.has_method("get_title") else id
 
 	match id:
@@ -402,29 +453,17 @@ func _on_use_pressed() -> void:
 			player.eat()
 			PlayerStats.send_message("🍎 Đã ăn Táo (+15 Máu, +25 Điểm Sinh Tồn)!")
 		"water_potion":
-			if player.current_thirst >= player.max_thirst:
-				PlayerStats.send_message("💧 Độ khát đã đầy, không cần uống!")
+			if player.current_mana >= player.max_mana:
+				PlayerStats.send_message("💧 Mana đã đầy, không cần dùng!")
 			else:
-				player.drink()
-				PlayerStats.send_message("💧 Đã uống Bình Nước (+25 Nước)!")
+				player.use_mana_potion()
+				PlayerStats.send_message("✨ Đã dùng Bình Mana (+30 MP)!")
 		"health_potion":
 			if player.current_health >= player.max_health:
 				PlayerStats.send_message("❤️ Máu đã đầy, không thể uống thêm!")
 			else:
 				player.drink_health_potion()
 				PlayerStats.send_message("❤️ Đã uống Bình Máu (+40 Máu)!")
-		"sword":
-			if PlayerStats.active_character == PlayerStats.CharacterType.ARCHER:
-				PlayerStats.send_message("🏹 Cung Thủ chỉ chuyên dùng Cung! Đổi sang Hiệp Sĩ để dùng Kiếm.")
-			else:
-				player.equip_weapon(2)
-				PlayerStats.send_message("🗡️ Đã trang bị Kiếm Sắt!")
-		"bow":
-			if PlayerStats.active_character == PlayerStats.CharacterType.KNIGHT:
-				PlayerStats.send_message("⚔️ Hiệp Sĩ chỉ chuyên dùng Kiếm! Đổi sang Cung Thủ để dùng Cung.")
-			else:
-				player.equip_weapon(1)
-				PlayerStats.send_message("🏹 Đã trang bị Cung Tên!")
 		_:
 			PlayerStats.send_message("Đã sử dụng: %s" % name_str)
 
@@ -443,10 +482,10 @@ func _on_drop_pressed() -> void:
 	if inv == null:
 		return
 
-	var id: String = selected_item.get_id() if selected_item.has_method("get_id") else ""
+	var id: String = _get_item_id(selected_item)
 	var name_str: String = selected_item.get_title() if selected_item.has_method("get_title") else id
 
-	if player.remove_item(id):
+	if player.remove_item(id, 1):
 		PlayerStats.send_message("Đã vứt 1 %s xuống đất" % name_str)
 
 	if selected_item != null and (not is_instance_valid(selected_item) or not inv.has_item(selected_item)):
@@ -461,14 +500,14 @@ func _on_info_pressed() -> void:
 		PlayerStats.send_message("Chưa chọn vật phẩm nào!")
 		return
 
-	var id: String = selected_item.get_id() if selected_item.has_method("get_id") else ""
+	var id: String = _get_item_id(selected_item)
 	var name_str: String = selected_item.get_title() if selected_item.has_method("get_title") else id
 	var stack: int = _get_item_stack_size(selected_item)
 
 	var desc := ""
 	match id:
 		"apple": desc = "Hồi 15 Máu & 25 Điểm Sinh Tồn."
-		"water_potion": desc = "Bình nước/mana giải khát +25 Điểm Nước."
+		"water_potion": desc = "Bình ma thuật màu xanh hồi phục 30 Điểm Mana (MP)."
 		"health_potion": desc = "Bình máu đỏ hồi phục 40 Điểm Máu."
 		"sword": desc = "Vũ khí cận chiến sắc bén (Sát thương tăng theo Cấp Vũ Khí)."
 		"bow": desc = "Vũ khí tầm xa linh hoạt."
@@ -484,6 +523,7 @@ func _input(event: InputEvent) -> void:
 		visible = !visible
 		if visible:
 			refresh_slots()
+			_build_gear_tab()
 		get_viewport().set_input_as_handled()
 	elif visible and (event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE)):
 		visible = false

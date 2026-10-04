@@ -160,19 +160,16 @@ func perform_shadow_blink():
 	is_blinking = false
 
 
-func take_damage(damage: int):
+func take_damage(damage: int, is_crit: bool = false):
 	if is_dead or !is_active_at_night:
 		return
-		
-	var is_crit = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
 		
 	current_health -= damage
 	if health_bar != null:
 		health_bar.value = current_health
 		
-	Helpers.spawn_damage_number(global_position, damage, Color(0.85, 0.5, 1.0), is_crit, "-")
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(0.85, 0.5, 1.0)
+	Helpers.spawn_damage_number(global_position, damage, num_color, is_crit, "-")
 	
 	# Spectral hurt flash
 	modulate = Color(2.0, 1.0, 2.0, 1.0)
@@ -219,11 +216,12 @@ func _on_hit_box_area_entered(area: Area2D):
 	if !is_active_at_night:
 		return
 	var damage = 0
+	var is_crit = area.is_crit if "is_crit" in area else false
 	if area.has_method("arrow_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_bow_damage()
-		take_damage(damage)
+		damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		take_damage(damage, is_crit)
 	elif area.has_method("sword_deal_damage"):
 		# Sword deals +20% bonus holy damage to Wraiths!
-		var s_dmg = area.damage if "damage" in area else PlayerStats.get_sword_damage()
+		var s_dmg = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
 		damage = int(round(s_dmg * 1.2))
-		take_damage(damage)
+		take_damage(damage, is_crit)

@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://f01qknyt8rpg"]
 
-[ext_resource type="Script" path="res://script/character_swap_npc.gd" id="1_cswap"]
-[ext_resource type="Texture2D" path="res://art/character/shadow.png" id="2_shadow"]
-[ext_resource type="FontFile" path="res://font/hud_font.ttf" id="3_font"]
+[ext_resource type="Script" uid="uid://dxumteoyfbgsa" path="res://script/character_swap_npc.gd" id="1_cswap"]
+[ext_resource type="Texture2D" uid="uid://bqji7qptq4r7h" path="res://art/character/shadow.png" id="2_shadow"]
+[ext_resource type="FontFile" uid="uid://c265jujgn4blf" path="res://font/hud_font.ttf" id="3_font"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
-radius = 55.0
+radius = 98.005104
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
 content_margin_left = 6.0
@@ -45,46 +45,48 @@ shadow_color = Color(0, 0, 0, 0.5)
 shadow_size = 3
 shadow_offset = Vector2(0, 2)
 
-[node name="CharacterSwapNPC" type="CharacterBody2D" groups=["npc"]]
+[node name="CharacterSwapNPC" type="CharacterBody2D" unique_id=581220162 groups=["npc"]]
 y_sort_enabled = true
 script = ExtResource("1_cswap")
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1819083052]
 modulate = Color(1, 1, 1, 0.5)
 position = Vector2(0, 1)
 scale = Vector2(1.8, 1.8)
 texture = ExtResource("2_shadow")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=55541598]
 scale = Vector2(2.4, 2.4)
 offset = Vector2(0, -10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1316506023]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_body")
 
-[node name="InteractionArea" type="Area2D" parent="."]
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1367097974]
 position = Vector2(0, -10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1823084790]
 shape = SubResource("CircleShape2D_interact")
 
-[node name="PromptBadge" type="PanelContainer" parent="."]
+[node name="PromptBadge" type="PanelContainer" parent="." unique_id=1238413094]
 visible = false
+z_index = 90
+z_as_relative = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -70.0
+offset_left = -75.0
 offset_top = -68.0
-offset_right = 70.0
-offset_bottom = -48.0
+offset_right = 75.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_prompt")
 
-[node name="PromptLabel" type="Label" parent="PromptBadge"]
+[node name="PromptLabel" type="Label" parent="PromptBadge" unique_id=276512145]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.92, 0.78, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
@@ -96,26 +98,28 @@ text = "💬 [E] Đổi sang Cung Thủ"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpeechBubble" type="PanelContainer" parent="."]
+[node name="SpeechBubble" type="PanelContainer" parent="." unique_id=1502575819]
 visible = false
+z_index = 100
+z_as_relative = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -110.0
-offset_top = -125.0
-offset_right = 110.0
-offset_bottom = -72.0
+offset_left = -125.0
+offset_top = -148.0
+offset_right = 125.0
+offset_bottom = -82.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_bubble")
 
-[node name="VBox" type="VBoxContainer" parent="SpeechBubble"]
+[node name="VBox" type="VBoxContainer" parent="SpeechBubble" unique_id=1562710961]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="SpeakerNameLabel" type="Label" parent="SpeechBubble/VBox"]
+[node name="SpeakerNameLabel" type="Label" parent="SpeechBubble/VBox" unique_id=1990964087]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
@@ -125,7 +129,7 @@ theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 9
 text = "Cung Thủ"
 
-[node name="DialogueText" type="RichTextLabel" parent="SpeechBubble/VBox"]
+[node name="DialogueText" type="RichTextLabel" parent="SpeechBubble/VBox" unique_id=2045957523]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(0.95, 0.92, 0.85, 1)
@@ -139,5 +143,5 @@ text = "Chào mừng lữ khách!"
 fit_content = true
 scroll_active = false
 
-[node name="BubbleTimer" type="Timer" parent="."]
+[node name="BubbleTimer" type="Timer" parent="." unique_id=842093836]
 one_shot = true

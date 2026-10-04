@@ -145,28 +145,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Uống Nước"
+text = "Dùng Vật Phẩm"
 
 [node name="Label18" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Y"
+text = "Hotbar / Túi Đồ"
 
 [node name="Label19" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "Ăn Táo"
+text = "Phím Tắt Hotbar"
 
 [node name="Label20" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
-text = "X"
+text = "1 / 2 / 3 / 4"
 
 [node name="Label21" type="Label" parent="GridContainer"]
 layout_mode = 2

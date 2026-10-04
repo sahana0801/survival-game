@@ -1,11 +1,13 @@
 [gd_scene format=4 uid="uid://5pro708f0qxj"]
 
+[ext_resource type="Script" path="res://script/route_1.gd" id="1_route_script"]
 [ext_resource type="TileSet" uid="uid://t5tclhsnx8l5" path="res://scene/fantasy_tileset.tres" id="1_tileset"]
-[ext_resource type="PackedScene" uid="uid://fuxo58mmupy5" path="res://scene/chest.tscn" id="4_chest"]
 [ext_resource type="PackedScene" uid="uid://clgvk1r5uvb1c" path="res://scene/camp_fire.tscn" id="5_fire"]
+[ext_resource type="PackedScene" uid="uid://dw5wtj55dpfxg" path="res://scene/skeleton.tscn" id="6_skeleton"]
 
 [node name="Route1" type="Node2D" unique_id=1995246064]
 y_sort_enabled = true
+script = ExtResource("1_route_script")
 
 [node name="TileLayers" type="Node2D" parent="." unique_id=1497956412]
 y_sort_enabled = true
@@ -50,9 +52,41 @@ y_sort_enabled = true
 position = Vector2(688, 223)
 scale = Vector2(2, 2)
 
-[node name="BeginnerChest" parent="Interactables" unique_id=1244440424 instance=ExtResource("4_chest")]
-position = Vector2(796, 298)
-scale = Vector2(2, 2)
-
 [node name="Monsters" type="Node2D" parent="." unique_id=1146201279]
 y_sort_enabled = true
+
+[node name="Skeleton1" parent="Monsters" unique_id=230243362 instance=ExtResource("6_skeleton")]
+y_sort_enabled = false
+position = Vector2(608, 169)
+collision_layer = 4
+collision_mask = 3
+
+[node name="Skeleton2" parent="Monsters" unique_id=416709424 instance=ExtResource("6_skeleton")]
+y_sort_enabled = false
+position = Vector2(104, 957)
+collision_layer = 4
+collision_mask = 3
+
+[node name="Skeleton3" parent="Monsters" unique_id=57601486 instance=ExtResource("6_skeleton")]
+y_sort_enabled = false
+position = Vector2(95, 164)
+collision_layer = 4
+collision_mask = 3
+
+[node name="Skeleton4" parent="Monsters" unique_id=1972270211 instance=ExtResource("6_skeleton")]
+y_sort_enabled = false
+position = Vector2(1475, 539)
+collision_layer = 4
+collision_mask = 3
+
+[node name="Skeleton5" parent="Monsters" unique_id=2132733599 instance=ExtResource("6_skeleton")]
+y_sort_enabled = false
+position = Vector2(1503, 1012)
+collision_layer = 4
+collision_mask = 3
+
+[node name="Skeleton6" parent="Monsters" unique_id=187990920 instance=ExtResource("6_skeleton")]
+y_sort_enabled = false
+position = Vector2(762, 743)
+collision_layer = 4
+collision_mask = 3

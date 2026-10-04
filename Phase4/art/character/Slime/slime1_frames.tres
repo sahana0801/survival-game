@@ -1,11 +1,11 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://0iowfpsssqbl"]
 
-[ext_resource type="Texture2D" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Attack_with_shadow.png" id="1_8gpu0"]
-[ext_resource type="Texture2D" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Death_with_shadow.png" id="2_u4b0v"]
-[ext_resource type="Texture2D" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Hurt_with_shadow.png" id="3_ycm2q"]
-[ext_resource type="Texture2D" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Idle_with_shadow.png" id="4_kjuqu"]
-[ext_resource type="Texture2D" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Run_with_shadow.png" id="5_5wov3"]
-[ext_resource type="Texture2D" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Walk_with_shadow.png" id="6_nky8v"]
+[ext_resource type="Texture2D" uid="uid://ypk3xepl05cd" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Attack_with_shadow.png" id="1_8gpu0"]
+[ext_resource type="Texture2D" uid="uid://dae62xbxqmypk" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Death_with_shadow.png" id="2_u4b0v"]
+[ext_resource type="Texture2D" uid="uid://bjdrxjwub5lg2" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Hurt_with_shadow.png" id="3_ycm2q"]
+[ext_resource type="Texture2D" uid="uid://bbllo12w85g8a" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Idle_with_shadow.png" id="4_kjuqu"]
+[ext_resource type="Texture2D" uid="uid://cif5j06seqe25" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Run_with_shadow.png" id="5_5wov3"]
+[ext_resource type="Texture2D" uid="uid://jnrctufrcok0" path="res://art/character/Slime/Slime1/With_shadow/Slime1_Walk_with_shadow.png" id="6_nky8v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8p74o"]
 atlas = ExtResource("1_8gpu0")

@@ -116,31 +116,24 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	var damage: int = 0
-	if area.has_method("arrow_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_bow_damage()
-		take_damage(damage)
-	elif area.has_method("sword_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_sword_damage()
-		take_damage(damage)
+	if area.has_method("arrow_deal_damage") or area.has_method("sword_deal_damage"):
+		var damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		var is_crit = area.is_crit if "is_crit" in area else false
+		take_damage(damage, is_crit)
 
 
-func take_damage(damage: int) -> void:
+func take_damage(damage: int, is_crit: bool = false) -> void:
 	if is_dead:
 		return
 	hit_sound.play()
 	PlayerStats.shooting_level()
-	
-	# 20% critical strike chance
-	var is_crit: bool = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
 		
 	current_health -= damage
 	healthBar.value = current_health
 	
-	# Floating Damage Number
-	Helpers.spawn_damage_number(global_position, damage, Color(1.0, 0.88, 0.2), is_crit, "-")
+	# Floating Damage Number (Vàng cam nổi bật khi Crit)
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(1.0, 0.88, 0.2)
+	Helpers.spawn_damage_number(global_position, damage, num_color, is_crit, "-")
 	
 	# Hit flash
 	var tween := create_tween()

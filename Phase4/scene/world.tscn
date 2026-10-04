@@ -112,7 +112,7 @@ scale = Vector2(2.5, 2.5)
 position = Vector2(-175, 945)
 
 [node name="CharacterSwapNPC" parent="." unique_id=20261099 instance=ExtResource("40_cswap")]
-position = Vector2(245, 210)
+position = Vector2(237, 237)
 
 [node name="water_collect_area" type="Area2D" parent="." unique_id=1437338469]
 script = ExtResource("17_oqlrm")

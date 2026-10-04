@@ -9,6 +9,7 @@ var is_sprinting: bool = false
 # Signals
 signal healthChanged
 signal hungerChanged
+signal manaChanged
 signal thirstChanged
 signal playerDied
 signal weaponChanged(weapon_index: int)
@@ -38,8 +39,16 @@ var max_health: int = 100
 var current_health: int = 100
 var max_hunger: int = 100
 var current_hunger: int = 100
-var max_thirst: int = 100
-var current_thirst: int = 100
+var max_mana: int = 100
+var current_mana: int = 100
+
+# Tương thích ngược với các script cũ còn tham chiếu thirst
+var max_thirst: int:
+	get: return max_mana
+	set(val): max_mana = val
+var current_thirst: int:
+	get: return current_mana
+	set(val): current_mana = val
 @onready var hurtBox: Area2D = $hurtBox
 @onready var hurtTimer: Timer = $hurtBox/hurtTimer
 
@@ -70,6 +79,70 @@ func _unhandled_input(event):
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			target_zoom.x = clamp(target_zoom.x - ZOOM_STEP, MIN_ZOOM, MAX_ZOOM)
 			target_zoom.y = clamp(target_zoom.y - ZOOM_STEP, MIN_ZOOM, MAX_ZOOM)
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			if is_alive and not _is_mouse_over_ui():
+				perform_attack()
+
+
+func _is_mouse_over_ui() -> bool:
+	var hovered = get_viewport().gui_get_hovered_control()
+	if hovered != null and hovered.is_visible_in_tree():
+		return true
+	var mouse_screen_pos = get_viewport().get_mouse_position()
+	for grp in ["inventory_window", "pause_menu"]:
+		var node = get_tree().get_first_node_in_group(grp) as Control
+		if node != null and node.is_visible_in_tree():
+			if node.get_global_rect().has_point(mouse_screen_pos):
+				return true
+	return false
+
+
+func perform_attack() -> void:
+	if not is_alive:
+		return
+	var mouse_pos = get_global_mouse_position()
+	
+	# Bow Shoot
+	if current_weapon == Weapon.BOW and bow_cooldown:
+		arrow_audio.play()
+		bow_cooldown = false
+		
+		# Giật lùi cung (Juicy recoil feedback)
+		if bow_sprite != null and is_instance_valid(bow_sprite):
+			var tw = create_tween()
+			bow_sprite.position = Vector2(8, 0)
+			tw.tween_property(bow_sprite, "position", Vector2(14, 0), 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		
+		# 🎯 PINPOINT LASER ARCHERY: Bắn thẳng tắp 100% theo hướng chuột
+		var aim_dir = (mouse_pos - global_position).normalized()
+		var arrow_instance = arrow.instantiate()
+		arrow_instance.global_position = global_position + aim_dir * 14.0
+		arrow_instance.rotation = aim_dir.angle()
+		get_parent().add_child(arrow_instance)
+		
+		await get_tree().create_timer(0.30).timeout
+		bow_cooldown = true
+		
+	# Melee Sword Slash (Chém kiếm cận chiến)
+	elif current_weapon == Weapon.SWORD and sword_cooldown:
+		sword_cooldown = false
+		is_slashing = true
+		
+		# Âm thanh vung kiếm sắc bén (Crisp sword swing whoosh)
+		arrow_audio.pitch_scale = randf_range(1.12, 1.28)
+		arrow_audio.play()
+		
+		var aim_dir = (mouse_pos - global_position).normalized()
+		var slash = sword_slash_scene.instantiate()
+		slash.global_position = global_position + aim_dir * 14.0
+		slash.rotation = aim_dir.angle()
+		get_parent().add_child(slash)
+		
+		await get_tree().create_timer(0.20).timeout
+		arrow_audio.pitch_scale = 1.0
+		is_slashing = false
+		await get_tree().create_timer(0.06).timeout
+		sword_cooldown = true
 
 
 func _process(delta):
@@ -109,6 +182,9 @@ func _ready():
 	PlayerStats.HealthPotionCollected.connect(collect_health_potion)
 	if not PlayerStats.ShootingChanged.is_connected(_on_weapon_tier_changed):
 		PlayerStats.ShootingChanged.connect(_on_weapon_tier_changed)
+	if has_node("thirstTimer"):
+		$thirstTimer.wait_time = 1.0
+		$thirstTimer.start()
 	call_deferred("_setup_starter_inventory")
 	call_deferred("apply_character_type", PlayerStats.active_character)
 
@@ -446,56 +522,10 @@ func handleInput():
 		var current_speed: float = SPRINT_SPEED if is_sprinting else WALK_SPEED
 		velocity = direction * current_speed
 	
-	if Input.is_action_just_pressed("bow"):
-		equip_weapon(Weapon.BOW)
-		
-	if Input.is_action_just_pressed("sword"):
-		equip_weapon(Weapon.SWORD)
 	
 	var mouse_pos = get_global_mouse_position()
 	$Marker2D.look_at(mouse_pos)
 	
-	# Bow Shoot
-	if Input.is_action_just_pressed("left_mouse") and current_weapon == Weapon.BOW and bow_cooldown:
-		arrow_audio.play()
-		bow_cooldown = false
-		
-		# Giật lùi cung (Juicy recoil feedback)
-		if bow_sprite != null and is_instance_valid(bow_sprite):
-			var tw = create_tween()
-			bow_sprite.position = Vector2(8, 0)
-			tw.tween_property(bow_sprite, "position", Vector2(14, 0), 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		
-		# 🎯 PINPOINT LASER ARCHERY: Bắn thẳng tắp 100% theo hướng chuột
-		var aim_dir = (mouse_pos - global_position).normalized()
-		var arrow_instance = arrow.instantiate()
-		arrow_instance.global_position = global_position + aim_dir * 14.0
-		arrow_instance.rotation = aim_dir.angle()
-		get_parent().add_child(arrow_instance)
-		
-		await get_tree().create_timer(0.30).timeout
-		bow_cooldown = true
-		
-	# Melee Sword Slash (Chém kiếm cận chiến)
-	elif Input.is_action_just_pressed("left_mouse") and current_weapon == Weapon.SWORD and sword_cooldown:
-		sword_cooldown = false
-		is_slashing = true
-		
-		# Âm thanh vung kiếm sắc bén (Crisp sword swing whoosh)
-		arrow_audio.pitch_scale = randf_range(1.12, 1.28)
-		arrow_audio.play()
-		
-		var aim_dir = (mouse_pos - global_position).normalized()
-		var slash = sword_slash_scene.instantiate()
-		slash.global_position = global_position + aim_dir * 14.0
-		slash.rotation = aim_dir.angle()
-		get_parent().add_child(slash)
-		
-		await get_tree().create_timer(0.20).timeout
-		arrow_audio.pitch_scale = 1.0
-		is_slashing = false
-		await get_tree().create_timer(0.06).timeout
-		sword_cooldown = true
 	
 	if Input.is_action_just_pressed("inventory"):
 		var inv_win = get_tree().get_first_node_in_group("inventory_window")
@@ -506,11 +536,6 @@ func handleInput():
 		else:
 			$CtrlInventoryStacked.visible = !$CtrlInventoryStacked.visible
 	
-	if Input.is_action_just_pressed("drink"):
-		drink()
-		
-	if Input.is_action_just_pressed("eat"):
-		eat()
 
 	play_anim(direction)
 
@@ -564,17 +589,17 @@ func hungry() -> void:
 	pass
 
 
-func thirsty() -> void:
-	if not is_alive:
+func regen_mana(amount: int = 2) -> void:
+	if not is_alive or current_mana >= max_mana:
 		return
-	# Scale decay with activity (sprinting drains 15, walking drains 10, idle drains 5)
-	var decay: int = 15 if is_sprinting else (10 if player_state == "walking" else 5)
-	current_thirst = max(0, current_thirst - decay)
+	current_mana = min(max_mana, current_mana + amount)
+	manaChanged.emit()
 	thirstChanged.emit()
-	if current_thirst <= 0:
-		current_health = max(0, current_health - 10)
-		checkHealth()
-		healthChanged.emit()
+
+
+func thirsty() -> void:
+	# Đã thay thế bằng cơ chế hồi phục mana tự nhiên
+	regen_mana(2)
 
 
 func _on_hunger_timer_timeout() -> void:
@@ -584,15 +609,23 @@ func _on_hunger_timer_timeout() -> void:
 func _on_thirst_timer_timeout() -> void:
 	if not is_alive:
 		return
-	thirsty()
-	$thirstTimer.start()
+	# Tự động hồi phục Mana mỗi giây (+2 MP)
+	regen_mana(2)
+	if has_node("thirstTimer"):
+		$thirstTimer.wait_time = 1.0
+		$thirstTimer.start()
 
 
 func drink():
+	use_mana_potion()
+
+
+func use_mana_potion():
 	if remove_item("water_potion"):
-		current_thirst = min(max_thirst, current_thirst + 25)
+		current_mana = min(max_mana, current_mana + 30)
+		manaChanged.emit()
 		thirstChanged.emit()
-		Helpers.spawn_damage_number(global_position, 25, Color(0.2, 0.75, 1.0), false, "+", " Water")
+		Helpers.spawn_damage_number(global_position, 30, Color(0.2, 0.75, 1.0), false, "+", " MP")
 
 
 func eat():
@@ -613,13 +646,17 @@ func drink_health_potion():
 		Helpers.spawn_damage_number(global_position, 40, Color(0.2, 1.0, 0.4), true, "+", " HP")
 
 
-func remove_item(item_name: String) -> bool:
-	if inventory_stacked.get_item_by_id(item_name) != null:
-		var size = inventory_stacked.get_item_by_id(item_name).get_property("stack_size")
-		if size >= 1:
-			inventory_stacked.set_item_stack_size(inventory_stacked.get_item_by_id(item_name), size - inventory_stacked.get_prototype_stack_size(item_name))
-			return true
-		else:
-			return false
-	else:
+func remove_item(item_name: String, amount: int = 1) -> bool:
+	if inventory_stacked == null:
 		return false
+	var item = inventory_stacked.get_item_by_id(item_name)
+	if item == null or not is_instance_valid(item):
+		return false
+	var cur_stack: int = int(item.get_property("stack_size", 1))
+	if cur_stack > amount:
+		InventoryStacked.set_item_stack_size(item, cur_stack - amount)
+	else:
+		if inventory_stacked.has_item(item):
+			inventory_stacked.remove_item(item)
+		item.queue_free()
+	return true

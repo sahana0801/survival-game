@@ -88,19 +88,16 @@ func spit_poison(dir: Vector2):
 	get_parent().add_child(spit)
 
 
-func take_damage(damage: int):
+func take_damage(damage: int, is_crit: bool = false):
 	if is_dead:
 		return
-		
-	var is_crit = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
 		
 	current_health -= damage
 	if health_bar != null:
 		health_bar.value = current_health
 		
-	Helpers.spawn_damage_number(global_position, damage, Color(1.0, 0.88, 0.2), is_crit, "-")
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(1.0, 0.88, 0.2)
+	Helpers.spawn_damage_number(global_position, damage, num_color, is_crit, "-")
 	
 	# Hurt flash
 	modulate = Color(1.8, 0.4, 0.4)
@@ -143,13 +140,10 @@ func _on_detection_area_body_exited(body: Node2D):
 
 
 func _on_hit_box_area_entered(area: Area2D):
-	var damage = 0
-	if area.has_method("arrow_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_bow_damage()
-		take_damage(damage)
-	elif area.has_method("sword_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_sword_damage()
-		take_damage(damage)
+	if area.has_method("arrow_deal_damage") or area.has_method("sword_deal_damage"):
+		var damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		var is_crit = area.is_crit if "is_crit" in area else false
+		take_damage(damage, is_crit)
 
 
 func _on_timer_timeout():

@@ -11,8 +11,8 @@ class_name CharacterSwapNPC extends CharacterBody2D
 @onready var prompt_badge: Control = $PromptBadge
 @onready var prompt_label: Label = $PromptBadge/PromptLabel
 @onready var speech_bubble: Control = $SpeechBubble
-@onready var dialogue_text: RichTextLabel = $SpeechBubble/DialogueText
-@onready var speaker_name_label: Label = $SpeechBubble/SpeakerNameLabel
+@onready var dialogue_text: RichTextLabel = $SpeechBubble/VBox/DialogueText
+@onready var speaker_name_label: Label = $SpeechBubble/VBox/SpeakerNameLabel
 @onready var bubble_timer: Timer = $BubbleTimer
 
 var player: Player = null
@@ -204,6 +204,10 @@ func _trigger_character_swap() -> void:
 func _display_speech(text: String) -> void:
 	if speech_bubble == null or dialogue_text == null:
 		return
+	
+	# Ẩn thanh prompt [E] khi đang nói chuyện để không bị đè lên nhau
+	_show_prompt(false)
+	
 	speech_bubble.visible = true
 	speech_bubble.modulate.a = 1.0
 	dialogue_text.text = text
@@ -232,4 +236,9 @@ func _hide_speech_bubble() -> void:
 		type_tween.kill()
 	var fade_tween: Tween = create_tween()
 	fade_tween.tween_property(speech_bubble, "modulate:a", 0.0, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	fade_tween.tween_callback(func() -> void: speech_bubble.visible = false)
+	fade_tween.tween_callback(func() -> void: 
+		speech_bubble.visible = false
+		# Nếu người chơi vẫn ở gần NPC, hiện lại thanh bấm [E]
+		if is_player_in_range and player != null:
+			_show_prompt(true)
+	)

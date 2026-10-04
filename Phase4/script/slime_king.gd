@@ -128,19 +128,16 @@ func perform_ground_slam():
 	is_slamming = false
 
 
-func take_damage(damage: int):
+func take_damage(damage: int, is_crit: bool = false):
 	if is_dead:
 		return
 		
 	if hit_sound != null:
 		hit_sound.play()
 		
-	var is_crit = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
-		
 	current_health -= damage
-	Helpers.spawn_damage_number(global_position + Vector2(0, -35), damage, Color(1.0, 0.9, 0.2), is_crit, "-")
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(1.0, 0.9, 0.2)
+	Helpers.spawn_damage_number(global_position + Vector2(0, -35), damage, num_color, is_crit, "-")
 	
 	_check_phases()
 	boss_health_updated.emit(current_health, current_phase)
@@ -232,10 +229,7 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	var damage: int = 0
-	if area.has_method("arrow_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_bow_damage()
-		take_damage(damage)
-	elif area.has_method("sword_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_sword_damage()
-		take_damage(damage)
+	if area.has_method("arrow_deal_damage") or area.has_method("sword_deal_damage"):
+		var damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		var is_crit = area.is_crit if "is_crit" in area else false
+		take_damage(damage, is_crit)

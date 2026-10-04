@@ -1,7 +1,8 @@
 class_name SwordSlash extends Area2D
 
-# Sát thương cơ bản 15, mỗi cấp tăng +5
+# Sát thương cơ bản roll từ PlayerStats
 var damage: int = 15
+var is_crit: bool = false
 var duration: float = 0.20
 var elapsed: float = 0.0
 var hit_enemies: Array = []
@@ -9,7 +10,9 @@ var hit_enemies: Array = []
 
 func _ready():
 	set_as_top_level(true)
-	damage = PlayerStats.get_sword_damage()
+	var hit_data = PlayerStats.roll_attack_damage()
+	damage = hit_data["damage"]
+	is_crit = hit_data["is_crit"]
 
 
 func sword_deal_damage():
@@ -43,6 +46,6 @@ func _check_hit(target: Node2D, area: Area2D):
 		if target.has_method("take_hit"):
 			target.take_hit(global_position)
 			
-		# Nếu quái chạm trực tiếp bằng body (không qua hitbox Area2D) thì áp dụng sát thương
-		if area == null and target.has_method("take_damage"):
-			target.take_damage(damage)
+		# Áp dụng sát thương trực tiếp lên quái vật
+		if target.has_method("take_damage"):
+			target.take_damage(damage, is_crit)

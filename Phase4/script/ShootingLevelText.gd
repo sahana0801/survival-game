@@ -10,4 +10,4 @@ func _ready():
 
 
 func update():
-	text = "Tier %d (+%d DMG)" % [PlayerStats.weapon_level, PlayerStats.get_weapon_damage()]
+	text = "Tier %d" % PlayerStats.weapon_level

@@ -30,25 +30,32 @@ func _ready():
 	texture_under = null
 
 	if player != null:
-		if not player.thirstChanged.is_connected(update):
+		if player.has_signal("manaChanged") and not player.manaChanged.is_connected(update):
+			player.manaChanged.connect(update)
+		elif not player.thirstChanged.is_connected(update):
 			player.thirstChanged.connect(update)
 		update()
 
 
 func set_player(p: Player) -> void:
-	if player != null and player.thirstChanged.is_connected(update):
-		player.thirstChanged.disconnect(update)
+	if player != null:
+		if player.has_signal("manaChanged") and player.manaChanged.is_connected(update):
+			player.manaChanged.disconnect(update)
+		if player.thirstChanged.is_connected(update):
+			player.thirstChanged.disconnect(update)
 	player = p
 	if player != null and is_inside_tree():
-		if not player.thirstChanged.is_connected(update):
+		if player.has_signal("manaChanged") and not player.manaChanged.is_connected(update):
+			player.manaChanged.connect(update)
+		elif not player.thirstChanged.is_connected(update):
 			player.thirstChanged.connect(update)
 		update()
 
 
 func update():
-	if player == null or player.max_thirst <= 0:
+	if player == null or player.max_mana <= 0:
 		return
-	var new_val = float(player.current_thirst * 100.0 / player.max_thirst)
+	var new_val = float(player.current_mana * 100.0 / player.max_mana)
 	if new_val < target_val:
 		drain_delay_timer = 0.35
 	else:

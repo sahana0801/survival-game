@@ -1,10 +1,23 @@
 class_name Skeleton extends CharacterBody2D
 
-var health: int = 300
-var current_health: int = health
+# === CHỈNH KÍCH THƯỚC VÀ CHỈ SỐ SKELETON TẠI ĐÂY ===
+@export_group("Chỉ Số & Kích Thước")
+@export var skeleton_scale: float = 2.0: # Kích thước (2.0 = to bằng người chơi, 2.5 = khổng lồ)
+	set(val):
+		skeleton_scale = val
+		if is_node_ready() and has_node("AnimatedSprite2D"):
+			$AnimatedSprite2D.scale = Vector2(val, val)
+
+@export var move_speed: float = 100.0 # Tốc độ di chuyển (chạy theo player & đi tuần)
+@export var max_health: int = 300 # Máu tối đa
+@export var attack_damage: int = 15 # Sát thương mỗi đòn đâm giáo
+
+signal skeleton_died
+
+@onready var health: int = max_health
+@onready var current_health: int = health
 @onready var healthBar: TextureProgressBar = $healthBar
 @onready var wander_controller = $WanderController
-const SPEED: float = 50.0
 
 var dir: Vector2 = Vector2.RIGHT
 var start_position: Vector2 = Vector2.ZERO
@@ -22,6 +35,9 @@ var knockback: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	randomize()
 	start_position = position
+	if has_node("AnimatedSprite2D"):
+		$AnimatedSprite2D.scale = Vector2(skeleton_scale, skeleton_scale)
+	healthBar.max_value = max_health
 	healthBar.value = current_health
 	get_state()
 
@@ -41,10 +57,15 @@ func apply_knockback(force: Vector2) -> void:
 	knockback = force
 
 
+var attack_cooldown: float = 0.0
+
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		velocity = Vector2.ZERO
 		return
+
+	if attack_cooldown > 0.0:
+		attack_cooldown -= delta
 
 	if knockback.length() > 5.0:
 		velocity = knockback
@@ -56,11 +77,17 @@ func _physics_process(delta: float) -> void:
 		current_state = ATTACK
 		is_attacking = true
 		var direction: Vector2 = global_position.direction_to(player.global_position)
-		velocity = direction * SPEED
-		$AnimatedSprite2D.flip_h = velocity.x < 0
+		velocity = direction * move_speed
+		var is_facing_left: bool = velocity.x < 0
+		$AnimatedSprite2D.flip_h = is_facing_left
+		if has_node("hitbox"):
+			$hitbox.scale.x = -1.0 if is_facing_left else 1.0
 		var dist: float = global_position.distance_to(player.global_position)
-		if dist < 25.0:
+		if dist < 65.0:
 			$AnimatedSprite2D.play("attack")
+			if attack_cooldown <= 0.0 and player.has_method("hurtByEnemy"):
+				player.hurtByEnemy(self, attack_damage)
+				attack_cooldown = 0.8
 		else:
 			$AnimatedSprite2D.play("walk")
 		move_and_slide()
@@ -74,8 +101,11 @@ func _physics_process(delta: float) -> void:
 				$AnimatedSprite2D.play("walk")
 				if wander_controller != null and is_instance_valid(wander_controller):
 					var direction: Vector2 = global_position.direction_to(wander_controller.target_position)
-					velocity = velocity.move_toward(direction * SPEED, delta * 150.0)
-					$AnimatedSprite2D.flip_h = velocity.x < 0
+					velocity = velocity.move_toward(direction * move_speed, delta * 150.0)
+					var is_facing_left: bool = velocity.x < 0
+					$AnimatedSprite2D.flip_h = is_facing_left
+					if has_node("hitbox"):
+						$hitbox.scale.x = -1.0 if is_facing_left else 1.0
 					move_and_slide()
 			REACT:
 				$AnimatedSprite2D.play("react")
@@ -88,12 +118,9 @@ func _physics_process(delta: float) -> void:
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body is Player or body.has_method("player"):
 		player = body
-		current_state = REACT
-		$AnimatedSprite2D.play("react")
-		$skeletonLaughs.play()
-		await get_tree().create_timer(1.0).timeout
-		if !is_dead and player != null:
-			current_state = WALK
+		current_state = ATTACK
+		if has_node("skeletonLaughs"):
+			$skeletonLaughs.play()
 
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
@@ -103,29 +130,26 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 		current_state = IDLE
 
 
-func take_damage(damage: int) -> void:
+func take_damage(damage: int, is_crit: bool = false) -> void:
 	if is_dead:
 		return
 	$skeletonHit.play()
 	$AnimatedSprite2D.play("hit")
 	PlayerStats.shooting_level()
-	
-	# 20% critical strike chance
-	var is_crit: bool = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
 		
 	current_health -= damage
 	healthBar.value = current_health
 	
-	# Floating Damage Number
-	Helpers.spawn_damage_number(global_position, damage, Color(1.0, 0.88, 0.2), is_crit, "-")
+	# Floating Damage Number (Vàng cam nổi bật khi Crit)
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(1.0, 0.88, 0.2)
+	Helpers.spawn_damage_number(global_position, damage, num_color, is_crit, "-")
 	
 	if current_health <= 0 and !is_dead:
 		death()
 
 
 func death() -> void:
+	skeleton_died.emit()
 	PlayerStats.shooting_level(10) # Bonus for kill
 	is_dead = true
 	velocity = Vector2.ZERO
@@ -143,13 +167,10 @@ func death() -> void:
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
-	var damage: int = 0
-	if area.has_method("arrow_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_bow_damage()
-		take_damage(damage)
-	elif area.has_method("sword_deal_damage"):
-		damage = area.damage if "damage" in area else PlayerStats.get_sword_damage()
-		take_damage(damage)
+	if area.has_method("arrow_deal_damage") or area.has_method("sword_deal_damage"):
+		var damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		var is_crit = area.is_crit if "is_crit" in area else false
+		take_damage(damage, is_crit)
 
 
 func _on_timer_timeout() -> void:
