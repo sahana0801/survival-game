@@ -1,31 +1,49 @@
-extends CharacterBody2D
+class_name Skeleton extends CharacterBody2D
 
-var health = 300
-var current_health = health
-@onready var healthBar = $healthBar
+# === CHỈNH KÍCH THƯỚC VÀ CHỈ SỐ SKELETON TẠI ĐÂY ===
+@export_group("Chỉ Số & Kích Thước")
+@export var skeleton_scale: float = 2.0: # Kích thước (2.0 = to bằng người chơi, 2.5 = khổng lồ)
+	set(val):
+		skeleton_scale = val
+		if is_node_ready() and has_node("AnimatedSprite2D"):
+			$AnimatedSprite2D.scale = Vector2(val, val)
+
+@export var move_speed: float = 100.0 # Tốc độ di chuyển (chạy theo player & đi tuần)
+@export var max_health: int = 300 # Máu tối đa
+@export var attack_damage: int = 15 # Sát thương mỗi đòn đâm giáo
+
+signal skeleton_died
+
+@onready var health: int = max_health
+@onready var current_health: int = health
+@onready var healthBar: TextureProgressBar = $healthBar
 @onready var wander_controller = $WanderController
-const SPEED = 50.0
 
-var dir = Vector2.RIGHT
-var start_position: Vector2
+var dir: Vector2 = Vector2.RIGHT
+var start_position: Vector2 = Vector2.ZERO
 enum { IDLE, REACT, WALK, DIE, ATTACK, HIT, NEW_DIR }
 var current_state = IDLE
 
-var is_roaming = true
-var is_attacking = false
-var is_dead = false
+var is_roaming: bool = true
+var is_attacking: bool = false
+var is_dead: bool = false
 
-var player = null
+var player: CharacterBody2D = null
+var knockback: Vector2 = Vector2.ZERO
 
-func _ready():
+
+func _ready() -> void:
 	randomize()
 	start_position = position
+	if has_node("AnimatedSprite2D"):
+		$AnimatedSprite2D.scale = Vector2(skeleton_scale, skeleton_scale)
+	healthBar.max_value = max_health
 	healthBar.value = current_health
 	get_state()
 
 
-func get_state():
-	var r = randi_range(0, 2)
+func get_state() -> void:
+	var r: int = randi_range(0, 2)
 	match r:
 		0:
 			current_state = IDLE
@@ -33,53 +51,61 @@ func get_state():
 			current_state = REACT
 		2:
 			current_state = WALK
-		#3:
-		#	current_state = NEW_DIR
 
 
-var knockback: Vector2 = Vector2.ZERO
-
-
-func apply_knockback(force: Vector2):
+func apply_knockback(force: Vector2) -> void:
 	knockback = force
 
 
-func _process(delta):
+var attack_cooldown: float = 0.0
+
+func _physics_process(delta: float) -> void:
+	if is_dead:
+		velocity = Vector2.ZERO
+		return
+
+	if attack_cooldown > 0.0:
+		attack_cooldown -= delta
+
 	if knockback.length() > 5.0:
-		position += knockback * delta
+		velocity = knockback
 		knockback = knockback.move_toward(Vector2.ZERO, delta * 450.0)
+		move_and_slide()
+		return
 		
-	if player != null and player.is_alive:
-		var oldpos = position
-		position += (player.position - position) / SPEED
+	if player != null and is_instance_valid(player) and player.is_alive:
 		current_state = ATTACK
 		is_attacking = true
-		var dist = player.position - position
-		if dist.x < 10:
+		var direction: Vector2 = global_position.direction_to(player.global_position)
+		velocity = direction * move_speed
+		var is_facing_left: bool = velocity.x < 0
+		$AnimatedSprite2D.flip_h = is_facing_left
+		if has_node("hitbox"):
+			$hitbox.scale.x = -1.0 if is_facing_left else 1.0
+		var dist_sq: float = global_position.distance_squared_to(player.global_position)
+		if dist_sq < 4225.0: # 65 px
 			$AnimatedSprite2D.play("attack")
-		if position.x < oldpos.x:
-			$AnimatedSprite2D.flip_h = true
+			if attack_cooldown <= 0.0 and player.has_method("hurtByEnemy"):
+				player.hurtByEnemy(self, attack_damage)
+				attack_cooldown = 0.8
 		else:
-			$AnimatedSprite2D.flip_h = false
-	if !is_attacking and !is_dead:
+			$AnimatedSprite2D.play("walk")
+		move_and_slide()
+	else:
+		is_attacking = false
 		match current_state:
 			IDLE:
+				velocity = Vector2.ZERO
 				$AnimatedSprite2D.play("idle")
 			WALK:
-				#if dir.x == -1: # left
-				#	$AnimatedSprite2D.flip_h = true
-				#else:
-				#	$AnimatedSprite2D.flip_h = false
 				$AnimatedSprite2D.play("walk")
-				if player == null:
-					var direction = global_position.direction_to(wander_controller.target_position)
-					velocity = velocity.move_toward(direction * SPEED, delta)
-					$AnimatedSprite2D.flip_h = velocity.x < 0
-					#var dist = position - start_position
-					#if dist.x > 100:
-					#	position += (start_position - position) / SPEED
-					#else:
-					#	position += dir * SPEED * delta
+				if wander_controller != null and is_instance_valid(wander_controller):
+					var direction: Vector2 = global_position.direction_to(wander_controller.target_position)
+					velocity = velocity.move_toward(direction * move_speed, delta * 150.0)
+					var is_facing_left: bool = velocity.x < 0
+					$AnimatedSprite2D.flip_h = is_facing_left
+					if has_node("hitbox"):
+						$hitbox.scale.x = -1.0 if is_facing_left else 1.0
 					move_and_slide()
 			REACT:
 				$AnimatedSprite2D.play("react")
@@ -87,76 +113,67 @@ func _process(delta):
 				$AnimatedSprite2D.play("dead")
 			HIT:
 				$AnimatedSprite2D.play("hit")
-			NEW_DIR:	#not used any longer
-				dir = Helpers.choose([Vector2.RIGHT, Vector2.UP, Vector2.DOWN, Vector2.LEFT])
-				$AnimatedSprite2D.play("walk")
-				current_state = WALK
 
 
-func _on_detection_area_body_entered(body):
-	if body.has_method("player"):
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body is Player or body.has_method("player"):
 		player = body
-		current_state = REACT
-		$AnimatedSprite2D.play("react")
-		$skeletonLaughs.play()
-		await get_tree().create_timer(1).timeout
-		current_state = WALK
+		current_state = ATTACK
+		if has_node("skeletonLaughs"):
+			$skeletonLaughs.play()
 
 
-func _on_detection_area_body_exited(body):
-	if body.has_method("player"):
+func _on_detection_area_body_exited(body: Node2D) -> void:
+	if body == player:
 		player = null
 		is_attacking = false
 		current_state = IDLE
 
 
-func take_damage(damage: int):
+func take_damage(damage: int, is_crit: bool = false) -> void:
+	if is_dead:
+		return
 	$skeletonHit.play()
 	$AnimatedSprite2D.play("hit")
 	PlayerStats.shooting_level()
-	
-	# 20% critical strike chance
-	var is_crit = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
 		
 	current_health -= damage
 	healthBar.value = current_health
 	
-	# 💥 Floating Damage Number
-	Helpers.spawn_damage_number(global_position, damage, Color(1.0, 0.88, 0.2), is_crit, "-")
+	# Floating Damage Number (Vàng cam nổi bật khi Crit)
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(1.0, 0.88, 0.2)
+	Helpers.spawn_damage_number(global_position, damage, num_color, is_crit, "-")
 	
 	if current_health <= 0 and !is_dead:
 		death()
 
 
-func death():
-	PlayerStats.shooting_level(10) #Bonus for kill
+func death() -> void:
+	skeleton_died.emit()
+	PlayerStats.shooting_level(10) # Bonus for kill
 	is_dead = true
+	velocity = Vector2.ZERO
 	$skeletonDies.play()
 	$AnimatedSprite2D.play("dead")
 	
 	healthBar.visible = false
 	if has_node("HitBox/CollisionShape2D"):
-		$HitBox/CollisionShape2D.disabled = true
+		$HitBox/CollisionShape2D.set_deferred("disabled", true)
 	if has_node("DetectionArea/CollisionShape2D"):
-		$DetectionArea/CollisionShape2D.disabled = true
+		$DetectionArea/CollisionShape2D.set_deferred("disabled", true)
 	if has_node("hitbox/CollisionShape2D"):
-		$hitbox/CollisionShape2D.disabled = true
+		$hitbox/CollisionShape2D.set_deferred("disabled", true)
 	$DeathTimer.start()
-	
-
-func _on_hit_box_area_entered(area):
-	var damage
-	if area.has_method("arrow_deal_damage"):
-		damage = 100 * PlayerStats.shooting / PlayerStats.max_shooting_level
-		take_damage(damage)
-	elif area.has_method("sword_deal_damage"):
-		damage = area.damage
-		take_damage(damage)
 
 
-func _on_timer_timeout():
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	if area.has_method("arrow_deal_damage") or area.has_method("sword_deal_damage"):
+		var damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		var is_crit = area.is_crit if "is_crit" in area else false
+		take_damage(damage, is_crit)
+
+
+func _on_timer_timeout() -> void:
 	$Timer.wait_time = Helpers.choose([0.5, 1.0, 1.5])
 	wander_controller.start_wander_timer($Timer.wait_time)
 	if !is_dead:
@@ -164,5 +181,9 @@ func _on_timer_timeout():
 		$Timer.start()
 
 
-func _on_death_timer_timeout():
+func _on_death_timer_timeout() -> void:
 	queue_free()
+
+
+func enemy() -> void:
+	pass

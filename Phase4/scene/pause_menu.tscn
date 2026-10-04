@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="1_v570q"]
 
 [node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_bd770")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
 visible = false
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
@@ -22,10 +24,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -220.5
-offset_top = -120.5
-offset_right = 220.5
-offset_bottom = 120.5
+offset_left = -230.0
+offset_top = -160.0
+offset_right = 230.0
+offset_bottom = 175.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -33,45 +35,129 @@ size_flags_vertical = 4
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_left = 97.0
+offset_left = 135.0
 offset_top = 16.0
-offset_right = 332.0
+offset_right = 325.0
 offset_bottom = 56.0
 theme = ExtResource("1_v570q")
 theme_override_font_sizes/normal_font_size = 40
-text = "Game paused"
+text = "Tạm Dừng"
 scroll_active = false
 
 [node name="ResumeButton" type="Button" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_left = 159.0
-offset_top = 70.0
-offset_right = 278.0
-offset_bottom = 110.0
+offset_left = 145.0
+offset_top = 68.0
+offset_right = 315.0
+offset_bottom = 108.0
 theme = ExtResource("1_v570q")
 theme_override_font_sizes/font_size = 30
-text = "Resume"
+text = "Tiếp Tục"
+
+[node name="DevDayNightButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 120.0
+offset_right = 410.0
+offset_bottom = 165.0
+theme = ExtResource("1_v570q")
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "🌙 Đổi Sang Ban Đêm (Dev)"
 
 [node name="SettingsButton" type="Button" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_left = 159.0
-offset_top = 123.0
-offset_right = 264.0
-offset_bottom = 163.0
+offset_left = 145.0
+offset_top = 178.0
+offset_right = 315.0
+offset_bottom = 218.0
 theme = ExtResource("1_v570q")
 theme_override_font_sizes/font_size = 30
-text = "Settings"
+text = "Cài Đặt"
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_left = 159.0
-offset_top = 176.0
-offset_right = 278.0
-offset_bottom = 216.0
+offset_left = 145.0
+offset_top = 230.0
+offset_right = 315.0
+offset_bottom = 270.0
 theme = ExtResource("1_v570q")
 theme_override_font_sizes/font_size = 30
-text = "Exit"
+text = "Thoát"
+
+[node name="SettingsPanel" type="Panel" parent="CanvasLayer"]
+visible = false
+process_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -160.0
+offset_right = 230.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 56.0
+theme = ExtResource("1_v570q")
+theme_override_font_sizes/font_size = 32
+text = "Cài Đặt & Dev Mode"
+horizontal_alignment = 1
+
+[node name="SoundButton" type="Button" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 68.0
+offset_right = 390.0
+offset_bottom = 110.0
+theme = ExtResource("1_v570q")
+theme_override_font_sizes/font_size = 22
+text = "Âm Thanh: Bật 🔊"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 120.0
+offset_right = 420.0
+offset_bottom = 150.0
+theme = ExtResource("1_v570q")
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "Trạng thái: Ban Ngày ☀️"
+horizontal_alignment = 1
+
+[node name="DevDayNightButton" type="Button" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 160.0
+offset_right = 410.0
+offset_bottom = 205.0
+theme = ExtResource("1_v570q")
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "🌙 Đổi Sang Ban Đêm (Dev)"
+
+[node name="CloseSettingsButton" type="Button" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 225.0
+offset_right = 315.0
+offset_bottom = 265.0
+theme = ExtResource("1_v570q")
+theme_override_font_sizes/font_size = 26
+text = "Quay Lại"
 
 [connection signal="pressed" from="CanvasLayer/Panel/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/DevDayNightButton" to="." method="_on_dev_day_night_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingsPanel/SoundButton" to="." method="_on_sound_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingsPanel/DevDayNightButton" to="." method="_on_dev_day_night_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingsPanel/CloseSettingsButton" to="." method="_on_close_settings_button_pressed"]

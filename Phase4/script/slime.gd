@@ -1,156 +1,196 @@
 class_name Slime extends CharacterBody2D
 
-const SPEED = 80.0
+const SPEED: float = 80.0
 
 enum { IDLE, WANDER, ATTACKING }
 var state = IDLE
 
-var max_health = 100
-var current_health = max_health
+@export_range(1, 3) var slime_type: int = 1
 
-var is_dead = false
-var player = null
+var max_health: int = 100
+var current_health: int = max_health
 
+var is_dead: bool = false
+var player: CharacterBody2D = null
+var player_in_collect_range: bool = false
+var current_dir: String = "s"
+
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var slime = $slime_collectable
-#@export var itemRes = InvItem
-@onready var healthBar = $healthBar
-@onready var hit_sound = $HitSound
-@onready var dead_sound = $DeadSound
-@onready var inv_pick = $InventoryPick
+@onready var healthBar: TextureProgressBar = $healthBar
+@onready var hit_sound: AudioStreamPlayer2D = $HitSound
+@onready var dead_sound: AudioStreamPlayer2D = $DeadSound
+@onready var inv_pick: AudioStreamPlayer2D = $InventoryPick
 @onready var wander_controller = $WanderController
-@onready var wander_range = wander_controller.wander_range
+@onready var wander_range: int = wander_controller.wander_range
+
+var knockback: Vector2 = Vector2.ZERO
 
 
-func _ready():
+func _ready() -> void:
+	if slime_type == 2:
+		var f2 = load("res://art/character/Slime/slime2_frames.tres")
+		if f2 != null:
+			anim_sprite.sprite_frames = f2
+	elif slime_type == 3:
+		var f3 = load("res://art/character/Slime/slime3_frames.tres")
+		if f3 != null:
+			anim_sprite.sprite_frames = f3
+			
 	healthBar.value = current_health
 	$slime_collectable/collect_area.visible = false
 	random_state()
 
 
-func random_state():
+func random_state() -> void:
 	if wander_controller.get_time_left() == 0:
 		state = Helpers.choose([IDLE, WANDER])
 		wander_controller.start_wander_timer(Helpers.choose([1, 1.5, 2]))
 
-func _process(_delta):
+
+func _process(_delta: float) -> void:
 	playercollect()
 
 
-var knockback: Vector2 = Vector2.ZERO
-
-
-func apply_knockback(force: Vector2):
+func apply_knockback(force: Vector2) -> void:
 	knockback = force
 
 
-func _physics_process(delta):
+func update_direction(move_vec: Vector2) -> void:
+	if move_vec.length_squared() < 0.1:
+		return
+	var deg := rad_to_deg(move_vec.angle())
+	if deg >= -45.0 and deg < 45.0:
+		current_dir = "e"
+	elif deg >= 45.0 and deg < 135.0:
+		current_dir = "s"
+	elif deg >= -135.0 and deg < -45.0:
+		current_dir = "n"
+	else:
+		current_dir = "w"
+
+
+func _physics_process(delta: float) -> void:
+	if is_dead:
+		velocity = Vector2.ZERO
+		return
+
 	if knockback.length() > 5.0:
-		position += knockback * delta
+		velocity = knockback
 		knockback = knockback.move_toward(Vector2.ZERO, delta * 450.0)
-		
-	if !is_dead:
-		$detection_area/CollisionShape2D.disabled = false
-		if player != null:
-			state = ATTACKING
-			position += (player.position - position) / SPEED
-			#velocity = dir * SPEED
-			move_and_slide()
-			$AnimatedSprite2D.play("move")
-		else:
-			random_state()
-			match state:
-				IDLE:
-					$AnimatedSprite2D.play("idle")
-				WANDER:
-					var direction = global_position.direction_to(wander_controller.target_position)
-					velocity = velocity.move_toward(direction * SPEED, delta)
-					$AnimatedSprite2D.flip_h = velocity.x > 0
-					$AnimatedSprite2D.play("move")
-	else:	# is_dead
-		$detection_area/CollisionShape2D.disabled = true
+		move_and_slide()
+		return
+
+	if player != null and is_instance_valid(player):
+		state = ATTACKING
+		var direction: Vector2 = global_position.direction_to(player.global_position)
+		velocity = direction * SPEED
+		update_direction(velocity)
+		anim_sprite.flip_h = false
+		anim_sprite.play("run_" + current_dir)
+		move_and_slide()
+	else:
+		random_state()
+		match state:
+			IDLE:
+				velocity = Vector2.ZERO
+				anim_sprite.flip_h = false
+				anim_sprite.play("idle_" + current_dir)
+			WANDER:
+				var direction: Vector2 = global_position.direction_to(wander_controller.target_position)
+				velocity = velocity.move_toward(direction * SPEED, delta * 200.0)
+				update_direction(velocity)
+				anim_sprite.flip_h = false
+				anim_sprite.play("walk_" + current_dir)
+				move_and_slide()
 
 
-func _on_detection_area_body_entered(body):
-	if body.has_method("player"):
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body is Player or body.has_method("player"):
 		player = body
 
 
-func _on_detection_area_body_exited(body):
-	if body.has_method("player"):
+func _on_detection_area_body_exited(body: Node2D) -> void:
+	if body == player:
 		player = null
-	#pass
 
 
-func _on_hitbox_area_entered(area):
-	var damage
-	if area.has_method("arrow_deal_damage"):
-		damage = 100 * PlayerStats.shooting / PlayerStats.max_shooting_level
-		take_damage(damage)
-	elif area.has_method("sword_deal_damage"):
-		damage = area.damage
-		take_damage(damage)
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area.has_method("arrow_deal_damage") or area.has_method("sword_deal_damage"):
+		var damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		var is_crit = area.is_crit if "is_crit" in area else false
+		take_damage(damage, is_crit)
 
 
-func take_damage(damage: int):
+func take_damage(damage: int, is_crit: bool = false) -> void:
+	if is_dead:
+		return
 	hit_sound.play()
 	PlayerStats.shooting_level()
-	
-	# 20% critical strike chance
-	var is_crit = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
 		
 	current_health -= damage
 	healthBar.value = current_health
 	
-	# 💥 Floating Damage Number
-	Helpers.spawn_damage_number(global_position, damage, Color(1.0, 0.88, 0.2), is_crit, "-")
+	# Floating Damage Number (Vàng cam nổi bật khi Crit)
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(1.0, 0.88, 0.2)
+	Helpers.spawn_damage_number(global_position, damage, num_color, is_crit, "-")
 	
-	if current_health <= 0 and !is_dead:
+	# Hit flash
+	var tween := create_tween()
+	tween.tween_property(anim_sprite, "modulate", Color(2.5, 0.4, 0.4, 1.0), 0.08)
+	tween.tween_property(anim_sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.12)
+	
+	if current_health <= 0:
 		death()
 
 
-func death():
+func death() -> void:
 	dead_sound.play()
-	PlayerStats.shooting_level(5) #Bonus for kill
+	PlayerStats.shooting_level(5) # Bonus for kill
 	is_dead = true
-	var temp_player = player
-	$AnimatedSprite2D.play("death")
+	velocity = Vector2.ZERO
+	anim_sprite.flip_h = false
+	anim_sprite.play("death_" + current_dir)
 	healthBar.visible = false
-	await get_tree().create_timer(1).timeout
+	$hitbox/CollisionShape2D.set_deferred("disabled", true)
+	$detection_area/CollisionShape2D.set_deferred("disabled", true)
+	var tree = get_tree()
+	if tree != null:
+		await tree.create_timer(1.0).timeout
+	if not is_inside_tree():
+		return
 	
-	$AnimatedSprite2D.visible = false
-	$hitbox/CollisionShape2D.disabled = true
-	$detection_area/CollisionShape2D.disabled = true
-	if temp_player != null:
-		player = temp_player
+	anim_sprite.visible = false
 	drop_slime()
 
 
-func drop_slime():
+func drop_slime() -> void:
+	if not is_inside_tree():
+		return
 	slime.visible = true
 	$slime_collectable/collect_area.visible = true
 
 
-func playercollect():
-	if Input.is_action_just_pressed("harvest") and player != null and $slime_collectable/collect_area.visible:
-		#player.collect(itemRes)
-		#inv_pick.play()
+func playercollect() -> void:
+	if Input.is_action_just_pressed("harvest") and player_in_collect_range and $slime_collectable/collect_area.visible:
 		PlayerStats.SlimeCollected.emit()
-		await get_tree().create_timer(0.3).timeout
-		self.queue_free()
+		var tree = get_tree()
+		if tree != null:
+			await tree.create_timer(0.3).timeout
+		if not is_inside_tree():
+			return
+		queue_free()
 
 
-func _on_area_2d_body_entered(body):
-	if body.has_method("player"):
-		player = body
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is Player or body.has_method("player"):
+		player_in_collect_range = true
 
 
-func _on_area_2d_body_exited(body):
-	if body.has_method("player"):
-		#print("Player: null")
-		player = null
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is Player or body.has_method("player"):
+		player_in_collect_range = false
 
 
-func enemy():
+func enemy() -> void:
 	pass

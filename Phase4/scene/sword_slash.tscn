@@ -7,7 +7,7 @@ z_index = 25
 script = ExtResource("1_sword")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, 0, 24, -30, 42, -18, 48, 0, 42, 18, 24, 30)
+polygon = PackedVector2Array(6, -14, 18, -24, 30, -18, 38, 0, 30, 18, 18, 24, 6, 14, 10, 0)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

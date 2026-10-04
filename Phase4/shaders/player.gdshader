@@ -10,7 +10,3 @@ void fragment() {
 	vec4 temp_color = texture(TEXTURE, UV);
 	COLOR = vec4(temp_color.r + gradient, temp_color.g, temp_color.b, temp_color.a);
 }
-
-void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
-}

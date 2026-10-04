@@ -44,8 +44,10 @@ func _physics_process(delta: float):
 		return
 		
 	if knockback.length() > 5.0:
-		position += knockback * delta
-		knockback = knockback.move_toward(Vector2.ZERO, delta * 450.0)
+		velocity = knockback
+		knockback = knockback.move_toward(Vector2.ZERO, delta * 520.0)
+		move_and_slide()
+		return
 		
 	if spit_cooldown > 0.0:
 		spit_cooldown -= delta
@@ -59,8 +61,8 @@ func _physics_process(delta: float):
 		move_and_slide()
 		
 		# Spit poison glob when in medium range
-		var dist = global_position.distance_to(player.global_position)
-		if dist < 220.0 and spit_cooldown <= 0.0:
+		var dist_sq = global_position.distance_squared_to(player.global_position)
+		if dist_sq < 48400.0 and spit_cooldown <= 0.0: # 220 px
 			spit_poison(dir)
 	else:
 		match current_state:
@@ -86,23 +88,24 @@ func spit_poison(dir: Vector2):
 	get_parent().add_child(spit)
 
 
-func take_damage(damage: int):
+func take_damage(damage: int, is_crit: bool = false):
 	if is_dead:
 		return
-		
-	var is_crit = randf() < 0.20
-	if is_crit:
-		damage = int(round(damage * 1.5))
 		
 	current_health -= damage
 	if health_bar != null:
 		health_bar.value = current_health
 		
-	Helpers.spawn_damage_number(global_position, damage, Color(1.0, 0.88, 0.2), is_crit, "-")
+	var num_color = Color(1.0, 0.6, 0.1) if is_crit else Color(1.0, 0.88, 0.2)
+	Helpers.spawn_damage_number(global_position, damage, num_color, is_crit, "-")
 	
 	# Hurt flash
 	modulate = Color(1.8, 0.4, 0.4)
-	await get_tree().create_timer(0.12).timeout
+	var tree = get_tree()
+	if tree != null:
+		await tree.create_timer(0.12).timeout
+	if not is_inside_tree():
+		return
 	modulate = Color(0.85, 1.15, 0.85)
 	
 	if current_health <= 0:
@@ -126,6 +129,8 @@ func death():
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
 	await tween.finished
+	if not is_inside_tree():
+		return
 	queue_free()
 
 
@@ -141,13 +146,10 @@ func _on_detection_area_body_exited(body: Node2D):
 
 
 func _on_hit_box_area_entered(area: Area2D):
-	var damage = 0
-	if area.has_method("arrow_deal_damage"):
-		damage = int(100 * PlayerStats.shooting / PlayerStats.max_shooting_level)
-		take_damage(damage)
-	elif area.has_method("sword_deal_damage"):
-		damage = area.damage
-		take_damage(damage)
+	if area.has_method("arrow_deal_damage") or area.has_method("sword_deal_damage"):
+		var damage = area.damage if "damage" in area else PlayerStats.get_weapon_damage()
+		var is_crit = area.is_crit if "is_crit" in area else false
+		take_damage(damage, is_crit)
 
 
 func _on_timer_timeout():

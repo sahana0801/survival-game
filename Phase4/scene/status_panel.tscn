@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://qdi2shl3wgcw"]
+
+[ext_resource type="Script" path="res://script/status_panel.gd" id="1_spanel"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/themes/parchment/panel.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/themes/parchment/portrait.png" id="3_portrait_bg"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/icons/helmet.png" id="4_helmet"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/icons/scroll.png" id="5_scroll"]
+[ext_resource type="FontFile" path="res://font/hud_font.ttf" id="6_font"]
+[ext_resource type="Script" path="res://script/day_text.gd" id="7_dayscript"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/icons/heart.png" id="8_heart"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/themes/parchment/progress_bg.png" id="9_bar_bg"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/bars/bar_red.png" id="10_bar_red"]
+[ext_resource type="Script" path="res://script/PlayerHealthBar.gd" id="11_hpscript"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/icons/mana.png" id="12_water"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/bars/bar_blue.png" id="13_bar_blue"]
+[ext_resource type="Script" path="res://script/PlayerThirstBar.gd" id="14_wscript"]
+[ext_resource type="Texture2D" path="res://addons/pixel_ui_fantasy/icons/sword.png" id="15_sword"]
+[ext_resource type="Script" path="res://script/ShootingLevelText.gd" id="16_bowscript"]
+
+[node name="StatusPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 188.0
+offset_bottom = 76.0
+scale = Vector2(2.2, 2.2)
+script = ExtResource("1_spanel")
+
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 188.0
+offset_bottom = 76.0
+texture = ExtResource("2_bg")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="PortraitBox" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 44.0
+offset_bottom = 44.0
+texture = ExtResource("3_portrait_bg")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+
+[node name="HelmetIcon" type="TextureRect" parent="PortraitBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_helmet")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayerTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 6.0
+offset_right = 110.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95, 0.88, 0.72, 1)
+theme_override_colors/font_shadow_color = Color(0.12, 0.08, 0.05, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "Hiệp Sĩ"
+
+[node name="ScrollIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 6.0
+offset_right = 126.0
+offset_bottom = 20.0
+texture = ExtResource("5_scroll")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DayText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 6.0
+offset_right = 182.0
+offset_bottom = 22.0
+theme_override_colors/default_color = Color(0.95, 0.88, 0.72, 1)
+theme_override_colors/font_shadow_color = Color(0.12, 0.08, 0.05, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/normal_font = ExtResource("6_font")
+theme_override_font_sizes/normal_font_size = 10
+text = "Ngày 1"
+fit_content = true
+scroll_active = false
+script = ExtResource("7_dayscript")
+
+[node name="HeartIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 22.0
+offset_right = 64.0
+offset_bottom = 36.0
+texture = ExtResource("8_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 25.0
+offset_right = 178.0
+offset_bottom = 35.0
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 2
+stretch_margin_right = 4
+stretch_margin_bottom = 2
+texture_under = ExtResource("9_bar_bg")
+texture_progress = ExtResource("10_bar_red")
+script = ExtResource("11_hpscript")
+
+[node name="WaterIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 37.0
+offset_right = 64.0
+offset_bottom = 51.0
+texture = ExtResource("12_water")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayerThirstBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 40.0
+offset_right = 178.0
+offset_bottom = 50.0
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 2
+stretch_margin_right = 4
+stretch_margin_bottom = 2
+texture_under = ExtResource("9_bar_bg")
+texture_progress = ExtResource("13_bar_blue")
+script = ExtResource("14_wscript")
+
+[node name="SwordIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 26.0
+offset_bottom = 68.0
+texture = ExtResource("15_sword")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ShootingLevelText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 53.0
+offset_right = 178.0
+offset_bottom = 70.0
+theme_override_colors/default_color = Color(1, 0.95, 0.78, 1)
+theme_override_colors/font_shadow_color = Color(0.12, 0.08, 0.05, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/normal_font = ExtResource("6_font")
+theme_override_font_sizes/normal_font_size = 11
+text = "Cấp Vũ Khí: 1"
+fit_content = true
+scroll_active = false
+script = ExtResource("16_bowscript")

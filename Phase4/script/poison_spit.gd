@@ -32,7 +32,7 @@ func _on_body_entered(body: Node2D):
 		if body.has_method("hurtByEnemy"):
 			body.hurtByEnemy(self)
 		queue_free()
-	elif body is TileMap or body is StaticBody2D:
+	elif body is TileMap or body is TileMapLayer or body is StaticBody2D:
 		queue_free()
 
 

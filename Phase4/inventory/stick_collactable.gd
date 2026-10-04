@@ -11,7 +11,7 @@ func _on_interactable_area_body_entered(body):
 	if body.has_method("player"):
 		player = body
 		if !PlayerStats.tutorial_message_4_shown:
-			PlayerStats.send_message("Press \"E\" to collect the stick")
+			PlayerStats.send_message("Nhấn \"E\" để nhặt cành cây")
 			PlayerStats.tutorial_message_4_shown = true
 
 

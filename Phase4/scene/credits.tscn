@@ -1,71 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://drpuxfgsjb85u"]
+[gd_scene format=3 uid="uid://drpuxfgsjb85u"]
 
 [ext_resource type="Theme" uid="uid://c7rtcvk0mrocv" path="res://scene/world.tres" id="1_5644l"]
-[ext_resource type="Script" path="res://script/credits.gd" id="1_rh01r"]
+[ext_resource type="Script" uid="uid://bl2hh3uhiwjtv" path="res://script/credits.gd" id="1_rh01r"]
 [ext_resource type="AudioStream" uid="uid://c5uqlcbfc1oi2" path="res://sounds/sonatina_letsadventure_1ATaleForTheJourney.ogg" id="3_ttelf"]
 
-[node name="Credits" type="Control"]
+[node name="Credits" type="Control" unique_id=1988745869]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1921.0
 offset_bottom = 938.0
 script = ExtResource("1_rh01r")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=166377890]
 layout_mode = 0
 offset_right = 1919.0
 offset_bottom = 1082.0
 color = Color(0.141176, 0.192157, 0.603922, 1)
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=304306466]
 layout_mode = 0
-offset_left = 1496.0
+offset_left = 1350.0
 offset_top = 957.0
 offset_right = 1893.0
 offset_bottom = 1048.0
 theme = ExtResource("1_5644l")
 theme_override_font_sizes/font_size = 40
-text = "Back to Main Menu"
+text = "Quay Lại Menu Chính"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1026555983]
 stream = ExtResource("3_ttelf")
 volume_db = -8.667
 autoplay = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 54.0
-offset_top = 100.0
-offset_right = 1878.0
-offset_bottom = 926.0
-theme = ExtResource("1_5644l")
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 50
-text = "I started creating this game by following Devworm's tutorial on Youtube:
-https://www.youtube.com/playlist?list=PL3cGrGHvkwn2NOT1LSwf5d2XZmlc5Bjsn
-
-
-Big thanks to Sara Garrard (sonatina.itch.io) for the music LET'S ADVENTURE!
-
-
-SceneManager and AudioSystem: https://www.nightquestgames.com/
-
-
-Soundfiles mostly found on https://pixabay.com
-Credits: UNIVERSFIELD, SergeQuadrado, Der_Sternfahrer, Pixabay
-
-
-Inventory: GLoot - https://github.com/peter-kish/gloot"
-
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1183800148]
 layout_mode = 0
 offset_left = 28.0
 offset_top = 12.0
-offset_right = 241.0
+offset_right = 650.0
 offset_bottom = 73.0
 theme = ExtResource("1_5644l")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 70
-text = "Credits"
+text = "Thông Tin Đóng Góp"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

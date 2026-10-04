@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b1gfyt8sw64co"]
 
-[ext_resource type="Script" path="res://script/boss_health_bar.gd" id="1_bbar"]
+[ext_resource type="Script" uid="uid://yeda5xijyotx" path="res://script/boss_health_bar.gd" id="1_bbar"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.08, 0.1, 0.14, 0.85)
@@ -13,6 +13,8 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bar"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghost"]
 bg_color = Color(0.95, 0.35, 0.2, 0.95)
@@ -28,8 +30,6 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bar"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vic"]
 bg_color = Color(0.06, 0.08, 0.12, 0.94)
 border_width_left = 2
@@ -44,7 +44,7 @@ corner_radius_bottom_left = 12
 shadow_color = Color(1, 0.8, 0.2, 0.35)
 shadow_size = 12
 
-[node name="BossHealthBar" type="Control"]
+[node name="BossHealthBar" type="Control" unique_id=1675257491]
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -57,7 +57,7 @@ grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("1_bbar")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1644161733]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,30 +66,30 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 4
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=1197324642]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.35, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 17
-text = "👑 ANCIENT SLIME KING 👑"
+theme_override_font_sizes/font_size = 32
+text = "👑 VUA SLIME CỔ ĐẠI 👑"
 horizontal_alignment = 1
 
-[node name="PhaseLabel" type="Label" parent="VBoxContainer"]
+[node name="PhaseLabel" type="Label" parent="VBoxContainer" unique_id=370725815]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 0.9)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
-theme_override_font_sizes/font_size = 12
-text = "PHASE 1 / 3"
+theme_override_font_sizes/font_size = 20
+text = "GIAI ĐOẠN 1 / 3"
 horizontal_alignment = 1
 
-[node name="BarContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="BarContainer" type="PanelContainer" parent="VBoxContainer" unique_id=490229437]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
-[node name="GhostBar" type="ProgressBar" parent="VBoxContainer/BarContainer"]
+[node name="GhostBar" type="ProgressBar" parent="VBoxContainer/BarContainer" unique_id=1601122592]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxEmpty_bar")
@@ -98,7 +98,7 @@ max_value = 1500.0
 value = 1500.0
 show_percentage = false
 
-[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/BarContainer"]
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/BarContainer" unique_id=1414777118]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxEmpty_bar")
@@ -107,7 +107,7 @@ max_value = 1500.0
 value = 1500.0
 show_percentage = false
 
-[node name="VictoryPanel" type="PanelContainer" parent="."]
+[node name="VictoryPanel" type="PanelContainer" parent="." unique_id=1894800]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -124,21 +124,21 @@ grow_vertical = 2
 pivot_offset = Vector2(260, 50)
 theme_override_styles/panel = SubResource("StyleBoxFlat_vic")
 
-[node name="VBox" type="VBoxContainer" parent="VictoryPanel"]
+[node name="VBox" type="VBoxContainer" parent="VictoryPanel" unique_id=1832281881]
 layout_mode = 2
 alignment = 1
 
-[node name="VicTitle" type="Label" parent="VictoryPanel/VBox"]
+[node name="VicTitle" type="Label" parent="VictoryPanel/VBox" unique_id=2094460170]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.25, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
 theme_override_font_sizes/font_size = 20
-text = "🏆 VICTORY! ANCIENT SLIME KING DEFEATED! 🏆"
+text = "🏆 CHIẾN THẮNG! BOSS ĐÃ BỊ ĐÁNH BẠI! 🏆"
 horizontal_alignment = 1
 
-[node name="VicSub" type="Label" parent="VictoryPanel/VBox"]
+[node name="VicSub" type="Label" parent="VictoryPanel/VBox" unique_id=610590461]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
 theme_override_font_sizes/font_size = 14
-text = "The realm is safe. Legendary riches await!"
+text = "Vương quốc đã an toàn. Phần thưởng huyền thoại đang đón chờ!"
 horizontal_alignment = 1

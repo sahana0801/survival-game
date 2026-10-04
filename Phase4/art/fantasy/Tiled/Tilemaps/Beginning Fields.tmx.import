@@ -1,0 +1,23 @@
+[remap]
+
+importer="YATI"
+type="PackedScene"
+uid="uid://bkuo3vk600sf5"
+path="res://.godot/imported/Beginning Fields.tmx-daff58db7661601f9f0acae57a309e96.tscn"
+
+[deps]
+
+source_file="res://art/fantasy/Tiled/Tilemaps/Beginning Fields.tmx"
+dest_files=["res://.godot/imported/Beginning Fields.tmx-daff58db7661601f9f0acae57a309e96.tscn"]
+
+[params]
+
+use_default_filter=false
+add_class_as_metadata=false
+add_id_as_metadata=false
+no_alternative_tiles=false
+map_wangset_to_terrain=false
+custom_data_prefix="data_"
+tiled_project_file=""
+post_processor=""
+save_tileset_to="res://scene/fantasy_tileset.tres"

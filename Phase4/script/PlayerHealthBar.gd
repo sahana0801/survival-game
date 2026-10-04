@@ -11,20 +11,39 @@ var drain_delay_timer: float = 0.0
 func _ready():
 	# Create ghost bar dynamically behind this bar
 	ghost_bar = TextureProgressBar.new()
-	ghost_bar.texture_under = null
+	ghost_bar.nine_patch_stretch = nine_patch_stretch
+	ghost_bar.stretch_margin_left = stretch_margin_left
+	ghost_bar.stretch_margin_top = stretch_margin_top
+	ghost_bar.stretch_margin_right = stretch_margin_right
+	ghost_bar.stretch_margin_bottom = stretch_margin_bottom
+	ghost_bar.texture_under = texture_under
 	ghost_bar.texture_progress = texture_progress
 	# Warm glowing orange-red ghost color
-	ghost_bar.tint_progress = Color(1.0, 0.35, 0.2, 0.95)
+	ghost_bar.tint_progress = Color(1.0, 0.45, 0.2, 0.95)
 	ghost_bar.min_value = min_value
 	ghost_bar.max_value = max_value
 	ghost_bar.value = value
 	ghost_bar.size = size
+	ghost_bar.custom_minimum_size = custom_minimum_size
 	ghost_bar.position = Vector2.ZERO
 	ghost_bar.show_behind_parent = true
 	add_child(ghost_bar)
+	# Clear texture_under on front bar so ghost bar underneath is visible!
+	texture_under = null
 	
 	if player != null:
-		player.healthChanged.connect(update)
+		if not player.healthChanged.is_connected(update):
+			player.healthChanged.connect(update)
+		update()
+
+
+func set_player(p: Player) -> void:
+	if player != null and player.healthChanged.is_connected(update):
+		player.healthChanged.disconnect(update)
+	player = p
+	if player != null and is_inside_tree():
+		if not player.healthChanged.is_connected(update):
+			player.healthChanged.connect(update)
 		update()
 
 

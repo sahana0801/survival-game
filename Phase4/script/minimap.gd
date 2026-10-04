@@ -36,6 +36,13 @@ func _ready():
 	# Connect to world 2d after tree initializes
 	await get_tree().process_frame
 	_setup_viewport_world()
+	
+	var portal = get_node_or_null("/root/World/BossPortal")
+	if portal != null:
+		objective_b["world_pos"] = portal.global_position
+	var water = get_node_or_null("/root/World/water_collect_area")
+	if water != null:
+		objective_a["world_pos"] = water.global_position
 
 
 func _setup_viewport_world():
@@ -145,7 +152,7 @@ func draw_overlay(target: Control):
 			target.draw_circle(boss_pos, 5.0, Color(1.0, 0.82, 0.2, 1.0))
 			target.draw_circle(boss_pos, 2.5, Color(0.9, 0.1, 0.1, 1.0))
 			if font != null:
-				target.draw_string(font, boss_pos + Vector2(-12, -8), "BOSS", HORIZONTAL_ALIGNMENT_CENTER, -1, 9, Color(1.0, 0.85, 0.2, 1.0))
+				target.draw_string(font, boss_pos + Vector2(-14, -8), "TRÙM", HORIZONTAL_ALIGNMENT_CENTER, -1, 9, Color(1.0, 0.85, 0.2, 1.0))
 
 	# 3. Draw Tactical Objectives [A] and [B] (only if in overworld, or if relevant)
 	var objectives = [objective_a, objective_b]

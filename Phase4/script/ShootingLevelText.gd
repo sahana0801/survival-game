@@ -4,10 +4,10 @@ extends RichTextLabel
 
 
 func _ready():
-	PlayerStats.ShootingChanged.connect(update)
+	if not PlayerStats.ShootingChanged.is_connected(update):
+		PlayerStats.ShootingChanged.connect(update)
 	update()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func update():
-	text = "Bow Level %s" % PlayerStats.shooting
+	text = "Tier %d" % PlayerStats.weapon_level

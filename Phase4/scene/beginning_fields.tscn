@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://bkuo3vk600sf5" path="res://art/fantasy/Tiled/Tilemaps/Beginning Fields.tmx" id="1_tmx"]
+[ext_resource type="Script" path="res://script/beginning_fields.gd" id="2_script"]
+
+[node name="BeginningFields" type="Node2D"]
+z_index = -1
+y_sort_enabled = true
+script = ExtResource("2_script")
+
+[node name="Map" parent="." instance=ExtResource("1_tmx")]
+y_sort_enabled = true
+scale = Vector2(2.5, 2.5)
