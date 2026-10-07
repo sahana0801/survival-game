@@ -265,6 +265,20 @@ theme = ExtResource("2_ecb7s")
 theme_override_font_sizes/font_size = 18
 text = "F12"
 
+[node name="LabelHUD" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "Ẩn/Hiện HUD (Chụp Ảnh)"
+
+[node name="LabelHUDKey" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ecb7s")
+theme_override_font_sizes/font_size = 18
+text = "H"
+
 [node name="Label36" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3

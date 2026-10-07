@@ -1,0 +1,980 @@
+00:08,7.56,4.00,everything you saw earlier was Vibe
+Coded thanks to the power of AI.
+00:12,11.92,3.74,that includes creating my own
+original sprites  and animations
+00:16,15.66,0.96,that you see over here.
+00:17,17.32,2.22,so for example, you can see
+these sprite sheets that were
+00:20,19.54,1.24,appearing in my game earlier.
+00:21,21.02,1.54,These were all AI generated.
+00:23,22.93,3.06,and you've probably been seeing a lot
+of people posting about how you can use
+00:26,26.04,2.02,AI to generate art assets like that.
+00:28,28.39,2.77,however, if you've actually tried to
+use it yourself, you will know that
+00:31,31.16,3.53,there are several problems with getting
+it to work correctly within your game.
+00:35,35.03,3.45,if you actually look closely, the
+pixel art that AI generates is not
+00:39,38.52,2.75,real pixel art, furthermore, if you
+look at the spreadsheets that are
+00:41,41.27,3.92,generated, At first glance, this looks
+okay, but then you oftentimes end up
+00:45,45.19,3.11,with bleeding between the different
+frames, And this will result in things
+00:48,48.30,3.40,like this where the images from one
+frame is bleeding into the other frame.
+00:52,52.02,3.59,finally, one of the most annoying
+problems is that you'll have frame drifts.
+00:56,55.79,2.86,and so when you put it in a game,
+it just looks very jerky, janky,
+00:59,58.69,1.32,and it just doesn't look right.
+01:00,60.06,3.88,So in today's video, I'm gonna walk
+through my entire step-by-step process
+01:04,64.13,4.71,in order to get your AI-generated
+pixel art fully game ready and as you
+01:09,68.84,2.10,can see, the pixel art is consistent.
+01:11,71.12,3.76,It's fully animated and is fully
+integrated into a playable video game.
+01:15,74.93,3.09,So if you've ever wanted to know how
+to create game assets that not only
+01:18,78.02,4.35,look good on the surface, but are also
+prepared in a way that you can integrate
+01:22,82.37,2.06,it into a game, this video is for you.
+01:24,84.48,2.98,Now, before we begin, as always, if
+you want to follow along with today's
+01:27,87.46,4.55,tutorial, I've made this entire cheat
+sheet along with all the reference images,
+01:32,92.01,3.94,prompt templates, additional files and
+resources as part of my Insiders Club,
+01:36,96.13,3.45,I regularly send out a newsletter that
+shares tips and tricks on Vipe coding
+01:40,99.58,3.31,workflows, and within it, you'll also
+find resources from my other videos as
+01:43,102.89,3.78,well But if you want to take things a
+step further, check out vikkegamedev.com.
+01:47,106.82,3.50,This is my all-in-one resource for
+everything AI game development related!
+01:50,110.44,3.22,you'll find all of the agent skills
+that I've been working on that will
+01:54,113.66,3.54,help you automate and accelerate a
+lot of these workflows so that you
+01:57,117.20,1.13,don't have to do things manually.
+01:58,118.38,3.58,In addition to that, it also includes
+full-length tutorials such as the one
+02:02,121.96,4.57,that you see here will take you through
+every single step and every single prompt
+02:07,126.58,4.01,in order to get from start to finish and
+end up with this fully integrated and
+02:11,130.59,1.93,polished game that you see over here.
+02:13,132.52,3.13,you'll also find other resources like
+Full source code, prompts, and plans
+02:16,135.65,1.57,from other projects that I've worked on.
+02:17,137.27,4.02,I built vibeGamedev.com to help people all
+around the world fulfill their dreams of
+02:21,141.29,1.95,building games thanks to the power of AI.
+02:23,143.29,2.62,So head on over to the links in
+the description below, And without
+02:26,145.91,2.88,further ado, let's get started
+with today's tutorial on how to
+02:29,148.79,2.34,use AI to build game-ready assets.
+02:31,151.18,1.09,all right, so let's get started.
+02:32,152.35,0.88,So you can see here
+02:33,153.28,3.36,The pirate character as well as the
+skeleton Both of these assets and
+02:37,156.64,3.77,their animations were all created
+using the exact workflow, which I'll
+02:40,160.41,1.54,be covering in today's tutorial.
+02:42,162.29,2.90,And just to quickly show you what I
+mean this is the attack sprite sheet.
+02:46,165.54,1.54,this is the death sprite sheet.
+02:47,167.09,2.24,this is the hurt, and so on and so forth.
+02:50,169.79,0.25,Okay?
+02:50,170.37,3.63,you will see that I used the
+exact same process similarly for
+02:54,174.05,1.61,the skeleton character as well.
+02:56,175.81,1.88,and like I said, these are all game-ready.
+02:58,177.69,3.46,So they are equally spaced out, then
+there are no height discrepancies,
+03:01,181.15,1.23,there's no weird flickering.
+03:03,182.65,3.21,and if I zoom in here, you will see
+that all of these are real pixels.
+03:06,185.91,3.54,none of the fake pixels that you
+get when you just use AI generation.
+03:10,189.69,3.91,at first glance, this looks pretty
+similar, but the moment you zoom in,
+03:14,193.60,3.83,you will see that the one on the left,
+all of these are fake pixels, right?
+03:17,197.43,1.45,There's all this blurring of lines.
+03:19,198.94,3.50,it brings a lot of problems when you
+want to start building pixel animations,
+03:23,202.67,3.63,as well as when you start to s-scale
+up the art to make it look great.
+03:26,206.49,2.92,so if you look at the one on the
+right, this is proper pixel art, so you
+03:29,209.41,3.46,can actually just scale it up to any
+resolution, and it will still look sharp.
+03:33,213.27,3.62,so we'll be going through this entire
+process, including how to solve all the
+03:37,216.89,3.86,other issues, related to AI-generated
+art, and I'll be giving you the prompts
+03:41,220.81,4.36,the reference images, as well as a
+full walkthrough of how we get to the
+03:45,225.17,3.64,end and finally into a game that you
+see over here that can be integrated.
+03:49,229.24,3.34,this technique that I'm gonna show
+you today will apply regardless of
+03:53,232.66,1.75,which AI tool that you're using.
+03:55,234.75,5.54,because, so in most cases, you can
+either, use the prompts, from the prompt
+04:00,240.29,2.79,templates that I give you here, or in
+some cases you can simply just give
+04:03,243.08,3.24,it a direct instruction such as remove
+the background, et cetera, et cetera.
+04:06,246.48,3.22,so this workflow works for
+any of your favorite AI tools.
+04:10,249.76,4.75,however, if you're using the Codex app,
+that image generation comes for free
+04:15,255.16,1.51,as part of your Codex subscription.
+04:17,256.67,6.10,So you don't need to, separately, have an
+API key, or you don't have to like, you
+04:23,262.77,1.82,don't have to separately have an API key.
+04:25,264.73,1.46,You can simply go into Codex.
+04:33,272.95,3.94,so this means you don't actually need
+to have a separate API key set up or do
+04:37,276.89,2.02,anything, to, or to do anything special.
+04:39,279.13,3.43,you can just go into Codex and
+just do image generation, okay?
+04:43,282.56,3.44,And this skill here will automatically
+generate all the images for you.
+04:46,286.13,4.34,for me, I use something called fal.ai
+because I basically use all the different
+04:50,290.47,3.99,models when-- because I basically use all
+the different-- I use something called
+04:54,294.46,3.97,fal.ai because I run lots of experiments,
+and I use different models like
+04:58,298.48,2.51,NanoBanana 2, as well as GPT Images 2.
+05:01,301.30,0.92,And several other things.
+05:02,302.34,3.73,so that's, and I like to have one API
+that gives me access to all of it, okay?
+05:06,306.36,3.32,but in this case, you can make use of,
+but in this case, if you're just using
+05:10,309.72,1.98,Images 2.0, you can just use Codex.
+05:12,312.00,4.36,Also, today's tutorial will
+focus really on, GPT Images 2.0.
+05:16,316.36,3.40,So all of the prompt templates,
+prompt templates and configurations
+05:20,320.00,0.78,are optimized for that.
+05:21,321.08,3.24,But you should be able to
+use NanoBanana 2 or any other
+05:24,324.32,1.37,image generation model as well.
+05:26,326.14,0.27,All right?
+05:27,326.69,2.76,So the whole point here is to just
+show you the techniques, and then you
+05:29,329.45,1.24,can use your favorite tool of choice.
+05:31,330.79,2.27,but this is tried and
+tested with Images 2.0.
+05:33,333.29,2.16,so if you want to follow along,
+this would be the best way.
+05:36,336.04,1.78,so just a quick overview of
+all the problems that we're
+05:38,337.82,0.92,seeking to solve today.
+05:39,338.91,0.23,All right?
+05:39,339.32,3.18,So the first one, like I mentioned,
+the most important one that helps you
+05:43,342.50,4.64,spot AI-generated art straight away
+is you get mixels rather than pixels.
+05:47,347.14,2.34,And I've shown this many times now,
+but you can see these are thick
+05:49,349.48,3.30,pixels, whereas if you go onto the
+right, these are real-looking pixels.
+05:53,352.81,3.54,And this not just looks a lot better,
+but it allows you to scale it up to
+05:56,356.35,2.92,different resolutions because You can
+actually use pixel perfect scaling.
+05:60,359.85,0.28,All right?
+06:00,360.42,3.38,the other problem is that when you
+generate something with AI, as you see
+06:04,363.80,4.62,over here, it looks great at first,
+but you will immediately notice that
+06:08,368.42,3.68,if you try to split this up or try to
+integrate it directly into the game, you
+06:12,372.10,2.38,will have problems such as this, right?
+06:15,374.68,5.82,where the image of one frame actually
+bleeds into the image of another frame.
+06:21,380.84,1.49,and this is really annoying.
+06:23,382.58,3.55,this is really annoying because you
+would anticipate that it would have
+06:26,386.13,2.99,generated a spreadsheet that would be
+game ready, but most of the time, you
+06:29,389.12,4.45,would have to extract out the character
+and then place it in a rigid frame,
+06:34,393.84,1.02,and I'll show you how to do that.
+06:35,395.46,3.43,the third problem, and I think this is
+very apparent, and I'll show you a quick,
+06:39,398.96,1.76,demonstration of this, very shortly.
+06:46,406.20,3.65,All right, and the third problem is
+you get frame drifts, so when you
+06:50,409.85,2.81,generate the sprite sheet like this,
+and if you try to put it into the
+06:53,412.66,4.47,game, you will oftentimes end up
+with what you call frame drift, okay?
+06:57,417.13,3.57,So you can see the character is just
+bouncing all over the frame because
+07:01,420.75,3.13,even though the animation looks
+right over here, when you start to
+07:04,423.88,3.18,lay them out, his feet are actually
+not anchored on the same spot.
+07:07,427.12,2.41,And when you put this into the
+game, it's just jumping all over the
+07:10,429.53,1.34,place, and it's just very jarring.
+07:11,431.08,4.04,So what you want to do is actually fix
+it in such a way that his whole body
+07:15,435.12,3.83,does not jitter around the frame, and
+is instead anchored at the same spot.
+07:19,439.30,0.26,Okay?
+07:20,439.95,1.49,There are many other problems
+that you encounter when
+07:21,441.44,1.16,you're using AI-generated art.
+07:23,442.65,3.39,But if you can fix these three
+problems, you will be able to then
+07:26,446.04,1.96,have a game that plays and looks great,
+07:28,448.12,0.27,Okay.
+07:28,448.39,4.54,So the first thing that you want to do
+is that you want to be working, from some
+07:33,452.93,3.53,kind of reference image that reflects
+the style that you want, as you can see
+07:36,456.46,4.47,from this game, I wanted to have this
+pixel art style, not too low fidelity,
+07:41,461.09,1.60,but not too high fidelity as well.
+07:43,462.72,2.13,And when I talk about fidelity,
+I'm just talking about how
+07:45,464.85,2.05,complex the, character is.
+07:47,466.90,2.60,And in this case, I didn't want
+it to look like Mega Man or Mario.
+07:50,469.71,2.12,I wanted it to have a little bit
+more definition, but I didn't want
+07:52,471.83,2.29,it to become, overly complex as well.
+07:54,474.38,3.38,so here's the prompt template that I
+used to get this style, So you can see
+07:58,477.76,3.37,here, I actually said I wanted a low
+fidelity character art similar to a
+08:01,481.13,2.46,classic handheld or SNES RPG demake.
+08:04,483.89,2.65,You can change this any way
+you want, and, this technique,
+08:07,486.59,3.24,obviously, with pixel art works a
+lot better when it's not too complex.
+08:10,489.89,3.19,it can still work, but, you will have
+a little bit more cleaning up to do.
+08:14,493.63,3.35,Okay, so the main things that you want
+to really focus on here is you want your
+08:17,497.01,3.56,AI to generate something that is 1024
+by 1024, and this is very important.
+08:21,500.62,2.85,you can do this by specifying
+it within GPT Image 2.0.
+08:24,504.14,3.65,there is a 1024, 1024, setting,
+and that's what you wanna do.
+08:28,507.84,1.40,And ideally, you go for a square.
+08:30,509.53,0.25,Okay?
+08:30,510.24,1.39,So this is the first thing.
+08:32,511.63,3.48,The second thing that you wanna do is that
+you want a flat chroma green background.
+08:35,515.30,3.30,You can use any other kinds of
+background, but I find that green
+08:39,518.60,1.39,backgrounds work very well for me.
+08:40,519.99,3.04,There's a bit more cleaning up to do,
+but it still generally works very well.
+08:43,523.29,2.95,A few more things to call out is that
+you want to have a strong, readable,
+08:46,526.29,3.53,silhouette and dark outline clusters, and
+you don't want it to be photorealistic.
+08:50,530.17,0.19,Okay?
+08:50,530.36,2.09,So this prompt is generally
+what I use when I want to
+08:52,532.45,0.99,get something in this style.
+08:53,533.47,1.49,You can change it any way you want.
+08:55,535.13,2.06,the main big thing is that
+You want it to be really big.
+08:58,537.53,1.66,and I'll explain why very shortly.
+08:60,539.83,3.00,Okay, so now that you have this
+reference image, it is not game ready,
+09:03,542.99,0.95,first of all, it's not animated.
+09:04,543.94,2.18,Secondly, it is suffering
+from the pixels problem.
+09:06,546.12,3.20,So if you just zoom straight in,
+you can straight away see that this
+09:09,549.32,3.60,has a lot of thick, pixels, because
+that's how image generation works.
+09:13,553.42,2.83,so the key step here is to do
+something called pixel snapping.
+09:17,556.57,3.84,I have to really give credit to the
+Sprite Fusion team, for two reasons.
+09:20,560.41,3.52,First of all, they have something
+called the Sprite Fusion Pixel Snapper.
+09:24,563.96,5.38,This is completely, open source, so you
+can, download this for free and run the
+09:29,569.34,2.10,Pixel Snapper, on any image that you want.
+09:32,571.79,2.43,it's extremely fast, and
+it works really well.
+09:35,574.64,3.94,And the best part is that it's completely
+open source, so you can modify it
+09:39,578.66,1.87,and, tune it any way that you want.
+09:41,580.89,3.98,if you prefer to just use an online tool,
+you can just, go onto spritefusion.com
+09:45,584.87,2.82,Pixel Snapper, and you can just drop
+your pixel art here I will explain
+09:48,587.69,3.95,to you what this does very shortly,
+but, this is just an-another easy way.
+09:52,591.91,5.02,So for me, what I did was I cloned
+this repository, and then I actually
+09:57,596.93,2.65,ported this as part of an agent skill.
+09:60,599.86,1.84,And I'll just show you this,
+very quickly over here.
+10:02,601.70,1.85,You can see there's this
+Pixel Snapper skill.
+10:04,603.88,3.72,it's a port of this skill with a bit
+more customization So with this skill,
+10:08,607.60,1.98,I'm able to run this using AI, right?
+10:10,609.69,2.51,and this helps me to, build
+the assets a lot quicker.
+10:12,612.49,3.54,I've made this, Pixel Snapper available
+for the vipgamedevel, community.
+10:16,616.33,3.23,this just makes things a lot easier,
+but like I said, it's entirely open
+10:20,619.56,4.04,source and free, so you can very
+simply just make use of this or,
+10:24,623.63,3.17,download it and ask, Codex or Claude
+Code to create a port for you as well.
+10:28,627.81,0.17,All right,
+10:28,628.00,1.44,There's a little bit of
+magic that's going on here.
+10:29,629.44,3.59,But the main thing is that it
+takes in this input image, and
+10:33,633.03,3.52,then it spits out, something that
+is going to be pixel perfect.
+10:37,636.55,1.77,So let me just show it
+to you here, all right?
+10:38,638.45,3.12,you can see this h- is suffering
+with the off-grid or Mixel effect.
+10:42,641.84,3.12,And then when you fix it with Pixel
+Snapper, it will turn this into
+10:45,644.96,1.43,and pixel snapped art for you.
+10:47,647.04,3.58,and if you really want to know, this
+is like the algorithm, all right?
+10:51,650.62,3.21,So basically, it tries to, first
+of all, collapse the number
+10:54,653.86,1.76,of, pixels, to a fixed number.
+10:56,655.62,2.55,So this is K colors, and you
+can actually see this is what
+10:58,658.17,1.51,this, number is over here.
+11:00,660.28,2.78,Okay, And then what happens after that,
+because you have, decided the number
+11:03,663.06,2.20,of pixels you have and the number
+of colors you have, and then without
+11:05,665.26,3.06,into, going into too much detail, it
+tries to catch the edge along the two
+11:08,668.32,3.96,different axes, and then it looks at
+the pixels around the edge and then
+11:12,672.28,1.84,tries to pick just one pixel for that.
+11:14,674.29,0.73,And it works very well.
+11:15,675.30,3.08,this is a tool that is done by
+somebody way smarter than I am, and
+11:18,678.38,3.33,I'm really glad that he's made this,
+available for free because now we
+11:22,681.71,1.57,are able to fix all of our pixel art.
+11:24,683.87,2.74,So what happens is that now you
+just have to run the Pixel Snapper
+11:27,686.87,1.41,on your reference image, okay?
+11:29,688.58,3.51,so what's gonna happen here is that you
+are going to, you're gonna take this
+11:32,692.09,4.22,generated image that you have, and then
+you are just going to, put this into
+11:36,696.31,2.26,this Pixel Snapper algorithm over here.
+11:39,699.02,3.54,and what you will get is, the output
+over here, is that you will get
+11:43,702.56,5.50,usually a smaller size, but still
+accurate version of your generated art.
+11:49,708.52,2.54,And this is great because with
+this that you have over here,
+11:51,711.44,3.73,you can scale it up back to ten
+twenty-four by ten twenty-four,
+11:56,715.87,2.22,using the nearest neighbor algorithm.
+11:58,718.40,3.47,if you're not sure about what nearest
+neighbor is, it's a scaling setting that
+12:02,721.87,6.05,you do such that it preserves, more of
+the pixel art nature of, of your art.
+12:08,728.00,2.83,it doesn't do something called
+anti-aliasing, or it doesn't blur the
+12:11,730.83,1.21,lines, which is not what you want.
+12:12,732.30,3.47,You use nearest neighbor, and you
+always get crisp-looking pixel art.
+12:16,736.08,0.22,Okay?
+12:17,736.61,0.96,So you can see here, right?
+12:18,737.57,3.65,This is the pixel-snap version, and
+this was the AI-generated version.
+12:22,741.56,2.73,At first glance, they look very
+similar, but you will know that this
+12:24,744.29,3.51,one will not have any strange pixels
+going on that you see over here.
+12:28,748.11,1.97,it will be ready to be
+integrated into your game.
+12:30,750.42,0.23,Okay?
+12:32,751.75,0.25,All right.
+12:32,752.19,3.33,So that's the-- All right, and
+this now becomes your anchor.
+12:36,755.75,0.29,Okay?
+12:36,756.08,3.12,And if you've seen my other videos,
+this is the most important image that
+12:39,759.20,3.84,you have because everything else for
+all of your other directions will now
+12:43,763.10,4.18,work based on this single input image
+because this will be your reference for
+12:47,767.28,1.45,your entire character going forward.
+12:49,769.23,3.12,so just to help you visualize this a
+little bit better, this is the tool,
+12:53,772.63,3.66,that I've been working on to make this
+process a little bit more intuitive.
+12:56,776.35,3.53,You can generate a source image, It will
+snap it down, and then it will scale it
+12:60,779.88,3.86,back up to this ten twenty-four by ten
+twenty-four, image that you see over here.
+13:04,784.41,1.95,You will see that this is pixel perfect.
+13:07,786.63,1.79,there are no, strange things going on.
+13:09,789.10,2.96,And if I show you the original one
+over here, if I zoom in, you can see
+13:12,792.05,1.86,this has a lot of strange pixels.
+13:14,794.34,2.45,this is a result of what comes
+out from the pixel snapper.
+13:17,796.82,2.70,And you can see This is
+much smaller, as an image.
+13:20,799.72,3.55,But then you can just scale it up to
+ten twenty-four by ten twenty-four, and
+13:23,803.26,2.33,it will still retain, its sharpness.
+13:26,805.76,4.80,that's the reason why, nearest neighbor
+scaling works very well, and you want to
+13:31,810.57,2.01,be using proper pixel art for your game.
+13:33,813.34,0.26,Okay.
+13:34,813.89,4.84,so now that you have this as your anchor,
+all right, this is now going to be
+13:39,818.74,2.37,used for all subsequent, AI generation.
+13:41,821.15,1.62,And you want this to be big, okay?
+13:43,823.08,3.03,And the reason why you want this to be
+big is that You have seen here, right?
+13:46,826.33,3.67,The pixel snapping process can
+collapse things down to pretty small.
+13:50,830.02,3.55,So this is, almost an order of
+magnitude smaller, and you can
+13:54,833.58,1.13,just scale it back up later.
+13:55,834.74,3.55,But if you use too small an image,
+it ends up being extra blurry.
+13:59,838.64,3.37,And oftentimes I've seen that if you
+use something like five twelve by five
+14:02,842.01,2.88,twelve or two five six by two five
+six, the pixel snapping doesn't work
+14:05,844.95,4.25,as well, and it doesn't retain, your
+character's, like main characteristics.
+14:09,849.20,3.85,So now that you have your anchor, it
+is time to create your other facings.
+14:13,853.04,2.41,and this is a process that,
+would be familiar to you if
+14:15,855.46,1.10,you've seen my other videos.
+14:17,856.83,4.40,once you have your anchor, basically
+you can, generate, all other facings
+14:21,861.23,1.02,that you're using in your game.
+14:23,862.78,2.45,for me in this game, you will see
+that, to make things very simple,
+14:25,865.26,1.79,I only have one dimension, right?
+14:27,867.35,3.11,so it's just going from left to
+right, and actually right, if you
+14:30,870.46,3.81,look very carefully, is simply
+a flip version of, the left one.
+14:34,874.35,0.97,so just jumping into it here.
+14:35,875.38,1.76,How do you do this step is the following.
+14:38,877.51,1.40,You use the following prompt template.
+14:39,879.23,3.53,The main thing here is that this input
+image, which is ten twenty-four by ten
+14:43,882.75,4.88,twenty-four, needs to be accompanied
+by a second reference image, which
+14:48,887.63,4.34,is simply a ten twenty-four by ten
+twenty-four checkered pixel, matrix.
+14:52,892.29,3.71,This is a tip that helps to
+constrain, subsequent images
+14:56,896.18,1.72,to resemble pixel art as well.
+14:59,898.52,0.27,All right?
+14:59,899.02,1.64,So here's a better
+overview of what this is.
+15:01,900.66,1.24,So you just pass in this image.
+15:02,901.96,3.93,you can ask your favorite AI to generate
+this for you, or I've also made this,
+15:06,906.25,3.63,reference image available as part of the
+free resources, accompanying this video.
+15:10,910.08,3.18,but if you zoom in on this, you will
+realize that every single pixel, just
+15:13,913.26,1.76,alternates between white and black.
+15:15,915.27,0.22,Okay?
+15:16,915.78,3.65,And this second reference image
+really helps to keep the pixel
+15:19,919.43,1.36,art style when it generates it.
+15:21,921.39,3.16,And you can see this is the prompt
+template that I use to generate
+15:25,924.55,1.21,this, side-facing character.
+15:26,926.13,3.21,you can just change this any way you
+want, but the main things are very
+15:29,929.34,2.64,similar, is that you want this to
+be output as ten twenty-four by ten
+15:32,931.98,3.88,twenty-four, and you want to have the
+chroma background to be retained as well.
+15:36,936.34,1.29,Here are the a-actual settings.
+15:38,937.63,2.58,You must be using edit mode because
+you're passing in, some reference
+15:40,940.21,1.16,images and you're editing it.
+15:42,941.89,2.87,and you want this to be as high
+quality as possible, and you
+15:45,944.76,2.30,want this to be ten twenty-four
+by ten twenty-four, like I said.
+15:47,947.36,0.21,Okay?
+15:48,947.90,2.86,So this will give you, the
+result, which is here, and
+15:51,950.76,1.37,this already looks really good.
+15:53,952.65,3.95,but remember that this is still an
+AI-generated image, so it's still gonna
+15:57,956.60,4.88,suffer from the blurry pixels So the
+next step is to do the same thing again
+16:01,961.49,2.37,that we did, from step one to step two.
+16:04,964.09,1.08,we're gonna snap this image.
+16:06,965.52,3.48,And you just have to use the same, tool
+that you have over here to snap it.
+16:10,969.51,3.49,So when you snap it, it will get shrunk
+down after it gets snapped, but this
+16:13,973.00,3.66,will be pixel perfect, and then you
+just scale it up one more time to
+16:17,976.66,1.19,ten twenty-four by ten twenty-four.
+16:18,978.12,3.02,so this will become yet another
+anchor for subsequent generations
+16:21,981.44,2.33,for all the animations that
+are facing in this direction.
+16:24,984.09,3.62,So this is just really the key process
+here, is that whenever you generate
+16:28,987.71,4.63,an image, pixel snap it, and then
+scale it up, and then use that as your
+16:32,992.37,2.21,source image for your subsequent steps.
+16:35,994.64,3.01,This will help you to preserve
+the consistency as well as the art
+16:38,997.65,3.10,style and allow you to continue
+to pixel snap it again and again.
+16:41,1000.95,0.27,Okay?
+16:41,1001.45,1.86,So now you have this anchor.
+16:44,1003.59,3.50,It is time to now go ahead and animate
+this you can have all the animations
+16:47,1007.09,4.56,such as being hurt, attack, and then,
+as you can see for the skeleton, you
+16:52,1011.65,1.24,can have a death animation as well.
+16:53,1012.92,2.90,So with this west-facing anchor
+that you have, We can now use
+16:56,1015.82,1.27,this to generate sprite sheets.
+16:57,1017.49,2.69,from this stage onwards, you're
+gonna repeat the process, okay?
+17:01,1020.55,2.29,the main idea here is that when you
+generate your sprite sheet, you will
+17:03,1022.84,3.76,need to pixel snap this as well, because
+remember, this is still going to be
+17:07,1026.64,4.52,AI-generated mixels, and you want to pixel
+snap every single one of these, frames
+17:11,1031.20,2.36,so that you get crisp-looking animations.
+17:14,1034.10,1.91,Now, if you've seen my other video,
+This is gonna be very familiar to you,
+17:16,1036.01,4.65,but I'm gonna focus especially on how
+to make sure that these frames that you
+17:21,1040.66,2.11,get out can be pixel snapped properly.
+17:23,1042.85,4.44,Because if you try to simply, yank
+these, images out or you try to
+17:27,1047.29,3.25,pixel snap the whole image, it's
+just not gonna work, And there are a
+17:31,1050.54,1.56,lot of reasons why that will happen.
+17:32,1052.38,2.78,So this is the process that I'm gonna
+outline to you that will allow you to
+17:35,1055.16,6.85,have your sprite sheets to be crisp, to be
+properly pixel art, as well as game-ready,
+17:42,1062.01,2.98,So you won't have all these weird
+issues that come up with the alignment
+17:45,1064.99,1.76,as well as bleeding of the anchors.
+17:47,1067.14,2.43,So for all of your sprite sheets,
+what you wanna do is that you're
+17:50,1069.57,2.89,gonna pass in the pixel snap anchor
+that you have from the previous step.
+17:53,1072.91,3.49,And then now you want to pass
+in a canvas, that is similarly
+17:56,1076.40,1.61,going to have alternating pixels.
+17:58,1078.22,0.25,Okay?
+17:59,1079.08,4.09,And an aspect ratio that will
+allow you to effectively lay
+18:03,1083.21,1.69,out the animations, in this way.
+18:05,1085.21,3.39,So the reason why you wanna pass
+in this reference pose bot, which
+18:09,1088.60,3.38,is, twenty forty-eight by fifteen
+thirty-six, is that this, gives
+18:12,1091.98,1.44,you a four to three aspect ratio.
+18:14,1093.84,3.52,it will allow you to have You know,
+up to 12, frames of animation,
+18:18,1097.84,2.47,even though I generally try to
+just do things between eight to 10.
+18:21,1100.83,2.39,and if you actually zoom in
+into each one of them, it's the
+18:23,1103.22,1.55,same checkered pattern as well.
+18:25,1104.95,3.10,And this really helps to guide
+the image generation to give
+18:28,1108.05,0.98,you the art that you want.
+18:30,1109.53,4.15,The other reason why it needs to be as
+big as this is that each of these, cells
+18:34,1113.73,1.80,are 512 by 512, and that's pretty big.
+18:36,1116.00,2.94,And the reason why you want this
+is that remember when I told
+18:39,1118.94,3.48,you the pixel snapping algorithm
+tends to make things very small?
+18:43,1122.90,2.76,You want to make sure that when you
+get these results, that when you start
+18:46,1125.66,3.61,to extract these frames out for pixel
+snapping, that it's large enough.
+18:49,1129.42,3.55,So 512 by 512 roughly is the
+minimum size that you want.
+18:53,1133.19,3.35,I've tried, sizes that are a
+lot smaller and, they generally
+18:57,1136.54,0.89,give really bad results.
+18:57,1137.43,1.71,So this is where you want to be.
+18:59,1139.14,2.49,You can even go even bigger, but
+then this will cost you more.
+19:02,1141.78,1.85,So this is the sweet
+spot in terms of that.
+19:04,1144.28,0.26,Okay?
+19:05,1144.94,1.32,All right, so here's the prompt template.
+19:06,1146.36,3.05,So like I said, the first thing you want
+to pass in is the anchor, identity anchor.
+19:09,1149.41,3.11,The second one is the, the
+canvas, for the pose board.
+19:13,1153.11,2.53,And the same things again, you
+want to have the chroma background,
+19:16,1155.74,3.27,and you can adjust this in any way
+that you want for your animation.
+19:20,1159.80,3.70,Now, when you're passing an animation, I
+find that there's two ways you can do it,
+19:24,1163.77,3.54,So first one is that you can provide
+a frame-by-frame description.
+19:27,1167.31,2.52,So you can literally say,
+frame one, he's settled, frame
+19:30,1169.83,1.21,two, frame three, frame four.
+19:31,1171.48,5.50,and this kind of works, but I've also
+seen times where this, ends up, with
+19:37,1176.98,2.22,inconsistent, frames, and animations.
+19:39,1179.38,2.92,Another way that you can do it is just
+simply, provide motion guidance, right?
+19:42,1182.30,2.78,Just say, create eight readable
+attack poses that feel like a
+19:45,1185.08,3.33,coherent, short game animation,
+and this also works very well.
+19:48,1188.41,1.31,So you can play around with it.
+19:50,1189.78,3.54,sometimes providing the exact frame
+references works very well, like for death
+19:53,1193.35,4.23,animations, and sometimes just providing a
+loose, definition also works just as well.
+19:58,1198.14,2.71,The main thing to recognize is that
+this is what I found, to be quite
+20:01,1200.85,3.15,useful, is that for idle, you wanna
+have about 10 frames, attack eight,
+20:04,1204.26,2.66,hurt six, jump six, and then death 10.
+20:07,1207.12,4.82,this is just my, kind of guide, and like
+where you wanna be specific, versus loose.
+20:12,1212.26,2.93,But, it's trial and error and, I
+would say that, if one doesn't work
+20:15,1215.19,0.92,for you, just switch to the other.
+20:16,1216.41,3.20,So once you've done this, you will
+actually end up with a spreadsheet,
+20:20,1219.73,0.87,that's generated for you.
+20:21,1221.02,2.92,And like I said, at first glance, this
+is actually pretty good, but You will
+20:24,1223.94,3.08,actually see a bunch of issues, but
+you will also miss a bunch of issues.
+20:27,1227.28,2.91,So ignore the fact that,
+it actually switches hands.
+20:31,1230.53,2.49,you don't really notice it when you're
+playing the game, but he does switch his
+20:33,1233.02,3.38,hands in his attack over here, The main
+thing, that you will see here is that
+20:37,1237.02,1.64,this is actually not evenly laid out.
+20:39,1238.66,4.71,So if you just q-quickly go and crop
+and split this into equal segments, you
+20:43,1243.37,1.90,will end up with situations like this.
+20:46,1245.82,1.74,and I call this the frame recovery step.
+20:48,1248.12,4.12,So you can see, if you just crop
+it, with equal to, 512 by 512
+20:53,1252.54,2.67,boxes across the entire generated
+spreadsheet, you have this problem.
+20:56,1255.59,4.53,So what you can do is just tell your
+AI to do, like basically try to key
+21:00,1260.12,3.92,out the chroma, and then from there,
+crop to the bounding box of the
+21:04,1264.04,4.08,character, and then make sure you get
+the character out so that you can later
+21:08,1268.12,2.10,on place this in a proper grid for you.
+21:10,1270.49,2.41,There's no, external AI call or
+image generation call for this.
+21:13,1272.90,2.84,You just ask your AI to do it,
+and usually you use like Pillow or
+21:16,1275.74,1.39,something to extract this out for you.
+21:18,1277.56,2.85,You will see that there's still
+some, little things like, all
+21:20,1280.41,1.45,these little green fragments.
+21:22,1281.86,2.58,Doesn't really matter for this
+step, because we are gonna pixel
+21:24,1284.44,1.67,snap it later and then clean it up.
+21:26,1286.32,0.26,Okay?
+21:27,1286.61,3.35,The main thing is that you want to extract
+these things out so that you can avoid
+21:30,1290.27,1.08,this problem that you see over here.
+21:32,1292.33,3.22,So now the next problem that you're
+gonna have is that, this happens a
+21:36,1295.55,4.22,lot if you're doing walk cycles using,
+video generation, but it can happen
+21:40,1299.99,1.19,as well for something like this.
+21:41,1301.18,2.67,So for example, if you actually look
+at this image over here, you might find
+21:44,1303.85,1.89,that you don't need all these frames.
+21:46,1306.05,3.21,So what you wanna do is just
+pick, frames that you want to
+21:49,1309.26,1.38,use as part of your animation.
+21:51,1310.99,2.74,In fact, I would suggest that
+for any attack animation, do not
+21:54,1313.91,1.12,include the idle frame as well.
+21:55,1315.03,1.80,It makes things a little
+bit more sluggish.
+21:57,1317.28,1.53,But, for my game, I
+actually didn't bother.
+21:59,1318.81,1.31,I just dumped it in.
+22:00,1320.12,2.20,But, if you actually look at how
+spreadsheets are, you usually
+22:02,1322.32,1.66,don't do the idle animation first.
+22:04,1324.25,2.39,So let me just show you the tool
+that I built So this is really
+22:07,1326.64,1.41,prevalent for walk animation.
+22:08,1328.05,3.53,So you can see this is all the frames
+that were generated, by AI, and
+22:12,1331.81,1.10,you don't really need all of them.
+22:13,1333.08,0.24,Okay?
+22:13,1333.32,1.10,So you can see this tool here.
+22:15,1334.72,1.83,what I'm gonna do is that I'm
+just gonna say, "Okay, I want
+22:17,1336.55,4.58,this as my, start frame," and then
+I just wanna do one full cycle.
+22:23,1342.94,2.18,Something like this, okay,
+and then we'll set as the end.
+22:25,1345.20,2.35,And I'm gonna say I want a
+total of eight or ten frames.
+22:28,1347.86,2.50,So I'm gonna distribute it, and then
+I'm going to play it back for you.
+22:30,1350.36,0.72,And you can see, right?
+22:31,1351.13,1.78,so this is really like a curation process.
+22:33,1352.95,3.85,this is particularly prevalent for walk
+cycles, but you might want to be doing it
+22:37,1356.97,1.84,for your generated, sprite sheets as well.
+22:39,1358.81,1.19,You don't need all the
+frames all the time.
+22:40,1360.31,3.19,So once you've created the frames that
+you have over here, What is the next step?
+22:44,1363.84,1.71,You want to pixel snap again.
+22:46,1365.67,2.87,So what you have to do is that now you've
+selected the frames that you wanted,
+22:49,1368.71,3.63,just run it through the pixel snapping
+algorithm again using the tool, and this
+22:52,1372.34,3.27,time It will give you all of your frames,
+but they'll all be fixed correctly.
+22:57,1376.75,2.57,you just use the same process
+again and then you get them to
+22:59,1379.35,1.05,any resolution that you want.
+23:00,1380.40,2.94,You can get it to ten twenty-four by
+ten twenty-four or two fifty-six by two
+23:03,1383.34,1.54,fifty-six or five twelve by five twelve.
+23:05,1385.34,3.02,So I went with two fifty-six by two
+fifty-six for the frame size for my game.
+23:09,1388.73,3.17,and that's a good and decent size for
+it to look good in the game, without
+23:12,1391.90,1.25,taking up too much memory as well.
+23:14,1393.64,0.18,Okay?
+23:15,1394.90,4.37,Now, the other big problem that
+you wanna solve is the anchoring.
+23:19,1399.49,2.63,This one, I'll show it to you again with
+this, animation that you see over here.
+23:23,1402.54,4.49,Okay, so you can see, if you don't anchor
+the, character properly, you're going
+23:27,1407.03,3.13,to be in a position where it's just
+gonna be sliding all around the place.
+23:31,1410.58,3.49,So what you wanna do here is that you
+want to start to align your character
+23:34,1414.07,3.44,such that across all the frames,
+he's still in the same position.
+23:38,1418.02,1.17,And there's several ways of doing this.
+23:39,1419.19,1.91,You can actually ask
+the AI to do it for you.
+23:42,1421.61,1.93,Uh, or you can actually ask
+it to build a tool for you.
+23:44,1423.69,0.95,That's exactly what I did.
+23:45,1424.70,1.95,So let me just show you
+this, frame aligner here.
+23:47,1426.93,2.91,So I can just scrub through, all
+of the different frames, okay?
+23:50,1429.92,2.18,And you can see that this
+one has already been fixed.
+23:53,1432.50,3.62,and I added some, onion skinning
+or frame layering, so you can
+23:56,1436.12,3.99,actually see it across and allows
+me to just shift things around.
+24:00,1440.37,2.71,So the way that I did it was I
+just basically tried to align,
+24:03,1443.12,3.49,things across the frames such that
+the eyes were, at the same level.
+24:07,1446.61,3.76,But you will see that, Prior to you
+doing this anchoring, you will see
+24:10,1450.37,4.05,that even after your recovery, you will
+have your frames, shifted like that.
+24:14,1454.42,3.24,So this tool allows you to just
+very quickly move things such
+24:18,1457.66,3.10,that everything looks right and
+then, you can export it over here.
+24:21,1461.12,0.20,Okay?
+24:22,1461.71,1.37,you can ask AI to do it for you.
+24:23,1463.08,3.44,It works pretty well sometimes, but
+I find that, when you're dealing with
+24:27,1466.52,2.76,eight frames, sometimes it's just a
+lot easier for you to just jump into
+24:29,1469.28,1.54,it and make the manual edits yourself.
+24:31,1470.87,3.85,And this will help to prevent that
+sliding that you see over there So
+24:35,1474.73,3.74,finally, once you've done that, There's
+a few more things that you want to
+24:38,1478.47,4.78,do, but these things, don't really
+require too much, to think about.
+24:43,1483.25,1.38,So I'm just gonna tell you here, right?
+24:45,1484.63,2.43,So the next thing you wanna do is
+just remove the background once
+24:47,1487.06,2.46,you've got your... So now you've got
+your pixel frames, you've got them
+24:50,1489.64,1.56,anchored correctly within each frame.
+24:52,1491.67,3.35,and then all you have to do at this
+point is to just, remove the background.
+24:56,1495.51,1.26,And you can do several things.
+24:57,1496.77,2.79,Because it's pixel snapped, you
+might be able to just you know, use a
+24:60,1499.56,1.88,simple Python script to clean it up.
+25:02,1501.77,3.13,you will probably want to do something
+called a despeckle pass, or you
+25:05,1504.90,3.00,can use, an AI, background removal,
+which will work very well as well.
+25:08,1508.21,4.17,And then the other thing is that you will
+sometimes see that there's potentially,
+25:12,1512.40,3.98,just small height differences, between
+your characters, between your frames, you
+25:16,1516.38,2.12,can ask, your AI to normalize it as well.
+25:19,1518.83,3.12,but usually If you follow this process,
+you will find that the characters are
+25:22,1521.95,2.97,really, pretty much the correct sizes,
+because you've gone through the whole
+25:25,1524.92,3.96,process of cleaning things up and putting
+things together, using pixel perfect.
+25:32,1531.99,0.89,using the pixel snapping.
+25:33,1533.33,0.22,Okay?
+25:34,1533.86,3.81,So finally, you just want to,
+pack them in into a, final sprite
+25:38,1537.67,0.84,sheet that you see over here.
+25:39,1538.51,2.80,because I'm using two fifty-six
+by two fifty-six, it's gonna be
+25:41,1541.37,2.85,twelve eighty by five twelve,
+and like you can see over here.
+25:44,1544.45,0.21,All right?
+25:45,1544.66,3.89,So all these are going to be the same,
+and you can see sufficiently large
+25:49,1548.55,3.90,enough that you can get all the detail
+that you want, yet, not being too big
+25:53,1552.51,1.22,such that it makes your game bloated.
+25:54,1553.97,3.24,And so these sprite sheets that
+you can see here are all already
+25:57,1557.21,1.59,game-ready to be put into your game.
+25:59,1559.35,2.57,because this process is actually
+quite standard, I've been working
+26:02,1561.96,1.78,on skills to automate this.
+26:04,1563.77,2.82,And in fact, that's exactly
+what I did to do the skeleton.
+26:07,1566.59,4.77,So you can see the skeleton has
+exactly the same, set of, animations.
+26:12,1571.57,2.30,They're all generated with AI as
+well, so there's some variation,
+26:14,1574.10,1.17,but they're all pixel perfect.
+26:15,1575.44,3.81,And the reason why I was able to do this
+is that I've been working on several tools
+26:19,1579.32,4.76,as well as agent skills that allow you
+to effectively, get to this stage without
+26:24,1584.08,3.91,having to do all of these steps that
+you see here manually, except for parts
+26:28,1587.99,2.15,where you want to do some small, tweaks.
+26:30,1590.17,2.17,Everything else over
+here, can be done for you.
+26:32,1592.34,2.60,So the generation, the pixel
+snapping, the laying out, the
+26:35,1594.94,2.16,normalization and everything else.
+26:37,1597.35,2.67,And a lot of these are, in the form
+of skills, so you can drop it in.
+26:40,1600.21,2.45,It works with, your favorite
+agent tools, whether it's Cursor,
+26:43,1602.82,1.41,Claude Code, Codex, or whatever.
+26:45,1604.53,4.13,It allows you to accelerate and, just get
+to the end result without having to do
+26:49,1608.70,1.62,all of these steps manually by yourself.
+26:50,1610.37,2.41,That's also in vibe-gamedev.com, so
+if that interests you, check it out
+26:53,1612.84,1.06,in the links in the description below.
+26:54,1613.95,2.89,so if you're interested in knowing how
+you can integrate this and build an
+26:57,1616.84,3.74,entire game from it, this is exactly
+what I'm working on for a subsequent
+27:01,1620.58,3.15,video where I'm gonna show you how you
+basically can take all of these assets
+27:04,1624.05,2.99,And then put them together into a
+game such that you can play with them.
+27:07,1627.36,4.14,this is going to be released in some
+early fashion for vibegamedev, members.
+27:12,1631.80,2.08,but then I'll also be doing
+a public version of this.
+27:14,1633.88,3.43,And as you can see, I'll be showing
+you the exact prompts that you use, to
+27:17,1637.34,5.05,integrate, to put the character in, add
+the enemy in as well, and then all of
+27:22,1642.39,3.73,the steps that it will take such that you
+can do things like attack, add a health
+27:26,1646.12,3.67,system that you see over here, with every
+single prompt step-by-step such that
+27:30,1649.82,3.70,you can go ahead and integrate it and
+end up with this exact game that you see
+27:34,1653.52,1.78,over here with the assets integrated.
+27:36,1655.64,1.76,All right, so that brings us
+to the end of today's tutorial.
+27:37,1657.40,3.67,I hope that you found it useful, I think
+that being able to do pixel art in this
+27:41,1661.07,4.30,way, is a huge unlock, so that you can
+actually get games that look good as well.
+27:46,1665.59,3.32,So if you enjoyed today's video, give it
+a like, hit that subscribe button, and
+27:49,1668.91,3.26,don't forget to turn on notifications
+so that you will always be the first to
+27:52,1672.17,1.69,know when new content like this drops.
+27:54,1674.12,2.75,So one thing that you notice is that I
+didn't really talk too much about how I
+27:57,1676.87,2.12,got this walk cycle working in this game.
+27:59,1679.24,2.74,And the reason is that when you use
+image generation models to create
+28:02,1681.98,3.51,walk cycles, you generally will
+not be able to get a good result.
+28:05,1685.49,3.89,So if you want to know how to fix it
+using a technique using video generation
+28:10,1689.58,2.89,and that will also work with this pixel
+snapping approach, definitely check
+28:12,1692.47,1.32,out this video that you see over here.
+28:14,1693.79,0.57,All right.
+28:15,1694.55,0.48,Till next time.
+28:15,1695.23,0.62,I'll be seeing you.
